@@ -1,0 +1,42 @@
+name: FORME Figma design handoff
+on:
+  push:
+    paths: ['.github/workflows/figma-handoff.yml']
+permissions:
+  contents: read
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Render the original local Liquid storefront for design handoff
+        run: |
+          npm ci
+          npm run build
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('layout/theme.liquid')
+          p.write_text(p.read_text().replace('</head>', '<style>.preview-notice{display:none!important}</style><script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script><script>document.addEventListener("DOMContentLoaded",()=>document.querySelectorAll("img").forEach(image=>image.loading="eager"));</script></head>'))
+          PY
+          node scripts/preview.mjs > /tmp/forme-preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://localhost:4173/ > /dev/null && break || sleep 1; done
+      - name: Open the local capture URLs in Chrome
+        run: |
+          mkdir -p evidence/figma
+          timeout 85s google-chrome --headless=new --no-sandbox --window-size=1440,1000 --user-data-dir=/tmp/forme-figma-home 'http://localhost:4173/#figmacapture=779da177-d530-4268-9401-84c9499cc7d7&figmaendpoint=https%3A%2F%2Fmcp.figma.com%2Fmcp%2Fcapture%2F779da177-d530-4268-9401-84c9499cc7d7%2Fsubmit%3FbindVariables%3Dtrue&figmadelay=8000' > evidence/figma/home.log 2>&1 &
+          HOME_CAPTURE=$!
+          timeout 85s google-chrome --headless=new --no-sandbox --window-size=1440,1000 --user-data-dir=/tmp/forme-figma-product 'http://localhost:4173/products/arc-modular-sofa#figmacapture=7724a45f-fc7b-4ce0-9e7d-33066258cb34&figmaendpoint=https%3A%2F%2Fmcp.figma.com%2Fmcp%2Fcapture%2F7724a45f-fc7b-4ce0-9e7d-33066258cb34%2Fsubmit%3FbindVariables%3Dtrue&figmadelay=8000' > evidence/figma/product.log 2>&1 &
+          PRODUCT_CAPTURE=$!
+          wait "$HOME_CAPTURE" || test "$?" -eq 124
+          wait "$PRODUCT_CAPTURE" || test "$?" -eq 124
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: forme-figma-capture-logs
+          path: evidence/figma/
+          retention-days: 7

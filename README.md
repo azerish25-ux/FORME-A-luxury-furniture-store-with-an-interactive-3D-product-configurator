@@ -1,8 +1,26 @@
 # FORME — Objects for living
 
-An original, editorial furniture storefront built as a **native Shopify Online Store 2.0 Liquid theme**. No React storefront, headless checkout replacement or production mock-commerce service is used.
+An original editorial furniture storefront built as a **native Shopify Online Store 2.0 Liquid theme**. No React storefront, headless checkout replacement or production mock-commerce service is used.
 
-The design pairs warm ivory, olive-grey and charcoal with large serif typography, quiet editorial compositions and an original Blender-authored furniture collection. Arc is a genuinely modelled sofa system with separately authored Compact, Generous and Chaise geometry, not one stretched primitive.
+Warm ivory, olive-grey and charcoal; large editorial typography; original architectural room scenes; and a coherent Blender-authored furniture collection. Arc has separately authored Compact, Generous and Chaise geometry, not one stretched primitive.
+
+## Design and verified delivery
+
+[Open the editable Figma storefront and brand foundations](https://www.figma.com/design/Gkz03B1xMTRe2VeKBcr2OV). The file contains the desktop homepage, Arc product page, eight colour variables, nine spacing variables and five typography styles. Its layers remain editable.
+
+[Verified acceptance run — 27 September 2026](https://github.com/azerish25-ux/FORME-A-luxury-furniture-store-with-an-interactive-3D-product-configurator/actions/runs/36330432438):
+
+| Check | Result |
+|---|---|
+| Domain tests | 9 passed |
+| Structural, catalogue and Liquid checks | 95 passed |
+| Browser journeys | 13 passed; 0 failed, skipped or flaky |
+| Shopify official Theme Check 4.8.2 | 0 errors; 3 external-font performance warnings |
+| Original Blender rendering pipeline | Passed; original assets committed |
+
+The browser suite covers collection filters/search, variant URLs and unavailable variants, on-demand 3D, rotation and dimension controls, failed-model fallback, rapid configuration changes, variant-to-cart mapping, cart editing, comparison, fabric samples, mobile layout and the explicitly simulated order journey. Automated accessibility checks are included; these are not a claim of comprehensive accessibility certification. The recurring quality workflow is read-only and uploads screenshots, reports, the installable theme, source archive and static preview.
+
+**Not yet verified:** a real Shopify test order, real merchant-admin editing, or a public storefront deployment. Those require an actual development store and hosting activation. The image-generation service returned a billing error; the delivered images are original Blender CGI, not successfully generated AI photographs or documentary product photography.
 
 ## Run locally
 
@@ -11,14 +29,14 @@ Node.js 22 and Python 3 are required for the development and packaging scripts.
 ```sh
 npm ci
 npm run build
-npm test
-npm run check
 npm run preview
 ```
 
 Open `http://localhost:4173`. The development server renders the actual Liquid sections against isolated fictional product fixtures. It is **not a Shopify server**. A visible banner and checkout warning distinguish its browser-local order simulation from Shopify test mode.
 
 ```sh
+npm test
+npm run check
 npx playwright install chromium
 npm run test:e2e
 npm run package
@@ -45,7 +63,7 @@ Arc has **36 fixture variants**: three sizes × three fabrics × four colours. C
 | Contact/newsletter | Shopify native forms | Validates input; does not submit or save it |
 | Merchant editing | Shopify Theme Editor and product admin | Not simulated as a real merchant admin |
 
-**A real Shopify test order and merchant-editor recording have not been verified without an attached Shopify development store.** The preview must not be presented as that evidence. No payments are accepted by the preview.
+**A real Shopify test order and merchant-editor recording have not been verified without an attached Shopify development store.** The preview must not be presented as that evidence. No payments are accepted by the preview. Product claims, delivery estimates and policies are fictional portfolio copy and must be reviewed for a real merchant.
 
 ## Source map
 

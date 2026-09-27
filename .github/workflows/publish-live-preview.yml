@@ -2,23 +2,6 @@ name: Publish live FORME preview
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/publish-live-preview.yml'
-      - 'assets/**'
-      - 'config/**'
-      - 'layout/**'
-      - 'locales/**'
-      - 'preview/**'
-      - 'scripts/**'
-      - 'sections/**'
-      - 'snippets/**'
-      - 'src/**'
-      - 'templates/**'
-      - 'fixtures/**'
-      - 'package.json'
-      - 'package-lock.json'
 
 permissions:
   contents: write

@@ -2,59 +2,14 @@ name: FORME storefront quality
 on:
   push:
     branches: [main]
-    paths-ignore: ['docs/**', 'tools/**', 'README.md']
   pull_request:
     branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
 concurrency:
-  group: forme-storefront-quality-${{ github.ref }}
+  group: forme-quality-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   acceptance:
-    runs-on: ubuntu-latest
-    timeout-minutes: 18
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: npm
-      - name: Build and validate the native theme
-        run: |
-          mkdir -p evidence
-          npm ci
-          npm run build
-          npm test | tee evidence/domain-tests.txt
-          npm run check | tee evidence/liquid-validation.txt
-          npm run package
-          node scripts/static-preview.mjs
-          git rev-parse HEAD > evidence/source-commit.txt
-          git archive --format=zip --prefix=FORME/ --output=artifacts/FORME-Source.zip HEAD
-      - name: Shopify official Theme Check
-        id: themecheck
-        continue-on-error: true
-        run: |
-          npx --yes --package @shopify/cli@4.8.2 shopify version > evidence/shopify-cli-version.txt
-          npx --yes --package @shopify/cli@4.8.2 shopify theme check --path artifacts/theme --output json --fail-level error > evidence/shopify-theme-check.json
-      - name: Browser acceptance and accessibility
-        run: |
-          npx playwright install --with-deps chromium
-          npm run test:e2e
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: forme-quality-evidence
-          path: |
-            evidence/
-            playwright-report/
-            test-results/
-            artifacts/FORME-Shopify-Theme.zip
-            artifacts/FORME-Shopify-Theme.zip.sha256
-            artifacts/FORME-Source.zip
-            artifacts/preview/
-          retention-days: 14
-      - name: Require Shopify Theme Check success
-        if: steps.themecheck.outcome != 'success'
-        run: exit 1
+    uses: ./.github/workflows/arc-experience.yml

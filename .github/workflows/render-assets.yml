@@ -1,12 +1,10 @@
-name: Render original FORME furniture
+name: Author Arc models and configuration imagery
 on:
-  push:
-    paths: ['.github/workflows/render-assets.yml']
   workflow_dispatch:
 permissions:
   contents: read
 concurrency:
-  group: forme-asset-production
+  group: forme-arc-authoring-${{ github.ref }}
   cancel-in-progress: false
 jobs:
   render:
@@ -14,21 +12,13 @@ jobs:
     timeout-minutes: 35
     strategy:
       fail-fast: false
-      max-parallel: 5
       matrix:
-        include:
-          - { name: models, mode: models, only: '' }
-          - { name: hero, mode: hero, only: '' }
-          - { name: room, mode: room, only: '' }
-          - { name: materials, mode: detail, only: '' }
-          - { name: seating, mode: products, only: 'arc-modular-sofa,vale-lounge-chair,miro-dining-chair' }
-          - { name: tables, mode: products, only: 'monolith-coffee-table,trestle-dining-table,silo-side-table' }
-          - { name: lighting, mode: products, only: 'line-console,lumen-floor-lamp,halo-pendant' }
-          - { name: objects, mode: products, only: 'pebble-table-lamp,arc-ottoman,material-library' }
-          - { name: gallery, mode: products, only: 'arc-gallery-side,arc-gallery-moss,arc-gallery-clay' }
+        part: [studio, Compact, Generous, Chaise]
     steps:
       - uses: actions/checkout@v4
-      - name: Install official Blender with Cycles
+        with:
+          persist-credentials: false
+      - name: Install checksum-verified Blender
         run: |
           mkdir -p /tmp/blender /tmp/blender-download
           cd /tmp/blender-download
@@ -37,54 +27,62 @@ jobs:
           grep 'blender-4.5.3-linux-x64.tar.xz' checksums.txt | sha256sum --check
           tar -xf blender-4.5.3-linux-x64.tar.xz -C /tmp/blender --strip-components=1
           echo '/tmp/blender' >> "$GITHUB_PATH"
-          python -m pip install Pillow
-          /tmp/blender/blender --version
-      - name: Author original geometry and render
+          python -m pip install Pillow==11.3.0 numpy==2.2.6
+      - name: Produce original geometry and authored renders
         env:
-          FORME_ONLY: ${{ matrix.only }}
-        run: blender -b -t 4 --python tools/build_assets.py -- --mode '${{ matrix.mode }}' --quality 40
-      - name: Optimize and stage assets with stable relative paths
+          PART: ${{ matrix.part }}
         run: |
-          python - <<'PY'
-          from pathlib import Path
-          from PIL import Image
-          import shutil
-          stage = Path('asset-output')
-          (stage / 'assets').mkdir(parents=True, exist_ok=True)
-          (stage / 'tools').mkdir(parents=True, exist_ok=True)
-          for p in Path('assets').glob('*.png'):
-              Image.open(p).convert('RGB').save(stage / 'assets' / (p.stem + '.webp'), quality=88, method=6)
-          for pattern in ['*.glb', 'arc-dimensions.json']:
-              for p in Path('assets').glob(pattern):
-                  shutil.copy2(p, stage / 'assets' / p.name)
-          master = Path('tools/Arc-master.blend')
-          if master.exists(): shutil.copy2(master, stage / 'tools' / master.name)
-          PY
+          python tools/arc-materials.py
+          if [ "$PART" = studio ]; then
+            blender -b -t 4 --python tools/arc-assets.py -- --mode models
+            blender -b -t 4 --python tools/arc-assets.py -- --mode details --samples 64 --width 1440
+          else
+            blender -b -t 4 --python tools/arc-assets.py -- --mode posters --size "$PART" --samples 48 --width 1440
+          fi
       - uses: actions/upload-artifact@v4
         with:
-          name: forme-art-${{ matrix.name }}
-          path: asset-output/
+          name: arc-originals-${{ matrix.part }}
+          path: |
+            assets/*.png
+            assets/arc-*.glb
+            assets/arc-dimensions.json
+            tools/Arc-master.blend
           retention-days: 7
-  publish:
+  verify:
     needs: render
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main
+          persist-credentials: false
       - uses: actions/download-artifact@v4
         with:
-          pattern: forme-art-*
+          pattern: arc-originals-*
           merge-multiple: true
-      - name: Commit the generated asset collection
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Strict packaging and independent verification
         run: |
-          git config user.name 'FORME art production'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add assets tools/Arc-master.blend
-          if ! git diff --cached --quiet; then
-            git commit -m 'art: publish original furniture renders, three Arc glTF models and Blender master'
-            git pull --rebase origin main
-            git push origin HEAD:main
-          fi
+          python -m pip install Pillow==11.3.0
+          python tools/arc-pack.py --strict
+          npm ci
+          npm run build
+          npm run verify:arc
+          git rev-parse HEAD > evidence/authoring-source-commit.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: arc-authored-review
+          path: |
+            assets/arc-*.webp
+            assets/arc-*.png
+            assets/arc-*.glb
+            assets/arc-dimensions.json
+            assets/arc-asset-manifest.json
+            tools/Arc-master.blend
+            evidence/
+          retention-days: 14
+# Authoring is artifact-only. Review and commit approved derivatives through the
+# normal storefront acceptance pipeline; never overwrite main from a render job.

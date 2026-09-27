@@ -1,15 +1,9 @@
 name: Arc experience verification
 on:
-  push:
-    branches: [main]
-    paths: ['.github/workflows/arc-experience.yml']
+  workflow_call:
   workflow_dispatch:
 permissions:
-  contents: write
-  actions: read
-concurrency:
-  group: forme-arc-verified-delivery
-  cancel-in-progress: false
+  contents: read
 jobs:
   acceptance:
     runs-on: ubuntu-latest
@@ -17,40 +11,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.sha }}
-      - uses: actions/download-artifact@v4
-        with:
-          name: forme-arc-v2-acceptance
-          run-id: 36344674175
-          github-token: ${{ github.token }}
-          path: recovery/
-      - name: Restore the reviewed candidate and repair direct-scroll behavior
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          python - <<'PY'
-          import base64,hashlib,json,os,pathlib,urllib.request,zipfile
-          root=pathlib.Path.cwd().resolve()
-          with zipfile.ZipFile('recovery/recovery/repaired-source.zip') as archive:
-              for item in archive.infolist():
-                  path=pathlib.Path(item.filename)
-                  assert not path.is_absolute() and '..' not in path.parts
-                  if not path.parts or path.parts[0] in {'.git','node_modules','recovery'} or item.is_dir(): continue
-                  assert (root/path).resolve().is_relative_to(root)
-                  path.parent.mkdir(parents=True,exist_ok=True);path.write_bytes(archive.read(item))
-          sha='4eaa5802a69ec78fbbaff359e9541d816d29deaf'
-          url='https://api.github.com/repos/'+os.environ['GITHUB_REPOSITORY']+'/git/blobs/'+sha
-          request=urllib.request.Request(url,headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json','User-Agent':'FORME-reviewed-source'})
-          with urllib.request.urlopen(request,timeout=60) as response: item=json.load(response)
-          raw=base64.b64decode(item['content'])
-          assert hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()==sha
-          exec(compile(raw,'<reviewed-scroll-repair>','exec'))
-          PY
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-      - name: Reproducible build, domain contracts and resource integrity
+      - name: Reproducible build, domain contracts and asset integrity
         run: |
           set -o pipefail
           mkdir -p evidence
@@ -64,37 +30,15 @@ jobs:
           node scripts/export-catalog.mjs
           npm run package
           node scripts/static-preview.mjs
-      - name: Preserve the exact candidate for independent review
-        if: always()
-        run: |
-          python - <<'PY'
-          import pathlib,zipfile
-          excluded={'.git','node_modules','recovery','artifacts','evidence','test-results','playwright-report','playwright-static-report','static-test-results','.arc-cache'}
-          with zipfile.ZipFile('recovery/repaired-source.zip','w',zipfile.ZIP_DEFLATED) as archive:
-              for path in pathlib.Path('.').rglob('*'):
-                  if path.is_file() and not set(path.parts)&excluded and path.suffix not in {'.woff','.woff2','.ttf','.otf'}:
-                      if path.suffix=='.png' and path.name.startswith('arc-v2-'): continue
-                      archive.write(path,path.as_posix())
-          PY
+          git diff --exit-code -- assets src snippets fixtures package-lock.json
       - name: Native Shopify Theme Check
         run: npx --yes --package @shopify/cli@4.8.2 shopify theme check --path artifacts/theme --output json --fail-level error > evidence/shopify-theme-check.json
-      - name: Browser interaction, responsive and accessibility acceptance
+      - name: Browser, responsive and accessibility contracts
         run: |
           npx playwright install --with-deps chromium firefox webkit
           npm run test:e2e
           npm run test:static
-      - name: Commit and push the tested application and authored assets
-        run: |
-          test "$(git ls-remote origin refs/heads/main | cut -f1)" = "$GITHUB_SHA"
-          git config user.name 'FORME asset production'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -A -- . ':(exclude).github/**'
-          git diff --cached --stat
-          if ! git diff --cached --quiet; then
-            git commit -m 'feat: deliver Arc Experience V2 with tailored assets, exact variant media and resilient commerce'
-            git push origin HEAD:main
-          fi
-      - name: Package the verified source and preview
+      - name: Package the tested source and static preview
         run: |
           git rev-parse HEAD > evidence/source-commit.txt
           git archive --format=zip --prefix=FORME/ --output=artifacts/FORME-Source.zip HEAD
@@ -102,14 +46,13 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: forme-arc-v2-acceptance
+          name: forme-quality-evidence
           path: |
             evidence/
             playwright-report/
             playwright-static-report/
             test-results/
             static-test-results/
-            recovery/repaired-source.zip
             artifacts/FORME-Shopify-Theme.zip
             artifacts/FORME-Shopify-Theme.zip.sha256
             artifacts/FORME-Source.zip

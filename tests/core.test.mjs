@@ -1,0 +1,15 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {findVariant,resolveVariant,quantity,money,configurationUrl,comparisonSelection,escapeHTML,safeURL} from '../src/core.js';
+const catalog=JSON.parse(fs.readFileSync(new URL('../fixtures/catalog.json',import.meta.url)));
+const arc=catalog[0];
+test('all 36 configuration combinations resolve to the exact variant and distinct id',()=>{const ids=new Set();for(const variant of arc.variants){assert.equal(findVariant(arc.variants,variant.options),variant);ids.add(variant.id);}assert.equal(ids.size,36);});
+test('prices encode size and upholstery rather than a visual-only option',()=>{assert.equal(findVariant(arc.variants,['Generous','Bouclé','Moss']).price,429000);assert.equal(findVariant(arc.variants,['Chaise','Wool','Oat']).price,518000);});
+test('unavailable is not silently replaced by another configuration',()=>{const variant=findVariant(arc.variants,['Chaise','Wool','Ink']);assert.equal(variant.available,false);assert.equal(resolveVariant(arc.variants,variant.id),variant);assert.equal(findVariant(arc.variants,['Invalid','Linen','Oat']),null);});
+test('invalid/deleted variant falls back to the first available variant',()=>{assert.equal(resolveVariant(arc.variants,'missing'),arc.variants[0]);assert.equal(resolveVariant([],1),null);});
+test('quantities reject fractional, nonfinite, unsafe and negative values',()=>{for(const v of [-1,0,1.2,100,Infinity,NaN,'no',null]) assert.throws(()=>quantity(v),RangeError);assert.equal(quantity('2'),2);assert.equal(quantity(0,0),0);});
+test('share links preserve origin, locale and campaign data, but remove alternate views',()=>{const u=new URL(configurationUrl('https://shop.test/fr/products/arc?utm_source=demo&view=compare#model',arc.variants[20].id));assert.equal(u.pathname,'/fr/products/arc');assert.equal(u.searchParams.get('variant'),String(arc.variants[20].id));assert.equal(u.searchParams.get('utm_source'),'demo');assert.equal(u.searchParams.has('view'),false);assert.equal(u.hash,'');assert.throws(()=>configurationUrl(u.href,'<script>'));});
+test('comparison excludes unsafe handles, deduplicates and enforces three pieces',()=>{assert.deepEqual(comparisonSelection(['arc','arc','../private','vale','silo','lamp']),['arc','vale','silo']);assert.deepEqual(comparisonSelection({}),[]);});
+test('HTML and URL guards reject script injection',()=>{assert.equal(escapeHTML('<img src=x onerror="x">'),'&lt;img src=x onerror=&quot;x&quot;&gt;');assert.equal(safeURL('javascript:alert(1)','https://shop.test'),'');assert.equal(safeURL('/assets/x.webp','https://shop.test'),'https://shop.test/assets/x.webp');});
+test('money uses cents without losing sample prices',()=>{assert.match(money(1500),/15/);assert.match(money(429000),/4,290/);assert.equal(money('invalid'),'Price unavailable');});

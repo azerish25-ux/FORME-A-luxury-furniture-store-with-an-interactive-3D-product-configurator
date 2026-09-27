@@ -1,0 +1,45 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "FORME",
+    "theme_version": "1.0.0",
+    "theme_author": "FORME Studio",
+    "theme_documentation_url": "https://github.com/azerish25-ux/FORME-A-luxury-furniture-store-with-an-interactive-3D-product-configurator",
+    "theme_support_url": "https://github.com/azerish25-ux/FORME-A-luxury-furniture-store-with-an-interactive-3D-product-configurator/issues"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      {
+        "type": "text",
+        "id": "brand_tagline",
+        "label": "Brand tagline",
+        "default": "Objects for living."
+      },
+      {
+        "type": "color",
+        "id": "background",
+        "label": "Background",
+        "default": "#f3f0e8"
+      },
+      {
+        "type": "color",
+        "id": "ink",
+        "label": "Text",
+        "default": "#2b2b24"
+      },
+      {
+        "type": "text",
+        "id": "delivery_note",
+        "label": "Default delivery note",
+        "default": "Delivery timing is confirmed on each product page."
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_3d",
+        "label": "Enable the Arc 3D configurator",
+        "default": true
+      }
+    ]
+  }
+]

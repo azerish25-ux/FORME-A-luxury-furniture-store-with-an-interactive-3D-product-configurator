@@ -1,0 +1,122 @@
+[
+  {
+    "handle": "arc-modular-sofa",
+    "templateSuffix": "arc",
+    "values": {
+      "custom.dimensions": "224–304 × 103–182 × 83 cm",
+      "custom.materials": "Linen, bouclé or wool · walnut base",
+      "custom.delivery": "6–8 weeks",
+      "custom.tagline": "A generous pause."
+    }
+  },
+  {
+    "handle": "vale-lounge-chair",
+    "templateSuffix": "",
+    "values": {
+      "custom.dimensions": "78 × 84 × 76 cm",
+      "custom.materials": "Natural oak · textured bouclé",
+      "custom.delivery": "4–6 weeks",
+      "custom.tagline": "Your corner of the world."
+    }
+  },
+  {
+    "handle": "miro-dining-chair",
+    "templateSuffix": "",
+    "values": {
+      "custom.dimensions": "52 × 54 × 78 cm",
+      "custom.materials": "Smoked oak · linen",
+      "custom.delivery": "3–5 weeks",
+      "custom.tagline": "Stay for another course."
+    }
+  },
+  {
+    "handle": "monolith-coffee-table",
+    "templateSuffix": "",
+    "values": {
+      "custom.dimensions": "118 × 66 × 38 cm",
+      "custom.materials": "Honed travertine",
+      "custom.delivery": "4–6 weeks",
+      "custom.tagline": "A quieter kind of statement."
+    }
+  },
+  {
+    "handle": "trestle-dining-table",
+    "templateSuffix": "",
+    "values": {
+      "custom.dimensions": "220 × 95 × 74 cm",
+      "custom.materials": "Natural oak",
+      "custom.delivery": "6–8 weeks",
+      "custom.tagline": "A place to come together."
+    }
+  },
+  {
+    "handle": "silo-side-table",
+    "templateSuffix": "",
+    "values": {
+      "custom.dimensions": "40 × 40 × 47 cm",
+      "custom.materials": "Walnut",
+      "custom.delivery": "2–3 weeks",
+      "custom.tagline": "Small, and considered."
+    }
+  },
+  {
+    "handle": "line-console",
+    "templateSuffix": "",
+    "values": {
+      "custom.dimensions": "150 × 36 × 78 cm",
+      "custom.materials": "Natural oak",
+      "custom.delivery": "4–6 weeks",
+      "custom.tagline": "The art of arrival."
+    }
+  },
+  {
+    "handle": "lumen-floor-lamp",
+    "templateSuffix": "",
+    "values": {
+      "custom.dimensions": "46 × 46 × 154 cm",
+      "custom.materials": "Linen · brushed bronze",
+      "custom.delivery": "2–3 weeks",
+      "custom.tagline": "Let the evening in."
+    }
+  },
+  {
+    "handle": "halo-pendant",
+    "templateSuffix": "",
+    "values": {
+      "custom.dimensions": "62 × 62 × 34 cm",
+      "custom.materials": "Washi-inspired paper · steel",
+      "custom.delivery": "3–4 weeks",
+      "custom.tagline": "Light, held softly."
+    }
+  },
+  {
+    "handle": "pebble-table-lamp",
+    "templateSuffix": "",
+    "values": {
+      "custom.dimensions": "34 × 34 × 42 cm",
+      "custom.materials": "Matte ceramic",
+      "custom.delivery": "2–3 weeks",
+      "custom.tagline": "An evening ritual."
+    }
+  },
+  {
+    "handle": "arc-ottoman",
+    "templateSuffix": "",
+    "values": {
+      "custom.dimensions": "86 × 68 × 40 cm",
+      "custom.materials": "Natural linen · walnut",
+      "custom.delivery": "4–6 weeks",
+      "custom.tagline": "A little more room."
+    }
+  },
+  {
+    "handle": "material-library",
+    "templateSuffix": "",
+    "values": {
+      "custom.dimensions": "Six 12 × 12 cm swatches",
+      "custom.materials": "Linen · bouclé · wool",
+      "custom.delivery": "3–5 business days",
+      "custom.tagline": "Feel before you decide."
+    }
+  }
+]

@@ -1,0 +1,58 @@
+<section class="editorial-hero" aria-labelledby="HeroTitle-{{ section.id }}">
+  <div class="hero-image">{% render 'picture', image: section.settings.image, fallback: 'hero-room.webp', alt: section.settings.image_alt, loading: 'eager', sizes: '100vw', width: 2000, height: 1250 %}</div>
+  <div class="hero-content"><p class="eyebrow">{{ section.settings.eyebrow }}</p><h1 id="HeroTitle-{{ section.id }}">{{ section.settings.heading | newline_to_br }}</h1><p class="hero-description">{{ section.settings.description }}</p><a class="button" href="{{ section.settings.link | default: routes.all_products_collection_url }}">{{ section.settings.button_label }} {% render 'icon', name: 'arrow' %}</a></div>
+  <div class="hero-footnote"><span>THE ART OF FEELING AT HOME</span><a href="/products/arc-modular-sofa">Meet Arc, our modular sofa {% render 'icon', name: 'diagonal' %}</a></div>
+  <span class="hero-index" aria-hidden="true">01 — THE LIVING COLLECTION</span>
+</section>
+{% schema %}
+{
+  "name": "Editorial hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image description",
+      "default": "An original FORME living room with the Arc sofa, Vale chair and Monolith table in warm afternoon light."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "OBJECTS FOR LIVING"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "A little more\nroom to be."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Considered furniture for unhurried moments.\nMade to become part of your everyday."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Explore the collection"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Editorial hero"
+    }
+  ]
+}
+{% endschema %}

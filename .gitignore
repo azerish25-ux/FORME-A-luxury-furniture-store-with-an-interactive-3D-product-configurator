@@ -1,0 +1,16 @@
+node_modules/
+.preview/
+.preview-data/
+artifacts/
+playwright-report/
+test-results/
+.env
+.env.*
+!.env.example
+.DS_Store
+*.blend1
+
+assets/*.png
+evidence/*.png
+evidence/*.json
+evidence/*.html

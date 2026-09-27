@@ -1,0 +1,28 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_content": "Skip to content",
+      "close": "Close"
+    },
+    "search": {
+      "search": "Search",
+      "no_results": "No pieces found"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to bag",
+      "sold_out": "Currently unavailable",
+      "unavailable": "Unavailable combination",
+      "quantity": "Quantity"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Your bag",
+      "empty": "A little space for something good.",
+      "checkout": "Continue to checkout",
+      "subtotal": "Subtotal"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+<section class="journal-teaser wrap section-space"><div class="section-heading"><div><p class="eyebrow">NOTES ON LIVING WELL</p><h2>The FORME journal.</h2></div><a class="underlined-link" href="/pages/journal">All stories {% render 'icon', name: 'arrow' %}</a></div><div class="journal-grid"><a class="journal-card" href="/pages/a-room-of-your-own">{% render 'picture', image: section.settings.room_image, fallback: 'editorial-room.webp', alt: 'Warm afternoon light across the FORME living room', loading: 'lazy' %}<p class="eyebrow">SPACES / 5 MIN READ</p><h3>A room of your own. {% render 'icon', name: 'diagonal' %}</h3></a><a class="journal-card" href="/pages/the-beauty-of-imperfection">{% render 'picture', image: section.settings.detail_image, fallback: 'arc-tailoring-detail.webp', alt: 'Close view of the Arc sofa tailoring and fabric', loading: 'lazy' %}<p class="eyebrow">MATERIALS / 4 MIN READ</p><h3>The beauty of imperfection. {% render 'icon', name: 'diagonal' %}</h3></a></div></section>
+{% schema %}
+{
+  "name": "Journal introduction",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "room_image",
+      "label": "Room image"
+    },
+    {
+      "type": "image_picker",
+      "id": "detail_image",
+      "label": "Detail image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Journal introduction"
+    }
+  ]
+}
+{% endschema %}

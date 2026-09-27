@@ -330,8 +330,8 @@ def arc(size='generous', color='#c3b7a5', kind='linen'):
     pillow.rotation_euler = (math.radians(-17), math.radians(-6), math.radians(-8))
     root = group_since(before, 'Arc — ' + size)
     root['width_cm'] = int(w*100)
-    root['height_cm'] = 78
-    root['depth_cm'] = 165 if size == 'chaise' else 102
+    root['height_cm'] = 83
+    root['depth_cm'] = 182 if size == 'chaise' else 103
     return root
 
 

@@ -1,0 +1,37 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "enable_configurator": true,
+        "sample_product": "material-library",
+        "gallery_caption": "GENEROUS / OAT LINEN SHOWN"
+      },
+      "blocks": {
+        "care": {
+          "type": "detail",
+          "settings": {
+            "heading": "The Arc system",
+            "body": "<p>Choose Compact for a smaller room, Generous for a little more space, or Chaise for stretching out. All three share the same low silhouette and softly tailored cushions.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "care"
+      ]
+    },
+    "story": {
+      "type": "product-story",
+      "settings": {}
+    },
+    "services": {
+      "type": "service-strip",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "story",
+    "services"
+  ]
+}

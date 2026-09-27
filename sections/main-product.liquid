@@ -1,0 +1,143 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign product_form_id = 'ProductForm-' | append: section.id -%}
+{%- assign is_arc = false -%}
+{%- if section.settings.enable_configurator and settings.enable_3d -%}{%- assign is_arc = true -%}{%- endif -%}
+<section class="product-section wrap" data-product-section data-product-handle="{{ product.handle }}">
+  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="{{ routes.root_url }}">Home</a><span>/</span><a href="{{ routes.all_products_collection_url }}">The collection</a><span>/</span><span>{{ product.title }}</span></nav>
+  <div class="product-layout">
+    <div class="product-visuals">
+      <div class="product-stage" data-product-stage>
+        <div class="product-gallery" data-gallery>
+          {% for media in product.media %}
+            <div class="gallery-slide{% if forloop.first %} is-active{% endif %}" id="Media-{{ section.id }}-{{ forloop.index }}" data-slide="{{ forloop.index0 }}" {% unless forloop.first %}hidden{% endunless %}>
+              {% if media.media_type == 'image' %}{{ media | image_url: width: 1800 | image_tag: widths: '600, 900, 1200, 1800', sizes: '(min-width: 900px) 60vw, 100vw', loading: 'eager', alt: media.alt }}{% else %}{{ media | media_tag: image_size: '1200x', autoplay: false, loop: false, controls: true, preload: 'none' }}{% endif %}
+            </div>
+          {% else %}<div class="empty-product-image">{{ 'product-1' | placeholder_svg_tag }}</div>{% endfor %}
+        </div>
+        {% if is_arc %}
+          <div class="sofa-viewer" data-viewer hidden tabindex="0" role="region" aria-label="Interactive three-dimensional sofa. Drag to rotate, scroll to zoom. Use arrow keys to rotate.">
+            <div class="viewer-status" data-viewer-status role="status">Preparing your sofa…</div>
+            <div class="dimension-labels" data-dimension-labels hidden></div>
+          </div>
+          <div class="stage-controls js-only"><div class="view-switch" role="group" aria-label="Product view"><button type="button" class="is-active" data-view="gallery" aria-pressed="true">Gallery</button><button type="button" data-view="3d" aria-pressed="false">{% render 'icon', name: 'cube' %} Explore in 3D</button></div><div class="viewer-tools" data-viewer-tools hidden><button type="button" class="icon-button" data-dimensions aria-pressed="false" aria-label="Show dimensions">{% render 'icon', name: 'ruler' %}</button><button type="button" class="icon-button" data-viewer-reset aria-label="Reset camera">{% render 'icon', name: 'reset' %}</button></div></div>
+        {% endif %}
+        <span class="gallery-caption" data-gallery-caption>{{ section.settings.gallery_caption }}</span>
+      </div>
+      <div class="gallery-thumbnails js-only" role="group" aria-label="Product photographs">{% for media in product.media %}<button type="button" data-thumbnail="{{ forloop.index0 }}" aria-label="View {{ product.title | escape }}, image {{ forloop.index }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">{{ media.preview_image | default: media | image_url: width: 180 | image_tag: loading: 'lazy', alt: '' }}</button>{% endfor %}</div>
+      <noscript><div class="no-js-gallery">{% for media in product.media offset: 1 %}{% if media.media_type == 'image' %}{{ media | image_url: width: 1200 | image_tag: loading: 'lazy', alt: media.alt }}{% endif %}{% endfor %}</div></noscript>
+      <p class="gallery-hint" data-gallery-hint>{% if is_arc %}A closer look, from every angle. 3D loads only when you choose it.{% else %}Considered in every detail.{% endif %}</p>
+    </div>
+    <div class="product-information">
+      <p class="eyebrow">{{ product.type }} / THE FORME COLLECTION</p>
+      <div class="product-title-row"><h1>{{ product.title }}</h1><button type="button" class="icon-button js-only" data-compare="{{ product.handle }}" aria-pressed="false" aria-label="Compare {{ product.title | escape }}">{% render 'icon', name: 'compare' %}</button></div>
+      <p class="product-tagline">{{ product.metafields.custom.tagline.value }}</p>
+      <div class="product-price-row"><p class="product-price" data-product-price>{{ current_variant.price | money }}</p><span class="fine-print">{{ cart.currency.iso_code | default: shop.currency }} · taxes calculated at checkout</span></div>
+      <div class="product-description rte">{{ product.description }}</div>
+      {% form 'product', product, id: product_form_id, class: 'product-form', data-product-form: '' %}
+        <div class="native-variant"><label for="Variant-{{ section.id }}">Choose your configuration</label><select id="Variant-{{ section.id }}" name="id" data-variant-select>{% for variant in product.variants %}<option value="{{ variant.id }}" {% if variant.id == current_variant.id %}selected{% endif %}{% unless variant.available %} disabled{% endunless %}>{{ variant.title }} — {{ variant.price | money }}{% unless variant.available %} — Currently unavailable{% endunless %}</option>{% endfor %}</select></div>
+        <div class="variant-options js-only">
+          {% for option in product.options_with_values %}{% assign option_index = forloop.index0 %}
+            <fieldset class="variant-option" data-option-index="{{ option_index }}"><legend><span class="option-number">0{{ forloop.index }}</span>{{ option.name }}<span class="option-current" data-option-current>{{ current_variant.options[option_index] }}</span></legend><div class="option-values{% if option.name == 'Colour' or option.name == 'Color' %} option-values--swatches{% endif %}">
+              {% for value in option.values %}{% assign option_value = value.name | default: value %}<label class="option-choice{% if option.name == 'Colour' or option.name == 'Color' %} option-choice--swatch{% endif %}"><input type="radio" name="options[{{ option.name | escape }}]" value="{{ option_value | escape }}" {% if current_variant.options[option_index] == option_value %}checked{% endif %} data-option-input><span class="choice-face" data-colour="{{ option_value | handleize }}"><span>{{ option_value }}</span></span></label>{% endfor %}
+            </div></fieldset>
+          {% endfor %}
+        </div>
+        <p class="variant-notice" data-variant-notice role="status" hidden></p>
+        <div class="product-specification"><span data-size-dimensions>{{ product.metafields.custom.dimensions.value }}</span>{% if is_arc %}<button type="button" class="text-button js-only" data-open-dimensions>View dimensions {% render 'icon', name: 'ruler' %}</button>{% endif %}</div>
+        <div class="purchase-row"><div class="quantity-control"><button type="button" data-quantity-step="-1" aria-label="Decrease quantity">{% render 'icon', name: 'minus' %}</button><label for="Quantity-{{ section.id }}" class="visually-hidden">Quantity</label><input type="number" id="Quantity-{{ section.id }}" name="quantity" min="1" max="99" value="1" inputmode="numeric"><button type="button" data-quantity-step="1" aria-label="Increase quantity">{% render 'icon', name: 'plus' %}</button></div><button type="submit" class="button purchase-button" data-add-to-cart {% unless current_variant.available %}disabled{% endunless %}><span data-add-label>{% if current_variant.available %}Add to bag{% else %}Currently unavailable{% endif %}</span>{% render 'icon', name: 'arrow' %}</button></div>
+        <p class="form-error" data-product-error role="alert" hidden></p>
+        <input type="hidden" name="properties[_FORME configuration]" data-config-property value="{{ current_variant.title | escape }}">
+      {% endform %}
+      <div class="product-assurance"><span class="availability-dot{% unless current_variant.available %} availability-dot--off{% endunless %}" data-availability-dot></span><p data-delivery-copy>{% if current_variant.available %}Estimated dispatch: {{ product.metafields.custom.delivery.value | default: section.settings.delivery_text }}{% else %}This piece is currently unavailable.{% endif %}</p></div>
+      <div class="product-utilities"><a href="{{ section.settings.sample_product.url | default: '/products/material-library' }}" class="underlined-link">Feel it first. Order samples {% render 'icon', name: 'diagonal' %}</a><button type="button" class="text-button js-only" data-share-config>{% render 'icon', name: 'share' %} Share{% if is_arc %} your design{% endif %}</button></div>
+      <div class="share-fallback" data-share-fallback hidden><label for="ShareUrl-{{ section.id }}">Your shareable configuration link</label><input readonly id="ShareUrl-{{ section.id }}" data-share-url><p class="fine-print">Copy this link to share this exact selection.</p></div>
+      <div class="product-accordions">
+        {% for block in section.blocks %}{% case block.type %}{% when 'detail' %}<details {{ block.shopify_attributes }}><summary>{{ block.settings.heading }}{% render 'icon', name: 'plus' %}</summary><div class="rte">{{ block.settings.body }}</div></details>{% when '@app' %}{% render block %}{% endcase %}{% endfor %}
+        <details><summary>Dimensions & materials{% render 'icon', name: 'plus' %}</summary><p>{{ product.metafields.custom.dimensions.value }}<br>{{ product.metafields.custom.materials.value }}</p><p>Allow space around your piece for access and everyday use. Review the delivery guide before ordering.</p></details>
+        <details><summary>Delivery & returns{% render 'icon', name: 'plus' %}</summary><p>Estimated dispatch: {{ product.metafields.custom.delivery.value | default: section.settings.delivery_text }}. Delivery options and charges are confirmed at checkout.</p><a href="/pages/delivery" class="underlined-link">Read the delivery guide {% render 'icon', name: 'arrow' %}</a></details>
+      </div>
+    </div>
+  </div>
+  <script type="application/json" data-product-json>{{ product | json | replace: '<', '\u003c' }}</script>
+  <script type="application/json" data-configurator-settings>{"enabled":{{ is_arc | json }},"models":{"Compact":{{ section.settings.compact_model | default: 'arc-compact.glb' | asset_url | json }},"Generous":{{ section.settings.generous_model | default: 'arc-generous.glb' | asset_url | json }},"Chaise":{{ section.settings.chaise_model | default: 'arc-chaise.glb' | asset_url | json }}},"dimensions":{"Compact":[224,103,83],"Generous":[284,103,83],"Chaise":[304,182,83]},"colours":{"Oat":"#c3b7a5","Moss":"#757a61","Clay":"#a67e62","Ink":"#454844"},"delivery":{{ product.metafields.custom.delivery.value | default: section.settings.delivery_text | json }}}</script>
+<script type="application/ld+json">{{ product | structured_data }}</script>
+</section>
+{% schema %}
+{
+  "name": "Product information",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_configurator",
+      "label": "Enable the Arc configurator on this product",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "gallery_caption",
+      "label": "Gallery caption",
+      "default": "DESIGNED TO BE LIVED WITH"
+    },
+    {
+      "type": "text",
+      "id": "delivery_text",
+      "label": "Default dispatch estimate",
+      "default": "4\u20136 weeks"
+    },
+    {
+      "type": "product",
+      "id": "sample_product",
+      "label": "Fabric sample product"
+    },
+    {
+      "type": "header",
+      "content": "Arc model assets"
+    },
+    {
+      "type": "paragraph",
+      "content": "Bundled models match the original Arc collection. Custom models require matching dimensions and material names in the configurator source."
+    },
+    {
+      "type": "text",
+      "id": "compact_model",
+      "label": "Compact model asset filename",
+      "default": "arc-compact.glb"
+    },
+    {
+      "type": "text",
+      "id": "generous_model",
+      "label": "Generous model asset filename",
+      "default": "arc-generous.glb"
+    },
+    {
+      "type": "text",
+      "id": "chaise_model",
+      "label": "Chaise model asset filename",
+      "default": "arc-chaise.glb"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "detail",
+      "name": "Product detail",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Made with care"
+        },
+        {
+          "type": "richtext",
+          "id": "body",
+          "label": "Content",
+          "default": "<p>Considered proportions, tactile materials and the small details that make a piece feel right.</p>"
+        }
+      ]
+    },
+    {
+      "type": "@app"
+    }
+  ]
+}
+{% endschema %}

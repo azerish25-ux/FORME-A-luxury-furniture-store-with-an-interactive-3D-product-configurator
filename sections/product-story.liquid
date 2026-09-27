@@ -1,0 +1,30 @@
+<section class="product-story wrap section-space"><div class="product-story__copy"><p class="eyebrow">THE DETAILS MAKE THE DIFFERENCE</p><h2>{{ section.settings.heading | newline_to_br }}</h2><p>{{ section.settings.body }}</p><a href="/pages/materials" class="underlined-link">Explore our materials {% render 'icon', name: 'diagonal' %}</a></div><div>{% render 'picture', image: section.settings.image, fallback: 'arc-tailoring-detail.webp', alt: 'Tailoring detail on the Arc sofa', loading: 'lazy' %}</div></section>
+{% schema %}
+{
+  "name": "Product editorial",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Nothing unnecessary.\nEverything considered."
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "The quiet line of a seam. The softness of a rounded edge. The warmth of timber beneath a hand. Small decisions, made with the whole room in mind."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product editorial"
+    }
+  ]
+}
+{% endschema %}

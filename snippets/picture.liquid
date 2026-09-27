@@ -1,0 +1,5 @@
+{%- if image != blank -%}
+  {{ image | image_url: width: 2200 | image_tag: class: class, loading: loading, widths: '480, 768, 1000, 1440, 1800, 2200', sizes: sizes, alt: alt }}
+{%- elsif fallback != blank -%}
+  <img src="{{ fallback | asset_url }}" alt="{{ alt | escape }}" class="{{ class }}" width="{{ width | default: 1600 }}" height="{{ height | default: 1200 }}" loading="{{ loading | default: 'lazy' }}" decoding="async">
+{%- endif -%}

@@ -1,0 +1,28 @@
+{
+  "name": "forme-shopify-theme",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "FORME — an original Shopify Online Store 2.0 theme and progressively enhanced furniture configurator.",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "preview": "node scripts/preview.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "test:e2e": "playwright test",
+    "check": "node scripts/validate-theme.mjs",
+    "package": "node scripts/package.mjs",
+    "render": "blender -b -t 4 --python tools/build_assets.py -- --mode all"
+  },
+  "dependencies": {
+    "three": "0.180.0"
+  },
+  "devDependencies": {
+    "liquidjs": "10.21.1",
+    "esbuild": "0.25.9",
+    "@playwright/test": "1.55.1",
+    "@axe-core/playwright": "4.10.2"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

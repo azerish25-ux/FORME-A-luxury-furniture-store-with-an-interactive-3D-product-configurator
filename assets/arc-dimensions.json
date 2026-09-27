@@ -1,20 +1,20 @@
 {
   "compact": {
     "width": 224,
-    "depth": 102,
-    "height": 78,
+    "depth": 103,
+    "height": 83,
     "file": "arc-compact.glb"
   },
   "generous": {
     "width": 284,
-    "depth": 102,
-    "height": 78,
+    "depth": 103,
+    "height": 83,
     "file": "arc-generous.glb"
   },
   "chaise": {
     "width": 304,
-    "depth": 165,
-    "height": 78,
+    "depth": 182,
+    "height": 83,
     "file": "arc-chaise.glb"
   }
 }

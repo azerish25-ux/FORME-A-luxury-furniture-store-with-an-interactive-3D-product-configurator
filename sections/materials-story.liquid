@@ -1,0 +1,89 @@
+<section class="materials-story wrap section-space"><div class="section-heading"><div><p class="eyebrow">HONEST BY NATURE</p><h2>{{ section.settings.heading }}</h2></div><p class="section-heading__note">A texture to linger over.<br>A character that only deepens.</p></div><div class="materials-grid">{% for block in section.blocks %}<article {{ block.shopify_attributes }}><a href="{{ block.settings.link | default: '/pages/materials' }}">{% render 'picture', image: block.settings.image, fallback: block.settings.fallback, alt: block.settings.title, loading: 'lazy', sizes: '(min-width: 800px) 33vw, 85vw', width: 900, height: 1050 %}<div class="material-caption"><span class="eyebrow">0{{ forloop.index }} / {{ block.settings.subtitle }}</span><h3>{{ block.settings.title }} {% render 'icon', name: 'diagonal' %}</h3></div></a><p>{{ block.settings.body }}</p></article>{% endfor %}</div></section>
+{% schema %}
+{
+  "name": "Material stories",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Good things have a feeling."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "material",
+      "name": "Material",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "fallback",
+          "label": "Bundled image filename",
+          "default": "material-linen.webp"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Natural linen"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "SOFT, NEVER ORDINARY"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Description",
+          "default": "Beautifully tactile, quietly irregular, and made to soften with time."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Story link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Material stories",
+      "blocks": [
+        {
+          "type": "material",
+          "settings": {
+            "title": "Natural linen",
+            "fallback": "material-linen.webp"
+          }
+        },
+        {
+          "type": "material",
+          "settings": {
+            "title": "Solid oak",
+            "subtitle": "ROOTED IN CHARACTER",
+            "fallback": "material-oak.webp",
+            "body": "Open grain, warm tones, and the quiet individuality of real wood."
+          }
+        },
+        {
+          "type": "material",
+          "settings": {
+            "title": "Honed travertine",
+            "subtitle": "SHAPED BY TIME",
+            "fallback": "material-travertine.webp",
+            "body": "Soft mineral layers and a stone surface with a story of its own."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

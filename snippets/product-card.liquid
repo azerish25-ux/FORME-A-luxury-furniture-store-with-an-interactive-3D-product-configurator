@@ -1,0 +1,14 @@
+<article class="product-card" data-product-card data-category="{{ product.type | escape }}" data-price="{{ product.price }}" data-available="{{ product.available }}">
+  <div class="product-card__media">
+    <a href="{{ product.url }}" class="product-card__image" aria-label="View {{ product.title | escape }}">
+      {% render 'picture', image: product.featured_image, alt: product.title, sizes: '(min-width: 990px) 30vw, (min-width: 600px) 50vw, 100vw', class: 'product-card__photo', loading: 'lazy' %}
+    </a>
+    {% unless product.available %}<span class="availability-tag">Currently unavailable</span>{% endunless %}
+    {% if product.handle == 'arc-modular-sofa' %}<span class="model-tag">{% render 'icon', name: 'cube' %} Design in 3D</span>{% endif %}
+    <button type="button" class="compare-toggle" data-compare="{{ product.handle }}" aria-pressed="false" aria-label="Compare {{ product.title | escape }}">{% render 'icon', name: 'plus' %}</button>
+  </div>
+  <div class="product-card__details">
+    <div><h3><a href="{{ product.url }}">{{ product.title }}</a></h3><p>{{ product.metafields.custom.materials.value | default: product.type }}</p></div>
+    <p class="price">{% if product.price_varies %}<span>From </span>{% endif %}{{ product.price | money }}</p>
+  </div>
+</article>

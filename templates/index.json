@@ -1,0 +1,124 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-editorial",
+      "settings": {}
+    },
+    "note": {
+      "type": "brand-note",
+      "settings": {}
+    },
+    "collection": {
+      "type": "featured-collection",
+      "settings": {
+        "limit": 4
+      }
+    },
+    "studio": {
+      "type": "design-studio",
+      "settings": {
+        "product": "arc-modular-sofa"
+      }
+    },
+    "materials": {
+      "type": "materials-story",
+      "settings": {},
+      "blocks": {
+        "linen": {
+          "type": "material",
+          "settings": {
+            "title": "Natural linen",
+            "subtitle": "SOFT, NEVER ORDINARY",
+            "fallback": "material-linen.webp",
+            "body": "Beautifully tactile, quietly irregular, and made to soften with time."
+          }
+        },
+        "oak": {
+          "type": "material",
+          "settings": {
+            "title": "Solid oak",
+            "subtitle": "ROOTED IN CHARACTER",
+            "fallback": "material-oak.webp",
+            "body": "Open grain, warm tones, and the quiet individuality of real wood."
+          }
+        },
+        "stone": {
+          "type": "material",
+          "settings": {
+            "title": "Honed travertine",
+            "subtitle": "SHAPED BY TIME",
+            "fallback": "material-travertine.webp",
+            "body": "Soft mineral layers and a stone surface with a story of its own."
+          }
+        }
+      },
+      "block_order": [
+        "linen",
+        "oak",
+        "stone"
+      ]
+    },
+    "room": {
+      "type": "shop-room",
+      "settings": {},
+      "blocks": {
+        "sofa": {
+          "type": "hotspot",
+          "settings": {
+            "product": "arc-modular-sofa",
+            "x": 60,
+            "y": 53
+          }
+        },
+        "table": {
+          "type": "hotspot",
+          "settings": {
+            "product": "monolith-coffee-table",
+            "x": 51,
+            "y": 72
+          }
+        },
+        "chair": {
+          "type": "hotspot",
+          "settings": {
+            "product": "vale-lounge-chair",
+            "x": 25,
+            "y": 60
+          }
+        },
+        "lamp": {
+          "type": "hotspot",
+          "settings": {
+            "product": "lumen-floor-lamp",
+            "x": 76,
+            "y": 29
+          }
+        }
+      },
+      "block_order": [
+        "sofa",
+        "table",
+        "chair",
+        "lamp"
+      ]
+    },
+    "journal": {
+      "type": "journal-teaser",
+      "settings": {}
+    },
+    "services": {
+      "type": "service-strip",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "note",
+    "collection",
+    "studio",
+    "materials",
+    "room",
+    "journal",
+    "services"
+  ]
+}

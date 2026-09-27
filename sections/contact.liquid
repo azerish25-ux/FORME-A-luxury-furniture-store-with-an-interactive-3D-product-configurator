@@ -1,0 +1,7 @@
+<section class="contact-page wrap section-space"><div><p class="eyebrow">A LITTLE GUIDANCE</p><h1>Let’s make<br>room for you.</h1><p>A question about a piece, a fabric, or your space?<br>Send a note. We’ll help you find your way.</p></div>{% form 'contact', id: 'ContactForm', class: 'contact-form' %}{% if form.posted_successfully? %}<p class="form-success" role="status">Your note is on its way. Thank you for getting in touch.</p>{% else %}{% if form.errors %}<div role="alert">{{ form.errors | default_errors }}</div>{% endif %}<label for="ContactName">Your name<input id="ContactName" name="contact[name]" autocomplete="name" required></label><label for="ContactEmail">Email address<input type="email" id="ContactEmail" name="contact[email]" autocomplete="email" required></label><label for="ContactTopic">What can we help with?<select id="ContactTopic" name="contact[topic]"><option>Product advice</option><option>Fabric samples</option><option>Delivery question</option><option>Something else</option></select></label><label for="ContactMessage">Your note<textarea id="ContactMessage" name="contact[body]" rows="5" required></textarea></label><button class="button" type="submit">Send your note {% render 'icon', name: 'arrow' %}</button>{% endif %}{% endform %}</section>
+{% schema %}
+{
+  "name": "Contact",
+  "settings": []
+}
+{% endschema %}

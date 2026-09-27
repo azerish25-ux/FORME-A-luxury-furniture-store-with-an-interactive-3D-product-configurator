@@ -1,0 +1,80 @@
+{
+  "compare": {
+    "title": "A closer look.",
+    "url": "/pages/compare"
+  },
+  "materials": {
+    "title": "Honest materials. Extraordinary everyday.",
+    "url": "/pages/materials",
+    "content": "<p>We begin with the things you can feel. The dry softness of linen. The open grain of oak. The cool, mineral surface of honed stone.</p><h2>Natural linen</h2><p>Linen is a quietly irregular fabric. Its character comes from visible yarns, subtle slubs and a relaxed hand. Our Arc concept pairs its texture with deep, supportive upholstery.</p><img src='/assets/material-linen.webp' alt='Close view of natural oatmeal linen' loading='lazy'><h2>Solid oak</h2><p>Oak offers warm tones, visible grain and a material presence that does not need decoration. Wood moves naturally with humidity; keep it away from prolonged direct heat and standing water.</p><img src='/assets/material-oak.webp' alt='Softly rounded oak edge' loading='lazy'><h2>Honed travertine</h2><p>The Monolith concept celebrates layered mineral tones and a low-sheen surface. Stone should be protected from acidic liquids and abrasive cleaners.</p><p>Material descriptions illustrate this fictional portfolio collection. Confirm actual composition, finishes and care instructions with your manufacturer before selling physical products.</p>"
+  },
+  "journal": {
+    "title": "Notes on living well.",
+    "url": "/pages/journal",
+    "content": "<p>A collection of small observations on making a home feel like your own.</p><h2><a href='/pages/a-softer-sunday'>A softer kind of Sunday</a></h2><p>Unhurried rooms, familiar things, and the pleasure of staying in.</p><img src='/assets/editorial-room.webp' alt='A quiet room with a modular sofa and stone table' loading='lazy'><h2><a href='/pages/quiet-materials'>The quiet language of materials</a></h2><p>Letting texture do the talking, without making a room feel busy.</p>"
+  },
+  "a-softer-sunday": {
+    "title": "A softer kind of Sunday.",
+    "url": "/pages/a-softer-sunday",
+    "content": "<p>There is a particular pleasure in a room with nowhere to be. A book left open. A coffee that takes its time. Light making its way across a familiar floor.</p><img src='/assets/editorial-room.webp' alt='FORME living room editorial illustration' loading='lazy'><h2>Leave a little space</h2><p>A generous room is not always a large one. Start with the pieces you use every day, and leave room for the ways you move between them. A low table keeps sight lines open. A chair turned towards the sofa makes conversation the centre of things.</p><h2>Keep it personal</h2><p>A room becomes yours through use. A favourite cup, a stack of books, a throw within reach. The best pieces leave room for these small signs of living.</p><p><a href='/products/arc-modular-sofa'>Explore the Arc sofa →</a></p>"
+  },
+  "quiet-materials": {
+    "title": "The quiet language of materials.",
+    "url": "/pages/quiet-materials",
+    "content": "<p>Colour catches the eye. Texture asks you to stay. A linen weave, an oak edge, a stone surface softened by light: each brings something different to a room.</p><img src='/assets/material-linen.webp' alt='Natural linen material study' loading='lazy'><h2>A small, considered palette</h2><p>Choose a few materials and let them repeat. The warmth of timber balances mineral stone. A dry, textured fabric makes a simple shape feel generous. Differences in scale and finish keep the palette interesting.</p><p><a href='/pages/materials'>Meet the materials →</a></p>"
+  },
+  "about": {
+    "title": "Objects for living. Space for you.",
+    "url": "/pages/about",
+    "content": "<p>FORME is an original concept furniture brand and a working Shopify portfolio project. Its collection explores generous proportions, natural-looking materials and the quieter pleasures of a well-considered room.</p><h2>Fewer things, better considered</h2><p>Twelve pieces. One modular sofa designed in detail. A shopping experience that gives the materials, dimensions and configuration the attention they deserve.</p><p>The brand, products, studio imagery and editorial art direction were made for this project. FORME is not an operating furniture manufacturer.</p>"
+  },
+  "delivery": {
+    "title": "A considered arrival.",
+    "url": "/pages/delivery",
+    "content": "<p>Delivery information shown in this portfolio is illustrative, not a shipping promise. A live merchant should replace it with the carrier, service area and lead times they can actually provide.</p><h2>Before you order</h2><p>Measure your room and the complete access route, including doorways, stair turns and lifts. Compare these measurements with the assembled dimensions on the product page. Contact the merchant for packaged dimensions.</p><h2>Delivery options</h2><p>For a live store, available shipping methods, delivery charges and taxes are calculated by Shopify at checkout using the merchant’s configured regions and rates.</p><h2>Lead times</h2><p>Product pages show editable dispatch estimates. Made-to-order upholstery can take longer than stocked pieces. The merchant must confirm the selected variant’s actual lead time before accepting a real order.</p><h2>Damaged or incorrect items</h2><p>Inspect your delivery on arrival. Keep the packaging and contact the merchant with photographs before using a damaged item.</p>"
+  },
+  "care": {
+    "title": "Made to be lived with. Cared for gently.",
+    "url": "/pages/care",
+    "content": "<h2>Upholstery</h2><p>Vacuum gently using an upholstery attachment. Blot spills promptly with a clean dry cloth; do not rub. Follow the actual fabric supplier’s care instructions and test any treatment in an inconspicuous place.</p><h2>Wood</h2><p>Use a soft, slightly damp cloth and dry immediately. Avoid standing water, abrasive cleaners and prolonged direct heat.</p><h2>Stone</h2><p>Use coasters and lift objects rather than dragging them. Avoid acidic cleaners. Consult the actual stone supplier about sealing and maintenance.</p><p>This is general illustrative care copy. The live merchant must supply instructions appropriate to the actual materials and finishes.</p>"
+  },
+  "contact": {
+    "title": "Let’s make room for something good.",
+    "url": "/pages/contact"
+  },
+  "privacy": {
+    "title": "Privacy, in plain language.",
+    "url": "/pages/privacy",
+    "content": "<p>This is a portfolio preview of a fictional brand, not a live store. Your demo bag, comparison and simulated order are saved only in this browser’s local storage. No payment information is requested. Demo forms do not send email or create customer accounts.</p><p>The hosting provider may process ordinary technical request logs. Google Fonts supplies the typefaces. Clear your browser site data to remove the preview bag and comparison.</p><p>A live Shopify merchant must publish an accurate privacy policy for their actual processing, apps, analytics and customer service.</p>"
+  },
+  "terms": {
+    "title": "About this concept store.",
+    "url": "/pages/terms",
+    "content": "<p>FORME is a fictional furniture brand built as a web-development portfolio project. Prices, inventory and lead times in the preview are illustrative. No items are sold or fulfilled and no real payment is collected.</p><p>Editorial imagery includes AI-generated illustrations; product studio images are original Blender renders. Neither is a documentary photograph of manufactured inventory.</p><p>The native Shopify theme uses Shopify’s actual cart and hosted checkout when installed in a configured store. This separate preview simulates those services for demonstration only.</p>"
+  },
+  "preview-guide": {
+    "title": "A real theme. An honest demonstration.",
+    "url": "/pages/preview-guide",
+    "content": "<p>Every storefront screen in this preview is rendered from the actual Shopify Liquid sections in the repository. It is not a React reconstruction. The only substituted layer is Shopify’s hosted commerce service, which requires a connected development store.</p><h2>Try the complete journey</h2><p>Open the Arc sofa, choose a size, fabric and colour, load the 3D viewer, turn on dimensions, share the configuration, add it to the bag and complete the clearly labelled simulated checkout. Try the sold-out Halo pendant, product comparison and the material sample kit.</p><h2>Merchant editing</h2><p>In a Shopify development store, open Online Store → Themes → Customize. Homepage sections, text, imagery, featured collection and room hotspots are native editor controls. Products, variants, prices and images are managed in Shopify Products, not in code.</p><h2>Not a real test payment</h2><p>The preview confirmation is a local simulation, not an order recorded by Shopify. A genuine Shopify test order and merchant-editor recording require a connected development store with test payments enabled. No real card details belong in this preview.</p>"
+  },
+  "a-room-of-your-own": {
+    "title": "A softer kind of Sunday.",
+    "url": "/pages/a-room-of-your-own",
+    "content": "<p>There is a particular pleasure in a room with nowhere to be. A book left open. A coffee that takes its time. Light making its way across a familiar floor.</p><img src='/assets/editorial-room.webp' alt='FORME living room editorial illustration' loading='lazy'><h2>Leave a little space</h2><p>A generous room is not always a large one. Start with the pieces you use every day, and leave room for the ways you move between them. A low table keeps sight lines open. A chair turned towards the sofa makes conversation the centre of things.</p><h2>Keep it personal</h2><p>A room becomes yours through use. A favourite cup, a stack of books, a throw within reach. The best pieces leave room for these small signs of living.</p><p><a href='/products/arc-modular-sofa'>Explore the Arc sofa →</a></p>"
+  },
+  "the-beauty-of-imperfection": {
+    "title": "The quiet language of materials.",
+    "url": "/pages/the-beauty-of-imperfection",
+    "content": "<p>Colour catches the eye. Texture asks you to stay. A linen weave, an oak edge, a stone surface softened by light: each brings something different to a room.</p><img src='/assets/material-linen.webp' alt='Natural linen material study' loading='lazy'><h2>A small, considered palette</h2><p>Choose a few materials and let them repeat. The warmth of timber balances mineral stone. A dry, textured fabric makes a simple shape feel generous. Differences in scale and finish keep the palette interesting.</p><p><a href='/pages/materials'>Meet the materials →</a></p>"
+  },
+  "checkout-preview": {
+    "title": "Checkout demonstration",
+    "url": "/pages/checkout-preview",
+    "content": ""
+  },
+  "order-confirmation": {
+    "title": "Demonstration confirmation",
+    "url": "/pages/order-confirmation",
+    "content": ""
+  }
+}

@@ -1,0 +1,21 @@
+<footer class="site-footer">
+  <div class="footer-top"><div><p class="eyebrow">A NOTE FROM FORME</p><h2>A slower kind<br>of inbox.</h2><p>New pieces, thoughtful spaces, and stories worth keeping.</p></div>
+    {% form 'customer', id: 'NewsletterForm', class: 'newsletter-form' %}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      {% if form.posted_successfully? %}<p role="status">You’re on the list. Welcome to FORME.</p>{% else %}
+        <label for="NewsletterEmail" class="visually-hidden">Your email address</label><div class="newsletter-input"><input type="email" name="contact[email]" id="NewsletterEmail" autocomplete="email" required placeholder="Your email address"><button type="submit" aria-label="Subscribe to the journal">{% render 'icon', name: 'arrow' %}</button></div>
+        {% if form.errors %}<div role="alert">{{ form.errors | default_errors }}</div>{% endif %}
+        <p class="fine-print">By subscribing, you agree to our <a href="{{ shop.privacy_policy.url | default: '/pages/privacy' }}">privacy policy</a>. Unsubscribe at any time.</p>
+      {% endif %}
+    {% endform %}
+  </div>
+  <div class="footer-links"><p>Furniture with presence.<br>Room for everything else.</p><nav aria-label="Explore"><h3>Explore</h3><a href="{{ routes.all_products_collection_url }}">The collection</a><a href="/products/arc-modular-sofa">Design your sofa</a><a href="/pages/materials">Materials & making</a><a href="/pages/journal">The journal</a></nav><nav aria-label="Good to know"><h3>Good to know</h3><a href="/pages/delivery">Delivery & returns</a><a href="/pages/care">Caring for your pieces</a><a href="/products/material-library">Fabric samples</a><a href="/pages/contact">Get in touch</a></nav><div class="footer-note"><h3>Made for living.</h3><p>Considered forms.<br>Honest materials.<br>Everyday rituals.</p><a href="/pages/about" class="underlined-link">Our point of view {% render 'icon', name: 'diagonal' %}</a></div></div>
+  <div class="footer-wordmark" aria-hidden="true">FORME.</div>
+  <div class="footer-bottom"><p>© {{ 'now' | date: '%Y' }} {{ shop.name }}. Objects for living.</p><a href="{{ shop.privacy_policy.url | default: '/pages/privacy' }}">Privacy</a><a href="{{ shop.terms_of_service.url | default: '/pages/terms' }}">Terms</a><span>{{ cart.currency.iso_code | default: shop.currency }}</span></div>
+</footer>
+{% schema %}
+{
+  "name": "Footer",
+  "settings": []
+}
+{% endschema %}

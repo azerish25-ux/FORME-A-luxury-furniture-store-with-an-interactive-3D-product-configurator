@@ -1,0 +1,7 @@
+<section class="search-page wrap section-space"><p class="eyebrow">FIND YOUR PIECE</p><h1>A little looking around.</h1><form action="{{ routes.search_url }}" method="get" role="search" class="search-form"><label for="SearchInput" class="visually-hidden">Search furniture</label><input id="SearchInput" name="q" type="search" value="{{ search.terms | escape }}" placeholder="A sofa, a material, a feeling…" required><input type="hidden" name="type" value="product"><button type="submit" class="icon-button" aria-label="Search">{% render 'icon', name: 'arrow' %}</button></form>{% if search.performed %}<p class="eyebrow">{{ search.results_count }} RESULTS FOR “{{ search.terms | escape }}”</p>{% paginate search.results by 12 %}<div class="product-grid collection-grid">{% for product in search.results %}{% if product.object_type == 'product' or product.variants %}{% render 'product-card', product: product %}{% endif %}{% else %}<div class="empty-state"><h2>Nothing here, just yet.</h2><p>Try “sofa”, “oak”, or “lighting”.</p></div>{% endfor %}</div>{% if paginate.pages > 1 %}{{ paginate | default_pagination }}{% endif %}{% endpaginate %}{% else %}<p class="search-suggestions">Start with <a href="{{ routes.search_url }}?q=sofa&type=product">sofas</a>, <a href="{{ routes.search_url }}?q=oak&type=product">oak</a>, or <a href="{{ routes.search_url }}?q=lighting&type=product">lighting</a>.</p>{% endif %}</section>
+{% schema %}
+{
+  "name": "Search",
+  "settings": []
+}
+{% endschema %}

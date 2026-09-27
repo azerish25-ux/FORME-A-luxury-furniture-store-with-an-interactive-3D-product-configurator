@@ -1,0 +1,13 @@
+<section class="collection-page wrap section-space"><div class="collection-intro"><p class="eyebrow">THE FORME COLLECTION</p><h1>{{ collection.title | default: 'Considered, from every angle.' }}</h1><div class="collection-intro__bottom"><p>{{ collection.description | strip_html | default: 'A small collection of well-chosen pieces. Each with a purpose. Each with a place in your everyday.' }}</p><span class="eyebrow" data-results-count>{{ collection.products_count }} PIECES, NO MORE THAN NEEDED</span></div></div>
+  <form class="collection-filters" action="{{ collection.url }}" method="get" data-filter-form>
+    <div class="filter-fields"><label for="CategoryFilter">Category<select name="filter.p.product_type" id="CategoryFilter" data-category-filter><option value="">All pieces</option>{% for type in shop.types %}{% if type != blank %}<option value="{{ type | escape }}">{{ type }}</option>{% endif %}{% endfor %}</select></label><label for="AvailabilityFilter">Availability<select id="AvailabilityFilter" name="filter.v.availability"><option value="">All availability</option><option value="1">Available to order</option><option value="0">Currently unavailable</option></select></label><label for="PriceFilter">Maximum price<input id="PriceFilter" name="filter.v.price.lte" type="number" min="0" step="1" placeholder="Any" inputmode="decimal"></label></div>
+    <div class="filter-actions"><label for="SortBy">Sort by<select name="sort_by" id="SortBy"><option value="manual">Our selection</option><option value="price-ascending">Price: low to high</option><option value="price-descending">Price: high to low</option><option value="title-ascending">Name: A–Z</option></select></label><button type="submit" class="button button--small">Apply</button><a class="text-button" href="{{ collection.url }}">Reset</a></div>
+  </form>
+  {% paginate collection.products by 12 %}<div class="product-grid collection-grid" data-collection-grid>{% for product in collection.products %}{% render 'product-card', product: product %}{% else %}<div class="empty-state"><h2>No pieces found.</h2><p>Try a different category or a wider price range.</p><a href="{{ collection.url }}" class="underlined-link">Clear your filters {% render 'icon', name: 'arrow' %}</a></div>{% endfor %}</div>{% if paginate.pages > 1 %}<nav class="pagination" aria-label="Collection pagination">{{ paginate | default_pagination }}</nav>{% endif %}{% endpaginate %}
+</section>
+{% schema %}
+{
+  "name": "Collection",
+  "settings": []
+}
+{% endschema %}

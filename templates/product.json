@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {}
+    },
+    "services": {
+      "type": "service-strip",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "services"
+  ]
+}

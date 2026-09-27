@@ -1,0 +1,35 @@
+<section class="design-studio"><div class="studio-image">{% render 'picture', image: section.settings.image, fallback: 'arc-gallery-side.webp', alt: 'Arc modular sofa with tailored cushions and a recessed walnut base', loading: 'lazy', sizes: '(min-width: 900px) 60vw, 100vw' %}<span class="studio-stamp">{% render 'icon', name: 'cube' %} YOUR SOFA. YOUR WAY.</span></div><div class="studio-copy"><p class="eyebrow">THE ARC SOFA SYSTEM</p><h2>{{ section.settings.heading | newline_to_br }}</h2><p>{{ section.settings.body }}</p><div class="studio-colours" aria-label="Available in oat, moss, clay and ink"><i style="--swatch:#c3b7a5"></i><i style="--swatch:#757a61"></i><i style="--swatch:#a67e62"></i><i style="--swatch:#454844"></i><span>Made personal.</span></div><a href="{{ section.settings.product.url | default: '/products/arc-modular-sofa' }}" class="button">Design your sofa {% render 'icon', name: 'diagonal' %}</a><p class="fine-print">Three sizes. Three upholstery families. A palette to make your own.</p></div></section>
+{% schema %}
+{
+  "name": "Design studio",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Make room for\nyour kind of living."
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Description",
+      "default": "A compact retreat or a place for everyone. Explore Arc in three dimensions, find your fabric, and make it unmistakably yours."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Design studio"
+    }
+  ]
+}
+{% endschema %}

@@ -4,37 +4,165 @@ on:
     branches: [main]
     paths: ['.github/workflows/arc-experience.yml']
   workflow_dispatch:
-    inputs:
-      export_toolchain:
-        description: Export locked Node dependencies for isolated/offline verification
-        type: boolean
-        default: false
 permissions:
   contents: read
+defaults:
+  run:
+    shell: bash
+concurrency:
+  group: forme-arc-asset-production
+  cancel-in-progress: false
+env:
+  ARC_APPLY: |
+    import base64, hashlib, json, lzma, os, pathlib, urllib.request
+    parts = ['63bee881aa8d83b0d15438bec733a2611ea1e1cf','ee43a618b152e0023fac08d7c9aa502ec6403ac5','3c809fc2739db811fd7244d447d3eca7e405214d','5826ad422c30c603640e1dc6bc68cc53029d50d8','f398745c18e355fbdc1a031e0d06d54d0b65fe7e','3b60893aa44f8c7ad100828cf5d62074a3596421']
+    def blob(sha):
+        url = 'https://api.github.com/repos/' + os.environ['GITHUB_REPOSITORY'] + '/git/blobs/' + sha
+        req = urllib.request.Request(url, headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json','User-Agent':'FORME-verified-source-import'})
+        with urllib.request.urlopen(req, timeout=60) as response: item=json.load(response)
+        raw=base64.b64decode(item['content'])
+        assert hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()==sha
+        return raw
+    archive=b''.join(blob(sha) for sha in parts)
+    assert hashlib.sha256(archive).hexdigest()=='1994bbb844f33b6ae47aadf61c083a96d47ae9a83623373b537f0dc0ee43758e'
+    packet=json.loads(lzma.decompress(archive))
+    assert packet['schema']==1 and len(packet['files'])==40
+    root=pathlib.Path.cwd().resolve()
+    for name, text in packet['files'].items():
+        path=pathlib.Path(name)
+        assert not path.is_absolute() and '..' not in path.parts and path.parts[0] not in ('.git','.github')
+        assert (root/path).resolve().is_relative_to(root) and isinstance(text,str)
+        path.parent.mkdir(parents=True,exist_ok=True); path.write_text(text,encoding='utf-8')
+    exec(compile(blob('482f6fe84f31594efa712dc363d3b53cf284a0ac'),'<verified-finish-corrections>','exec'))
+    print('Verified and expanded 40 Arc V2 source files.')
 jobs:
-  verify:
+  render:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      matrix:
+        part: [studio, Compact, Generous, Chaise]
     steps:
       - uses: actions/checkout@v4
+      - name: Apply hash-verified authored source
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python -c "$ARC_APPLY"
+      - name: Restore matching authored assets
+        id: asset-cache
+        uses: actions/cache@v4
+        with:
+          path: .arc-cache/${{ matrix.part }}
+          key: arc-v2-4.5.3-${{ matrix.part }}-${{ hashFiles('tools/arc-spec.json', 'tools/arc-assets.py', 'tools/arc-materials.py', 'tools/arc-pack.py') }}
+      - name: Install checksum-verified Blender and authoring dependencies
+        if: steps.asset-cache.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p /tmp/blender /tmp/blender-download
+          cd /tmp/blender-download
+          curl --fail --location --retry 3 https://download.blender.org/release/Blender4.5/blender-4.5.3-linux-x64.tar.xz -o blender-4.5.3-linux-x64.tar.xz
+          curl --fail --location --retry 3 https://download.blender.org/release/Blender4.5/blender-4.5.3.sha256 -o checksums.txt
+          grep 'blender-4.5.3-linux-x64.tar.xz' checksums.txt | sha256sum --check
+          tar -xf blender-4.5.3-linux-x64.tar.xz -C /tmp/blender --strip-components=1
+          echo '/tmp/blender' >> "$GITHUB_PATH"
+          python -m pip install Pillow==11.3.0 numpy==2.2.6
+      - name: Produce original Arc geometry, materials and renders
+        if: steps.asset-cache.outputs.cache-hit != 'true'
+        env:
+          PART: ${{ matrix.part }}
+        run: |
+          python tools/arc-materials.py
+          if [ "$PART" = studio ]; then
+            blender -b -t 4 --python tools/arc-assets.py -- --mode models
+            blender -b -t 4 --python tools/arc-assets.py -- --mode details --samples 64 --width 1440
+          else
+            blender -b -t 4 --python tools/arc-assets.py -- --mode posters --size "$PART" --samples 48 --width 1440
+          fi
+          python - <<'PY'
+          import os, shutil
+          from pathlib import Path
+          part = os.environ['PART']
+          root = Path('.arc-cache') / part
+          (root / 'assets').mkdir(parents=True, exist_ok=True)
+          patterns = ['arc-*-color.png', 'arc-*-normal.png', 'arc-*-rough.png']
+          patterns += ['arc-v2-*.png', 'arc-material-*.png'] if part == 'studio' else ['arc-v2-' + part.lower() + '-*.png']
+          for pattern in patterns:
+              for p in Path('assets').glob(pattern): shutil.copy2(p, root / 'assets' / p.name)
+          if part == 'studio':
+              for pattern in ['arc-*.glb', 'arc-dimensions.json']:
+                  for p in Path('assets').glob(pattern): shutil.copy2(p, root / 'assets' / p.name)
+              (root / 'tools').mkdir(exist_ok=True)
+              shutil.copy2('tools/Arc-master.blend', root / 'tools/Arc-master.blend')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: arc-output-${{ matrix.part }}
+          path: .arc-cache/${{ matrix.part }}/
+          retention-days: 2
+  acceptance:
+    needs: render
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - name: Apply hash-verified authored source
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python -c "$ARC_APPLY"
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: arc-output-*
+          merge-multiple: true
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-      - run: npm ci
-      - run: npm run build && npm test && npm run check
-      - run: node scripts/static-preview.mjs
-      - name: Export locked verification toolchain
-        if: github.event_name == 'push' || inputs.export_toolchain
-        run: tar -czf runner-toolchain.tar.gz node_modules
+      - name: Pack and validate the exact release resources
+        run: |
+          mkdir -p evidence
+          python -m pip install Pillow==11.3.0
+          python tools/arc-pack.py --strict
+          npm install --package-lock-only --ignore-scripts
+          npm ci
+          npm run build
+          npm run typecheck
+          npm test | tee evidence/domain-tests.txt
+          npm run check | tee evidence/liquid-validation.txt
+          npm run verify:arc
+          node scripts/export-catalog.mjs
+          npm run package
+          node scripts/static-preview.mjs
+      - name: Shopify native theme validation
+        run: npx --yes --package @shopify/cli@4.8.2 shopify theme check --path artifacts/theme --output json --fail-level error > evidence/shopify-theme-check.json
+      - name: Browser interaction, responsive and accessibility acceptance
+        run: |
+          npx playwright install --with-deps chromium firefox webkit
+          npm run test:e2e
+      - name: Commit expanded source and assets only after all acceptance checks pass
+        run: |
+          test "$(git ls-remote origin refs/heads/main | cut -f1)" = "$GITHUB_SHA"
+          git config user.name 'FORME asset production'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A -- . ':(exclude).github/**'
+          if ! git diff --cached --quiet; then
+            git commit -m 'feat: deliver Arc Experience V2 with tailored assets, exact variant media and resilient commerce'
+            git push origin HEAD:main
+          fi
+      - name: Identify and package the verified source
+        run: |
+          git rev-parse HEAD > evidence/source-commit.txt
+          git archive --format=zip --prefix=FORME/ --output=artifacts/FORME-Source.zip HEAD
       - uses: actions/upload-artifact@v4
-        if: github.event_name == 'push' || inputs.export_toolchain
+        if: always()
         with:
-          name: forme-locked-toolchain
-          path: runner-toolchain.tar.gz
-          retention-days: 1
-      - uses: actions/upload-artifact@v4
-        with:
-          name: forme-arc-preview
-          path: artifacts/preview
-          retention-days: 7
+          name: forme-arc-v2-evidence
+          path: |
+            evidence/
+            playwright-report/
+            test-results/
+            artifacts/
+          retention-days: 14

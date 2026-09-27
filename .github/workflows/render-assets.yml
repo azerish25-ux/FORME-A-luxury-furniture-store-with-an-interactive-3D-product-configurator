@@ -11,67 +11,59 @@ concurrency:
 jobs:
   render:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 35
     strategy:
       fail-fast: false
       max-parallel: 5
       matrix:
         include:
-          - name: models
-            mode: models
-            only: ''
-          - name: hero
-            mode: hero
-            only: ''
-          - name: room
-            mode: room
-            only: ''
-          - name: materials
-            mode: detail
-            only: ''
-          - name: seating
-            mode: products
-            only: 'arc-modular-sofa,vale-lounge-chair,miro-dining-chair'
-          - name: tables
-            mode: products
-            only: 'monolith-coffee-table,trestle-dining-table,silo-side-table'
-          - name: lighting
-            mode: products
-            only: 'line-console,lumen-floor-lamp,halo-pendant'
-          - name: objects
-            mode: products
-            only: 'pebble-table-lamp,arc-ottoman,material-library'
-          - name: gallery
-            mode: products
-            only: 'arc-gallery-side,arc-gallery-moss,arc-gallery-clay'
+          - { name: models, mode: models, only: '' }
+          - { name: hero, mode: hero, only: '' }
+          - { name: room, mode: room, only: '' }
+          - { name: materials, mode: detail, only: '' }
+          - { name: seating, mode: products, only: 'arc-modular-sofa,vale-lounge-chair,miro-dining-chair' }
+          - { name: tables, mode: products, only: 'monolith-coffee-table,trestle-dining-table,silo-side-table' }
+          - { name: lighting, mode: products, only: 'line-console,lumen-floor-lamp,halo-pendant' }
+          - { name: objects, mode: products, only: 'pebble-table-lamp,arc-ottoman,material-library' }
+          - { name: gallery, mode: products, only: 'arc-gallery-side,arc-gallery-moss,arc-gallery-clay' }
     steps:
       - uses: actions/checkout@v4
-      - name: Install the reproducible rendering environment
+      - name: Install official Blender with Cycles
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y blender
+          mkdir -p /tmp/blender /tmp/blender-download
+          cd /tmp/blender-download
+          curl --fail --location --retry 3 https://download.blender.org/release/Blender4.5/blender-4.5.3-linux-x64.tar.xz -o blender-4.5.3-linux-x64.tar.xz
+          curl --fail --location --retry 3 https://download.blender.org/release/Blender4.5/blender-4.5.3.sha256 -o checksums.txt
+          grep 'blender-4.5.3-linux-x64.tar.xz' checksums.txt | sha256sum --check
+          tar -xf blender-4.5.3-linux-x64.tar.xz -C /tmp/blender --strip-components=1
+          echo '/tmp/blender' >> "$GITHUB_PATH"
           python -m pip install Pillow
-          blender --version
+          /tmp/blender/blender --version
       - name: Author original geometry and render
         env:
           FORME_ONLY: ${{ matrix.only }}
         run: blender -b -t 4 --python tools/build_assets.py -- --mode '${{ matrix.mode }}' --quality 40
-      - name: Optimize photographic renders
+      - name: Optimize and stage assets with stable relative paths
         run: |
           python - <<'PY'
           from pathlib import Path
           from PIL import Image
+          import shutil
+          stage = Path('asset-output')
+          (stage / 'assets').mkdir(parents=True, exist_ok=True)
+          (stage / 'tools').mkdir(parents=True, exist_ok=True)
           for p in Path('assets').glob('*.png'):
-              Image.open(p).convert('RGB').save(p.with_suffix('.webp'), quality=88, method=6)
+              Image.open(p).convert('RGB').save(stage / 'assets' / (p.stem + '.webp'), quality=88, method=6)
+          for pattern in ['*.glb', 'arc-dimensions.json']:
+              for p in Path('assets').glob(pattern):
+                  shutil.copy2(p, stage / 'assets' / p.name)
+          master = Path('tools/Arc-master.blend')
+          if master.exists(): shutil.copy2(master, stage / 'tools' / master.name)
           PY
       - uses: actions/upload-artifact@v4
         with:
           name: forme-art-${{ matrix.name }}
-          path: |
-            assets/*.webp
-            assets/*.glb
-            assets/arc-dimensions.json
-            tools/Arc-master.blend
+          path: asset-output/
           retention-days: 7
   publish:
     needs: render

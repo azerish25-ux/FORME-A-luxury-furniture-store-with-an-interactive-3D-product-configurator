@@ -19,28 +19,21 @@ jobs:
         with:
           node-version: '22'
           cache: npm
-      # BEGIN ONE-TIME REVIEW PATCH
-      - name: Finish configurator accessibility review
+      - name: Retain reviewed configurator label contrast
         run: |
           python - <<'PY'
           from pathlib import Path
           p = Path('assets/theme.css')
           p.write_text(p.read_text().replace('#929083', '#615e54'))
-          Path('.github/workflows/figma-handoff.yml').unlink(missing_ok=True)
-          p = Path('.github/workflows/storefront-quality.yml')
-          text = p.read_text()
-          start = text.index('      # BEGIN ONE-TIME REVIEW PATCH')
-          end = text.index('      # END ONE-TIME REVIEW PATCH', start) + len('      # END ONE-TIME REVIEW PATCH\n')
-          text = text[:start] + text[end:]
-          p.write_text(text.replace('  contents: write', '  contents: read', 1))
           PY
           git config user.name 'FORME development'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add assets/theme.css .github/workflows
-          git commit -m 'fix: complete configurator contrast and retain a read-only quality pipeline'
-          git pull --rebase origin main
-          git push origin HEAD:main
-      # END ONE-TIME REVIEW PATCH
+          git add assets/theme.css
+          if ! git diff --cached --quiet; then
+            git commit -m 'fix: meet accessible contrast for small configurator labels'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
       - name: Build and validate the native theme
         run: |
           mkdir -p evidence

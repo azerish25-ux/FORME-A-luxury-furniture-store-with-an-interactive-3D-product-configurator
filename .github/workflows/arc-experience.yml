@@ -1,0 +1,37 @@
+name: Arc experience verification
+on:
+  workflow_dispatch:
+    inputs:
+      export_toolchain:
+        description: Export locked Node dependencies for isolated/offline verification
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build && npm test && npm run check
+      - run: node scripts/static-preview.mjs
+      - name: Export locked verification toolchain
+        if: inputs.export_toolchain
+        run: tar -czf runner-toolchain.tar.gz node_modules
+      - uses: actions/upload-artifact@v4
+        if: inputs.export_toolchain
+        with:
+          name: forme-locked-toolchain
+          path: runner-toolchain.tar.gz
+          retention-days: 1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: forme-arc-preview
+          path: artifacts/preview
+          retention-days: 7

@@ -1,0 +1,98 @@
+name: Render original FORME furniture
+on:
+  push:
+    paths: ['.github/workflows/render-assets.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: forme-asset-production
+  cancel-in-progress: false
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      max-parallel: 5
+      matrix:
+        include:
+          - name: models
+            mode: models
+            only: ''
+          - name: hero
+            mode: hero
+            only: ''
+          - name: room
+            mode: room
+            only: ''
+          - name: materials
+            mode: detail
+            only: ''
+          - name: seating
+            mode: products
+            only: 'arc-modular-sofa,vale-lounge-chair,miro-dining-chair'
+          - name: tables
+            mode: products
+            only: 'monolith-coffee-table,trestle-dining-table,silo-side-table'
+          - name: lighting
+            mode: products
+            only: 'line-console,lumen-floor-lamp,halo-pendant'
+          - name: objects
+            mode: products
+            only: 'pebble-table-lamp,arc-ottoman,material-library'
+          - name: gallery
+            mode: products
+            only: 'arc-gallery-side,arc-gallery-moss,arc-gallery-clay'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install the reproducible rendering environment
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y blender
+          python -m pip install Pillow
+          blender --version
+      - name: Author original geometry and render
+        env:
+          FORME_ONLY: ${{ matrix.only }}
+        run: blender -b -t 4 --python tools/build_assets.py -- --mode '${{ matrix.mode }}' --quality 40
+      - name: Optimize photographic renders
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          for p in Path('assets').glob('*.png'):
+              Image.open(p).convert('RGB').save(p.with_suffix('.webp'), quality=88, method=6)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: forme-art-${{ matrix.name }}
+          path: |
+            assets/*.webp
+            assets/*.glb
+            assets/arc-dimensions.json
+            tools/Arc-master.blend
+          retention-days: 7
+  publish:
+    needs: render
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: forme-art-*
+          merge-multiple: true
+      - name: Commit the generated asset collection
+        run: |
+          git config user.name 'FORME art production'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets tools/Arc-master.blend
+          if ! git diff --cached --quiet; then
+            git commit -m 'art: publish original furniture renders, three Arc glTF models and Blender master'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi

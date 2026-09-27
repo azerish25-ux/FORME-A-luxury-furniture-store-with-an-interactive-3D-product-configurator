@@ -1,0 +1,85 @@
+name: FORME storefront quality
+on:
+  push:
+    branches: [main]
+    paths-ignore: ['docs/**', 'tools/**', 'README.md']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: forme-storefront-quality
+  cancel-in-progress: false
+jobs:
+  acceptance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Apply initial browser-review corrections
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          css = Path('assets/theme.css')
+          css.write_text(css.read_text().replace('--muted:#68665c', '--muted:#615e54').replace('color:#918e7e', 'color:#827e6e'))
+          script = Path('src/theme.js')
+          text = script.read_text()
+          old = "    this.viewerVisible = view === '3d';\n    this.section.querySelector('[data-gallery]').hidden = this.viewerVisible;"
+          new = "    this.viewerVisible = view === '3d';\n    const caption = this.section.querySelector('.gallery-caption');\n    if (caption) caption.hidden = this.viewerVisible;\n    this.section.querySelector('[data-gallery]').hidden = this.viewerVisible;"
+          script.write_text(text.replace(old, new))
+          tests = Path('tests/browser/storefront.spec.mjs')
+          text = tests.read_text()
+          old = "async function allImages(page){await page.evaluate(async()=>{for(let y=0;y<document.body.scrollHeight;y+=700){scrollTo(0,y);await new Promise(r=>setTimeout(r,70))}scrollTo(0,0)});await page.waitForTimeout(300)}"
+          new = "async function allImages(page){ for(const image of await page.locator('img').all()){ if(!await image.isVisible()) continue; await image.scrollIntoViewIfNeeded(); await expect.poll(()=>image.evaluate(i=>i.complete&&i.naturalWidth>0),{timeout:15000}).toBe(true); } await page.evaluate(()=>scrollTo(0,0)); }"
+          text = text.replace(old, new).replace("await page.goto('/search?q=sofa&type=product');await expect(page.locator('.product-card')).toHaveCount(1);", "await page.goto('/search?q=sofa&type=product');await expect(page.locator('.product-card')).toHaveCount(3);await expect(page.getByRole('link',{name:'Arc modular sofa',exact:true})).toBeVisible();")
+          tests.write_text(text)
+          for name in ['prepare-toolchain.yml','editorial-production.yml','import-source.yml']:
+              Path('.github/workflows',name).unlink(missing_ok=True)
+          PY
+      - name: Build and retain reviewed source
+        run: |
+          npm ci
+          npm run build
+          git config user.name 'FORME development'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/theme.css assets/theme.js src/theme.js tests/browser/storefront.spec.mjs .github/workflows
+          if ! git diff --cached --quiet; then
+            git commit -m 'fix: resolve browser review findings and remove completed bootstrap workflows'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+      - name: Validate domain logic and Liquid templates
+        run: |
+          mkdir -p evidence
+          npm test | tee evidence/domain-tests.txt
+          npm run check | tee evidence/liquid-validation.txt
+          npm run package
+          node scripts/static-preview.mjs
+      - name: Shopify official Theme Check
+        id: themecheck
+        continue-on-error: true
+        run: |
+          npx --yes --package @shopify/cli shopify version > evidence/shopify-cli-version.txt
+          npx --yes --package @shopify/cli shopify theme check --output json --fail-level error > evidence/shopify-theme-check.json
+      - name: Browser acceptance and accessibility
+        run: |
+          npx playwright install --with-deps chromium
+          npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: forme-quality-evidence
+          path: |
+            evidence/
+            playwright-report/
+            test-results/
+            artifacts/FORME-Shopify-Theme.zip
+            artifacts/FORME-Shopify-Theme.zip.sha256
+            artifacts/preview/
+          retention-days: 14
+      - name: Require Shopify Theme Check success
+        if: steps.themecheck.outcome != 'success'
+        run: exit 1

@@ -1,0 +1,111 @@
+name: Publish live FORME preview
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/publish-live-preview.yml'
+      - 'assets/**'
+      - 'config/**'
+      - 'layout/**'
+      - 'locales/**'
+      - 'preview/**'
+      - 'scripts/**'
+      - 'sections/**'
+      - 'snippets/**'
+      - 'src/**'
+      - 'templates/**'
+      - 'fixtures/**'
+      - 'package.json'
+      - 'package-lock.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: forme-live-preview
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: node scripts/static-preview.mjs
+      - name: Make the static preview portable under the GitHack CDN path
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          root = Path('artifacts/preview')
+          base = '/azerish25-ux/FORME-A-luxury-furniture-store-with-an-interactive-3D-product-configurator/gh-pages'
+
+          def map_path(path: str) -> str:
+              if not path.startswith('/') or path.startswith('//'):
+                  return path
+              if path == '/':
+                  return base + '/index.html'
+              if path.startswith('/assets/') or path.startswith('/preview/'):
+                  return base + path
+              if path in ('/cart.js', '/cart/add', '/cart/add.js', '/cart/change.js', '/cart/update.js'):
+                  return base + path
+              if path == '/contact':
+                  return base + '/pages/contact/index.html'
+              if path.startswith('/search'):
+                  p, sep, q = path.partition('?')
+                  return base + '/search/index.html' + (sep + q if sep else '')
+              for prefix in ('/products/', '/collections/', '/pages/'):
+                  if path.startswith(prefix):
+                      p, sep, q = path.partition('?')
+                      if p.endswith('/'):
+                          return base + p + (sep + q if sep else '')
+                      return base + p.rstrip('/') + '/index.html' + (sep + q if sep else '')
+              return base + path
+
+          token = re.compile(r'([\"\'])(/[^\"\'<>\\\s]*)(\1)')
+
+          def rewrite_text(text: str) -> str:
+              return token.sub(lambda m: m.group(1) + map_path(m.group(2)) + m.group(3), text)
+
+          for p in root.rglob('*'):
+              if p.is_file() and p.suffix.lower() in {'.html', '.json'}:
+                  p.write_text(rewrite_text(p.read_text()))
+
+          adapter = root / 'preview' / 'adapter.js'
+          text = adapter.read_text()
+          text = text.replace("'use strict';", "'use strict';\\n  const FORME_BASE='" + base + "';\\n  const formePath=p=>p.startsWith(FORME_BASE)?(p.slice(FORME_BASE.length)||'/'):p;")
+          text = text.replace('url.pathname', 'formePath(url.pathname)').replace('location.pathname', 'formePath(location.pathname)')
+          text = rewrite_text(text)
+          adapter.write_text(text)
+
+          # Theme JS builds Ajax URLs from forme-settings.root. Keep the base directory,
+          # while HTML links have already been converted to actual index.html files.
+          for p in root.rglob('*.html'):
+              text = p.read_text()
+              text = text.replace('"root":"' + base + '/index.html"', '"root":"' + base + '/"')
+              p.write_text(text)
+
+          (root / '.nojekyll').write_text('')
+          PY
+      - name: Publish the generated preview to an orphan gh-pages branch
+        run: |
+          rm -rf /tmp/forme-live
+          mkdir -p /tmp/forme-live
+          cp -a artifacts/preview/. /tmp/forme-live/
+          git config user.name 'FORME live preview'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git switch --orphan gh-pages
+          git rm -rf . >/dev/null 2>&1 || true
+          cp -a /tmp/forme-live/. .
+          git add -A
+          git commit -m 'deploy: publish standalone FORME live preview'
+          git push --force origin gh-pages

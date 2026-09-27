@@ -301,6 +301,8 @@ class ProductController {
   async setView(view) {
     if (view === '3d' && !this.config.enabled) return;
     this.viewerVisible = view === '3d';
+    const caption = this.section.querySelector('.gallery-caption');
+    if (caption) caption.hidden = this.viewerVisible;
     this.section.querySelector('[data-gallery]').hidden = this.viewerVisible;
     const host = this.section.querySelector('[data-viewer]');
     if (!host) return;

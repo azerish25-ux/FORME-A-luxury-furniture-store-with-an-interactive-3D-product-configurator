@@ -1,5 +1,8 @@
 name: Arc experience verification
 on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/arc-experience.yml']
   workflow_dispatch:
     inputs:
       export_toolchain:
@@ -22,10 +25,10 @@ jobs:
       - run: npm run build && npm test && npm run check
       - run: node scripts/static-preview.mjs
       - name: Export locked verification toolchain
-        if: inputs.export_toolchain
+        if: github.event_name == 'push' || inputs.export_toolchain
         run: tar -czf runner-toolchain.tar.gz node_modules
       - uses: actions/upload-artifact@v4
-        if: inputs.export_toolchain
+        if: github.event_name == 'push' || inputs.export_toolchain
         with:
           name: forme-locked-toolchain
           path: runner-toolchain.tar.gz

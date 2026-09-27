@@ -235,7 +235,7 @@ h3 { font-weight: 400; }
 .native-variant select { width: 100%; padding: 12px; background: transparent; border: 1px solid var(--line); }
 .variant-option { padding: 24px 0 0; margin: 0; border: 0; min-width: 0; }
 .variant-option legend { display: flex; width: 100%; align-items: baseline; font-size: 11px; padding: 24px 0 0; }
-.option-number { color: #929083; font-size: 9px; margin-right: 10px; }
+.option-number { color: #615e54; font-size: 9px; margin-right: 10px; }
 .option-current { margin-left: auto; color: var(--muted); font-size: 10px; }
 .option-values { display: flex; gap: 8px; margin-top: -9px; }
 .option-choice { flex: 1; position: relative; cursor: pointer; min-width: 0; }

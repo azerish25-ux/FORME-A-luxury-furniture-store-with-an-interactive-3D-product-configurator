@@ -2,7 +2,7 @@
 :root {
   --paper: #f3f0e8;
   --ink: #2b2b24;
-  --muted: #68665c;
+  --muted: #615e54;
   --line: #d6d1c6;
   --stone: #e8e3d9;
   --olive: #5c6550;
@@ -91,7 +91,7 @@ h3 { font-weight: 400; }
 .brand-note h2 { font-size: clamp(36px, 3.4vw, 54px); }
 .brand-note p:not(.eyebrow) { color: var(--muted); max-width: 550px; margin-top: 22px; font-size: 14px; line-height: 1.9; }
 .brand-note .underlined-link { margin-top: 22px; }
-.brand-note__mark { font-family: var(--display); font-style: italic; font-size: 100px; justify-self: end; line-height: 1; color: #918e7e; }
+.brand-note__mark { font-family: var(--display); font-style: italic; font-size: 100px; justify-self: end; line-height: 1; color: #827e6e; }
 .section-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; margin-bottom: 36px; }
 .section-heading .eyebrow { margin-bottom: 17px; }
 .section-heading h2 { font-size: clamp(40px, 4.3vw, 65px); }

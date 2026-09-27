@@ -1,0 +1,75 @@
+name: Import authored FORME sources
+on:
+  push:
+    paths: ['.github/workflows/import-source.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify and extract authored source
+        run: |
+          python - <<'PY'
+          import base64, hashlib, io, tarfile, pathlib, shutil
+          files = sorted(pathlib.Path('.bootstrap').glob('source-*.b64'))
+          if files:
+              assert len(files) == 7
+              for p in files: print(p.name, hashlib.sha256(p.read_text().strip().encode()).hexdigest())
+              data = base64.b64decode(''.join(p.read_text().strip() for p in files), validate=True)
+              assert hashlib.sha256(data).hexdigest() == 'de3937a211c8e3678e446fdb51ac88aa214ec1438b4a4630a029007017338789', 'Source integrity failed'
+              with tarfile.open(fileobj=io.BytesIO(data), mode='r:xz') as archive:
+                  for item in archive.getmembers():
+                      path = pathlib.PurePosixPath(item.name)
+                      assert item.isfile() and not path.is_absolute() and '..' not in path.parts and '.git' not in path.parts
+                  archive.extractall('.')
+              shutil.rmtree('.bootstrap')
+          source = pathlib.Path('tools/build_assets.py')
+          source.write_text(source.read_text().replace("root['height_cm'] = 78", "root['height_cm'] = 83").replace("165 if size == 'chaise' else 102", "182 if size == 'chaise' else 103"))
+          # The demo flag must exist before the independently loaded preview adapter.
+          static = pathlib.Path('scripts/static-preview.mjs')
+          text = static.read_text().replace("html=html.replace('</head>','<meta name=\"robots\" content=\"noindex,nofollow\"><script>window.FORME_STATIC_PREVIEW=true;</script></head>')", "html=html.replace('<head>','<head><meta name=\"robots\" content=\"noindex,nofollow\"><script>window.FORME_STATIC_PREVIEW=true;</script>')")
+          static.write_text(text)
+          PY
+      - name: Build and persist readable theme sources
+        run: |
+          npm ci
+          npm run build
+          node scripts/export-catalog.mjs
+          git config user.name 'FORME development'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets config docs fixtures layout locales package.json package-lock.json playwright.config.mjs preview scripts sections snippets src templates tests tools .gitignore .shopifyignore
+          git add README.md
+          git add -u .bootstrap || true
+          if ! git diff --cached --quiet; then
+            git commit -m 'feat: publish native FORME Shopify storefront, 36-variant sofa configurator and acceptance suite'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+      - name: Domain and native Liquid validation
+        run: |
+          npm test
+          npm run check
+          npm run package
+          node scripts/static-preview.mjs
+      - name: Real browser acceptance
+        run: |
+          npx playwright install --with-deps chromium
+          npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: forme-storefront-acceptance
+          path: |
+            evidence/
+            playwright-report/
+            test-results/
+            artifacts/FORME-Shopify-Theme.zip
+            artifacts/FORME-Shopify-Theme.zip.sha256
+          retention-days: 14

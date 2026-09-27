@@ -29,7 +29,13 @@
         "available": true,
         "sku": "FRM-ARC-COM-LIN-OAT",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000000,
+          "src": "/assets/arc-v2-compact-linen-oat.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Compact / Linen / Oat"
+        }
       },
       {
         "id": 71000000000001,
@@ -46,7 +52,13 @@
         "available": true,
         "sku": "FRM-ARC-COM-LIN-MOSS",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000001,
+          "src": "/assets/arc-v2-compact-linen-moss.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Compact / Linen / Moss"
+        }
       },
       {
         "id": 71000000000002,
@@ -63,7 +75,13 @@
         "available": true,
         "sku": "FRM-ARC-COM-LIN-CLAY",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000002,
+          "src": "/assets/arc-v2-compact-linen-clay.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Compact / Linen / Clay"
+        }
       },
       {
         "id": 71000000000003,
@@ -80,7 +98,13 @@
         "available": true,
         "sku": "FRM-ARC-COM-LIN-INK",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000003,
+          "src": "/assets/arc-v2-compact-linen-ink.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Compact / Linen / Ink"
+        }
       },
       {
         "id": 71000000000004,
@@ -97,7 +121,13 @@
         "available": true,
         "sku": "FRM-ARC-COM-BOU-OAT",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000004,
+          "src": "/assets/arc-v2-compact-boucle-oat.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Compact / Bouclé / Oat"
+        }
       },
       {
         "id": 71000000000005,
@@ -114,7 +144,13 @@
         "available": true,
         "sku": "FRM-ARC-COM-BOU-MOSS",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000005,
+          "src": "/assets/arc-v2-compact-boucle-moss.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Compact / Bouclé / Moss"
+        }
       },
       {
         "id": 71000000000006,
@@ -131,7 +167,13 @@
         "available": true,
         "sku": "FRM-ARC-COM-BOU-CLAY",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000006,
+          "src": "/assets/arc-v2-compact-boucle-clay.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Compact / Bouclé / Clay"
+        }
       },
       {
         "id": 71000000000007,
@@ -148,7 +190,13 @@
         "available": true,
         "sku": "FRM-ARC-COM-BOU-INK",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000007,
+          "src": "/assets/arc-v2-compact-boucle-ink.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Compact / Bouclé / Ink"
+        }
       },
       {
         "id": 71000000000008,
@@ -165,7 +213,13 @@
         "available": true,
         "sku": "FRM-ARC-COM-WOO-OAT",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000008,
+          "src": "/assets/arc-v2-compact-wool-oat.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Compact / Wool / Oat"
+        }
       },
       {
         "id": 71000000000009,
@@ -182,7 +236,13 @@
         "available": true,
         "sku": "FRM-ARC-COM-WOO-MOSS",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000009,
+          "src": "/assets/arc-v2-compact-wool-moss.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Compact / Wool / Moss"
+        }
       },
       {
         "id": 71000000000010,
@@ -199,7 +259,13 @@
         "available": true,
         "sku": "FRM-ARC-COM-WOO-CLAY",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000010,
+          "src": "/assets/arc-v2-compact-wool-clay.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Compact / Wool / Clay"
+        }
       },
       {
         "id": 71000000000011,
@@ -216,7 +282,13 @@
         "available": true,
         "sku": "FRM-ARC-COM-WOO-INK",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000011,
+          "src": "/assets/arc-v2-compact-wool-ink.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Compact / Wool / Ink"
+        }
       },
       {
         "id": 71000000000012,
@@ -233,7 +305,13 @@
         "available": true,
         "sku": "FRM-ARC-GEN-LIN-OAT",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000012,
+          "src": "/assets/arc-v2-generous-linen-oat.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Generous / Linen / Oat"
+        }
       },
       {
         "id": 71000000000013,
@@ -250,7 +328,13 @@
         "available": true,
         "sku": "FRM-ARC-GEN-LIN-MOSS",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000013,
+          "src": "/assets/arc-v2-generous-linen-moss.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Generous / Linen / Moss"
+        }
       },
       {
         "id": 71000000000014,
@@ -267,7 +351,13 @@
         "available": true,
         "sku": "FRM-ARC-GEN-LIN-CLAY",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000014,
+          "src": "/assets/arc-v2-generous-linen-clay.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Generous / Linen / Clay"
+        }
       },
       {
         "id": 71000000000015,
@@ -284,7 +374,13 @@
         "available": true,
         "sku": "FRM-ARC-GEN-LIN-INK",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000015,
+          "src": "/assets/arc-v2-generous-linen-ink.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Generous / Linen / Ink"
+        }
       },
       {
         "id": 71000000000016,
@@ -301,7 +397,13 @@
         "available": true,
         "sku": "FRM-ARC-GEN-BOU-OAT",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000016,
+          "src": "/assets/arc-v2-generous-boucle-oat.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Generous / Bouclé / Oat"
+        }
       },
       {
         "id": 71000000000017,
@@ -318,7 +420,13 @@
         "available": true,
         "sku": "FRM-ARC-GEN-BOU-MOSS",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000017,
+          "src": "/assets/arc-v2-generous-boucle-moss.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Generous / Bouclé / Moss"
+        }
       },
       {
         "id": 71000000000018,
@@ -335,7 +443,13 @@
         "available": true,
         "sku": "FRM-ARC-GEN-BOU-CLAY",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000018,
+          "src": "/assets/arc-v2-generous-boucle-clay.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Generous / Bouclé / Clay"
+        }
       },
       {
         "id": 71000000000019,
@@ -352,7 +466,13 @@
         "available": true,
         "sku": "FRM-ARC-GEN-BOU-INK",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000019,
+          "src": "/assets/arc-v2-generous-boucle-ink.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Generous / Bouclé / Ink"
+        }
       },
       {
         "id": 71000000000020,
@@ -369,7 +489,13 @@
         "available": true,
         "sku": "FRM-ARC-GEN-WOO-OAT",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000020,
+          "src": "/assets/arc-v2-generous-wool-oat.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Generous / Wool / Oat"
+        }
       },
       {
         "id": 71000000000021,
@@ -386,7 +512,13 @@
         "available": true,
         "sku": "FRM-ARC-GEN-WOO-MOSS",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000021,
+          "src": "/assets/arc-v2-generous-wool-moss.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Generous / Wool / Moss"
+        }
       },
       {
         "id": 71000000000022,
@@ -403,7 +535,13 @@
         "available": true,
         "sku": "FRM-ARC-GEN-WOO-CLAY",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000022,
+          "src": "/assets/arc-v2-generous-wool-clay.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Generous / Wool / Clay"
+        }
       },
       {
         "id": 71000000000023,
@@ -420,7 +558,13 @@
         "available": true,
         "sku": "FRM-ARC-GEN-WOO-INK",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000023,
+          "src": "/assets/arc-v2-generous-wool-ink.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Generous / Wool / Ink"
+        }
       },
       {
         "id": 71000000000024,
@@ -437,7 +581,13 @@
         "available": true,
         "sku": "FRM-ARC-CHA-LIN-OAT",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000024,
+          "src": "/assets/arc-v2-chaise-linen-oat.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Chaise / Linen / Oat"
+        }
       },
       {
         "id": 71000000000025,
@@ -454,7 +604,13 @@
         "available": true,
         "sku": "FRM-ARC-CHA-LIN-MOSS",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000025,
+          "src": "/assets/arc-v2-chaise-linen-moss.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Chaise / Linen / Moss"
+        }
       },
       {
         "id": 71000000000026,
@@ -471,7 +627,13 @@
         "available": true,
         "sku": "FRM-ARC-CHA-LIN-CLAY",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000026,
+          "src": "/assets/arc-v2-chaise-linen-clay.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Chaise / Linen / Clay"
+        }
       },
       {
         "id": 71000000000027,
@@ -488,7 +650,13 @@
         "available": true,
         "sku": "FRM-ARC-CHA-LIN-INK",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000027,
+          "src": "/assets/arc-v2-chaise-linen-ink.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Chaise / Linen / Ink"
+        }
       },
       {
         "id": 71000000000028,
@@ -505,7 +673,13 @@
         "available": true,
         "sku": "FRM-ARC-CHA-BOU-OAT",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000028,
+          "src": "/assets/arc-v2-chaise-boucle-oat.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Chaise / Bouclé / Oat"
+        }
       },
       {
         "id": 71000000000029,
@@ -522,7 +696,13 @@
         "available": true,
         "sku": "FRM-ARC-CHA-BOU-MOSS",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000029,
+          "src": "/assets/arc-v2-chaise-boucle-moss.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Chaise / Bouclé / Moss"
+        }
       },
       {
         "id": 71000000000030,
@@ -539,7 +719,13 @@
         "available": true,
         "sku": "FRM-ARC-CHA-BOU-CLAY",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000030,
+          "src": "/assets/arc-v2-chaise-boucle-clay.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Chaise / Bouclé / Clay"
+        }
       },
       {
         "id": 71000000000031,
@@ -556,7 +742,13 @@
         "available": true,
         "sku": "FRM-ARC-CHA-BOU-INK",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000031,
+          "src": "/assets/arc-v2-chaise-boucle-ink.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Chaise / Bouclé / Ink"
+        }
       },
       {
         "id": 71000000000032,
@@ -573,7 +765,13 @@
         "available": true,
         "sku": "FRM-ARC-CHA-WOO-OAT",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000032,
+          "src": "/assets/arc-v2-chaise-wool-oat.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Chaise / Wool / Oat"
+        }
       },
       {
         "id": 71000000000033,
@@ -590,7 +788,13 @@
         "available": true,
         "sku": "FRM-ARC-CHA-WOO-MOSS",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000033,
+          "src": "/assets/arc-v2-chaise-wool-moss.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Chaise / Wool / Moss"
+        }
       },
       {
         "id": 71000000000034,
@@ -607,7 +811,13 @@
         "available": true,
         "sku": "FRM-ARC-CHA-WOO-CLAY",
         "inventory_quantity": 20,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000034,
+          "src": "/assets/arc-v2-chaise-wool-clay.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Chaise / Wool / Clay"
+        }
       },
       {
         "id": 71000000000035,
@@ -624,7 +834,13 @@
         "available": false,
         "sku": "FRM-ARC-CHA-WOO-INK",
         "inventory_quantity": 0,
-        "featured_image": null
+        "featured_image": {
+          "id": 71000000000035,
+          "src": "/assets/arc-v2-chaise-wool-ink.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Chaise / Wool / Ink"
+        }
       }
     ],
     "options": [
@@ -682,117 +898,102 @@
     "has_only_default_variant": false,
     "images": [
       {
-        "src": "/assets/arc-modular-sofa.webp",
-        "url": "/assets/arc-modular-sofa.webp",
-        "alt": "Arc modular sofa — studio view",
-        "width": 1000,
-        "height": 1180,
-        "aspect_ratio": 0.847457627118644,
-        "id": 1,
-        "media_type": "image"
+        "id": 71000000000000,
+        "src": "/assets/arc-v2-compact-linen-oat.webp",
+        "width": 1440,
+        "height": 1000,
+        "alt": "Arc · Compact / Linen / Oat"
       },
       {
-        "src": "/assets/arc-gallery-side.webp",
-        "url": "/assets/arc-gallery-side.webp",
-        "alt": "Arc modular sofa — alternate view",
-        "width": 1400,
-        "height": 1200,
-        "aspect_ratio": 1.1666666666666667,
-        "id": 2,
-        "media_type": "image"
+        "id": 71000000000100,
+        "src": "/assets/arc-v2-profile.webp",
+        "width": 1440,
+        "height": 1000,
+        "alt": "Profile study · Generous / Linen / Oat"
       },
       {
-        "src": "/assets/arc-tailoring-detail.webp",
-        "url": "/assets/arc-tailoring-detail.webp",
-        "alt": "Arc modular sofa — alternate view",
-        "width": 1400,
-        "height": 1200,
-        "aspect_ratio": 1.1666666666666667,
-        "id": 3,
-        "media_type": "image"
+        "id": 71000000000101,
+        "src": "/assets/arc-v2-seam.webp",
+        "width": 1440,
+        "height": 1000,
+        "alt": "Tailored edge · Linen / Oat"
       },
       {
-        "src": "/assets/arc-gallery-moss.webp",
-        "url": "/assets/arc-gallery-moss.webp",
-        "alt": "Arc modular sofa — alternate view",
-        "width": 1400,
-        "height": 1200,
-        "aspect_ratio": 1.1666666666666667,
-        "id": 4,
-        "media_type": "image"
-      },
-      {
-        "src": "/assets/arc-gallery-clay.webp",
-        "url": "/assets/arc-gallery-clay.webp",
-        "alt": "Arc modular sofa — alternate view",
-        "width": 1400,
-        "height": 1200,
-        "aspect_ratio": 1.1666666666666667,
-        "id": 5,
-        "media_type": "image"
+        "id": 71000000000102,
+        "src": "/assets/arc-v2-walnut.webp",
+        "width": 1440,
+        "height": 1000,
+        "alt": "Recessed walnut frame · construction study"
       }
     ],
     "media": [
       {
-        "src": "/assets/arc-modular-sofa.webp",
-        "url": "/assets/arc-modular-sofa.webp",
-        "alt": "Arc modular sofa — studio view",
-        "width": 1000,
-        "height": 1180,
-        "aspect_ratio": 0.847457627118644,
-        "id": 1,
-        "media_type": "image"
+        "id": 71000000000000,
+        "src": "/assets/arc-v2-compact-linen-oat.webp",
+        "width": 1440,
+        "height": 1000,
+        "alt": "Arc · Compact / Linen / Oat",
+        "media_type": "image",
+        "preview_image": {
+          "id": 71000000000000,
+          "src": "/assets/arc-v2-compact-linen-oat.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Arc · Compact / Linen / Oat"
+        }
       },
       {
-        "src": "/assets/arc-gallery-side.webp",
-        "url": "/assets/arc-gallery-side.webp",
-        "alt": "Arc modular sofa — alternate view",
-        "width": 1400,
-        "height": 1200,
-        "aspect_ratio": 1.1666666666666667,
-        "id": 2,
-        "media_type": "image"
+        "id": 71000000000100,
+        "src": "/assets/arc-v2-profile.webp",
+        "width": 1440,
+        "height": 1000,
+        "alt": "Profile study · Generous / Linen / Oat",
+        "media_type": "image",
+        "preview_image": {
+          "id": 71000000000100,
+          "src": "/assets/arc-v2-profile.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Profile study · Generous / Linen / Oat"
+        }
       },
       {
-        "src": "/assets/arc-tailoring-detail.webp",
-        "url": "/assets/arc-tailoring-detail.webp",
-        "alt": "Arc modular sofa — alternate view",
-        "width": 1400,
-        "height": 1200,
-        "aspect_ratio": 1.1666666666666667,
-        "id": 3,
-        "media_type": "image"
+        "id": 71000000000101,
+        "src": "/assets/arc-v2-seam.webp",
+        "width": 1440,
+        "height": 1000,
+        "alt": "Tailored edge · Linen / Oat",
+        "media_type": "image",
+        "preview_image": {
+          "id": 71000000000101,
+          "src": "/assets/arc-v2-seam.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Tailored edge · Linen / Oat"
+        }
       },
       {
-        "src": "/assets/arc-gallery-moss.webp",
-        "url": "/assets/arc-gallery-moss.webp",
-        "alt": "Arc modular sofa — alternate view",
-        "width": 1400,
-        "height": 1200,
-        "aspect_ratio": 1.1666666666666667,
-        "id": 4,
-        "media_type": "image"
-      },
-      {
-        "src": "/assets/arc-gallery-clay.webp",
-        "url": "/assets/arc-gallery-clay.webp",
-        "alt": "Arc modular sofa — alternate view",
-        "width": 1400,
-        "height": 1200,
-        "aspect_ratio": 1.1666666666666667,
-        "id": 5,
-        "media_type": "image"
+        "id": 71000000000102,
+        "src": "/assets/arc-v2-walnut.webp",
+        "width": 1440,
+        "height": 1000,
+        "alt": "Recessed walnut frame · construction study",
+        "media_type": "image",
+        "preview_image": {
+          "id": 71000000000102,
+          "src": "/assets/arc-v2-walnut.webp",
+          "width": 1440,
+          "height": 1000,
+          "alt": "Recessed walnut frame · construction study"
+        }
       }
     ],
     "featured_image": {
-      "src": "/assets/arc-modular-sofa.webp",
-      "url": "/assets/arc-modular-sofa.webp",
-      "alt": "Arc modular sofa — studio view",
-      "width": 1000,
-      "height": 1180,
-      "aspect_ratio": 0.847457627118644,
-      "id": 1,
-      "media_type": "image"
+      "id": 71000000000000,
+      "src": "/assets/arc-v2-compact-linen-oat.webp",
+      "width": 1440,
+      "height": 1000,
+      "alt": "Arc · Compact / Linen / Oat"
     },
     "featured_media": {
       "src": "/assets/arc-modular-sofa.webp",

@@ -5,7 +5,7 @@
       "settings": {
         "enable_configurator": true,
         "sample_product": "material-library",
-        "gallery_caption": "GENEROUS / OAT LINEN SHOWN"
+        "gallery_caption": "YOUR SELECTED CONFIGURATION"
       },
       "blocks": {
         "care": {
@@ -22,7 +22,10 @@
     },
     "story": {
       "type": "product-story",
-      "settings": {}
+      "settings": {
+        "heading": "A closer look.\nA softer edge.",
+        "body": "Individually crowned cushions meet a fine welt, with softened transitions rather than sharp box edges. Below, separate walnut rails and inset feet give the frame a lighter profile. Explore the construction up close, then compare the three fabrics in the configurator."
+      }
     },
     "services": {
       "type": "service-strip",

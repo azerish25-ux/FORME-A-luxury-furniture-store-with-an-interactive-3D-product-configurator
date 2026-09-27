@@ -1,67 +1,106 @@
 {%- assign current_variant = product.selected_or_first_available_variant -%}
 {%- assign product_form_id = 'ProductForm-' | append: section.id -%}
-{%- assign is_arc = false -%}
-{%- if section.settings.enable_configurator and settings.enable_3d -%}{%- assign is_arc = true -%}{%- endif -%}
-<section class="product-section wrap" data-product-section data-product-handle="{{ product.handle }}">
-  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="{{ routes.root_url }}">Home</a><span>/</span><a href="{{ routes.all_products_collection_url }}">The collection</a><span>/</span><span>{{ product.title }}</span></nav>
+{%- assign is_arc = section.settings.enable_configurator -%}
+{%- assign allow_3d = false -%}
+{%- if is_arc and settings.enable_3d -%}{%- assign allow_3d = true -%}{%- endif -%}
+{%- capture selected_poster -%}{%- render 'arc-poster', product: product, variant: current_variant -%}{%- endcapture -%}
+<section class="product-section wrap{% if is_arc %} arc-product{% endif %}" data-product-section data-product-handle="{{ product.handle }}">
+  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="{{ routes.root_url }}">Home</a><span aria-hidden="true">/</span><a href="{{ routes.all_products_collection_url }}">The collection</a><span aria-hidden="true">/</span><span>{{ product.title }}</span></nav>
   <div class="product-layout">
     <div class="product-visuals">
       <div class="product-stage" data-product-stage>
         <div class="product-gallery" data-gallery>
-          {% for media in product.media %}
-            <div class="gallery-slide{% if forloop.first %} is-active{% endif %}" id="Media-{{ section.id }}-{{ forloop.index }}" data-slide="{{ forloop.index0 }}" {% unless forloop.first %}hidden{% endunless %}>
-              {% if media.media_type == 'image' %}{{ media | image_url: width: 1800 | image_tag: widths: '600, 900, 1200, 1800', sizes: '(min-width: 900px) 60vw, 100vw', loading: 'eager', alt: media.alt }}{% else %}{{ media | media_tag: image_size: '1200x', autoplay: false, loop: false, controls: true, preload: 'none' }}{% endif %}
+          {% if is_arc and selected_poster != blank %}
+            <div class="gallery-slide is-active" data-slide="0">
+              <img data-selected-poster src="{{ selected_poster }}" srcset="{{ selected_poster | replace: '.webp', '-720.webp' }} 720w, {{ selected_poster }} 1440w" sizes="(min-width: 1100px) 58vw, 100vw" width="1440" height="1000" alt="Arc · {{ current_variant.title | escape }}" loading="eager" fetchpriority="high">
             </div>
-          {% else %}<div class="empty-product-image">{{ 'product-1' | placeholder_svg_tag }}</div>{% endfor %}
+            <div class="gallery-slide" data-slide="1" data-caption="Profile study · Generous / Linen / Oat" hidden><img src="{{ 'arc-v2-profile.webp' | asset_url }}" width="1440" height="1000" alt="Arc Generous sofa in Oat Linen, viewed from the side" loading="lazy"></div>
+            <div class="gallery-slide" data-slide="2" data-caption="Tailored edge · Linen / Oat" hidden><img src="{{ 'arc-v2-seam.webp' | asset_url }}" width="1440" height="1000" alt="Close study of the linen weave and inset cushion seam" loading="lazy"></div>
+            <div class="gallery-slide" data-slide="3" data-caption="Recessed walnut frame · construction study" hidden><img src="{{ 'arc-v2-walnut.webp' | asset_url }}" width="1440" height="1000" alt="Close study of the walnut rail and inset supporting foot" loading="lazy"></div>
+          {% else %}
+            {% for media in product.media %}
+              <div class="gallery-slide{% if forloop.first %} is-active{% endif %}" data-slide="{{ forloop.index0 }}" data-caption="{{ media.alt | escape }}" {% unless forloop.first %}hidden{% endunless %}>
+                {% if media.media_type == 'image' %}{% if forloop.first %}{{ media | image_url: width: 1800 | image_tag: widths: '600, 900, 1200, 1800', sizes: '(min-width: 900px) 58vw, 100vw', loading: 'eager', alt: media.alt }}{% else %}{{ media | image_url: width: 1800 | image_tag: widths: '600, 900, 1200, 1800', sizes: '(min-width: 900px) 58vw, 100vw', loading: 'lazy', alt: media.alt }}{% endif %}{% else %}{{ media | media_tag: image_size: '1200x', autoplay: false, loop: false, controls: true, preload: 'none' }}{% endif %}
+              </div>
+            {% else %}<div class="empty-product-image">{{ 'product-1' | placeholder_svg_tag }}</div>{% endfor %}
+          {% endif %}
         </div>
-        {% if is_arc %}
-          <div class="sofa-viewer" data-viewer hidden tabindex="0" role="region" aria-label="Interactive three-dimensional sofa. Drag to rotate, scroll to zoom. Use arrow keys to rotate.">
+        {% if allow_3d %}
+          <div class="sofa-viewer" data-viewer hidden tabindex="0" role="region" aria-label="Interactive Arc sofa. Drag or use the rotation buttons. Arrow keys rotate; plus and minus zoom.">
             <div class="viewer-status" data-viewer-status role="status">Preparing your sofa…</div>
             <div class="dimension-labels" data-dimension-labels hidden></div>
           </div>
-          <div class="stage-controls js-only"><div class="view-switch" role="group" aria-label="Product view"><button type="button" class="is-active" data-view="gallery" aria-pressed="true">Gallery</button><button type="button" data-view="3d" aria-pressed="false">{% render 'icon', name: 'cube' %} Explore in 3D</button></div><div class="viewer-tools" data-viewer-tools hidden><button type="button" class="icon-button" data-dimensions aria-pressed="false" aria-label="Show dimensions">{% render 'icon', name: 'ruler' %}</button><button type="button" class="icon-button" data-viewer-reset aria-label="Reset camera">{% render 'icon', name: 'reset' %}</button></div></div>
         {% endif %}
-        <span class="gallery-caption" data-gallery-caption>{{ section.settings.gallery_caption }}</span>
+        <p class="poster-status" data-poster-status role="status" hidden>Preparing your selection…</p>
+        <button class="gallery-enlarge js-only" type="button" data-open-gallery aria-label="Enlarge product image">{% render 'icon', name: 'plus' %}<span>Enlarge</span></button>
+        {% if allow_3d %}
+          <div class="stage-controls js-only">
+            <div class="view-switch" role="group" aria-label="Product view"><button type="button" class="is-active" data-view="gallery" aria-pressed="true">Gallery</button><button type="button" data-view="3d" aria-pressed="false">{% render 'icon', name: 'cube' %} Explore in 3D</button></div>
+            <div class="viewer-tools" data-viewer-tools hidden><button type="button" class="icon-button" data-dimensions aria-pressed="false" aria-label="Show dimensions">{% render 'icon', name: 'ruler' %}</button><button type="button" class="icon-button" data-viewer-reset aria-label="Reset camera">{% render 'icon', name: 'reset' %}</button></div>
+          </div>
+        {% endif %}
       </div>
-      <div class="gallery-thumbnails js-only" role="group" aria-label="Product photographs">{% for media in product.media %}<button type="button" data-thumbnail="{{ forloop.index0 }}" aria-label="View {{ product.title | escape }}, image {{ forloop.index }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">{{ media.preview_image | default: media | image_url: width: 180 | image_tag: loading: 'lazy', alt: '' }}</button>{% endfor %}</div>
+      <div class="camera-controls js-only" data-camera-controls hidden>
+        <div role="group" aria-label="Camera views"><button type="button" data-camera="angle">Angle</button><button type="button" data-camera="front">Front</button><button type="button" data-camera="side">Side</button><button type="button" data-camera="detail">Detail</button></div>
+        <div role="group" aria-label="Rotate and zoom"><button type="button" data-rotate="-1" aria-label="Rotate sofa left">↶</button><button type="button" data-rotate="1" aria-label="Rotate sofa right">↷</button><button type="button" data-zoom="1" aria-label="Zoom in">+</button><button type="button" data-zoom="-1" aria-label="Zoom out">−</button></div>
+      </div>
+      <div class="gallery-meta"><span data-gallery-caption>{% if is_arc %}{{ current_variant.title }}{% else %}{{ section.settings.gallery_caption }}{% endif %}</span><span data-gallery-counter>01 / {% if is_arc %}04{% else %}{{ product.media.size }}{% endif %}</span></div>
+      <div class="gallery-thumbnails js-only" role="group" aria-label="Product images">
+        {% if is_arc and selected_poster != blank %}
+          <button type="button" data-thumbnail="0" aria-label="View your selected Arc configuration" aria-pressed="true"><img data-selected-thumbnail src="{{ selected_poster | replace: '.webp', '-720.webp' }}" width="144" height="100" alt="" loading="lazy"><span>Your selection</span></button>
+          <button type="button" data-thumbnail="1" aria-label="View Arc modular sofa, image 2" aria-pressed="false"><img src="{{ 'arc-v2-profile.webp' | asset_url }}" width="144" height="100" alt="" loading="lazy"><span>Side profile</span></button>
+          <button type="button" data-thumbnail="2" aria-label="View Arc modular sofa, image 3" aria-pressed="false"><img src="{{ 'arc-v2-seam.webp' | asset_url }}" width="144" height="100" alt="" loading="lazy"><span>Tailoring</span></button>
+          <button type="button" data-thumbnail="3" aria-label="View Arc modular sofa, image 4" aria-pressed="false"><img src="{{ 'arc-v2-walnut.webp' | asset_url }}" width="144" height="100" alt="" loading="lazy"><span>Walnut frame</span></button>
+        {% else %}{% for media in product.media %}<button type="button" data-thumbnail="{{ forloop.index0 }}" aria-label="View {{ product.title | escape }}, image {{ forloop.index }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">{{ media.preview_image | default: media | image_url: width: 180 | image_tag: loading: 'lazy', alt: '' }}</button>{% endfor %}{% endif %}
+      </div>
       <noscript><div class="no-js-gallery">{% for media in product.media offset: 1 %}{% if media.media_type == 'image' %}{{ media | image_url: width: 1200 | image_tag: loading: 'lazy', alt: media.alt }}{% endif %}{% endfor %}</div></noscript>
-      <p class="gallery-hint" data-gallery-hint>{% if is_arc %}A closer look, from every angle. 3D loads only when you choose it.{% else %}Considered in every detail.{% endif %}</p>
+      <p class="gallery-hint" data-gallery-hint>{% if is_arc %}Your selected configuration, rendered from the same model used in 3D. Colours on a screen are a guide; explore samples for the next step.{% else %}Considered in every detail.{% endif %}</p>
+      {% if is_arc %}<div class="arc-construction-note"><p class="eyebrow">FORM / MATERIAL / DETAIL</p><h2>Softness, with structure.</h2><p>A continuous silhouette. Individually crowned cushions. A fine welt tracing each panel, set above a recessed walnut frame.</p><a class="underlined-link" href="{{ routes.root_url }}pages/materials">Explore the material palette {% render 'icon', name: 'arrow' %}</a></div>{% endif %}
     </div>
     <div class="product-information">
-      <p class="eyebrow">{{ product.type }} / THE FORME COLLECTION</p>
-      <div class="product-title-row"><h1>{{ product.title }}</h1><button type="button" class="icon-button js-only" data-compare="{{ product.handle }}" aria-pressed="false" aria-label="Compare {{ product.title | escape }}">{% render 'icon', name: 'compare' %}</button></div>
+      <p class="eyebrow">{% if is_arc %}THE ARC COLLECTION{% else %}{{ product.type }} / THE FORME COLLECTION{% endif %}</p>
+      <div class="product-title-row"><h1>{{ product.title }}</h1><button type="button" class="text-button js-only product-compare" data-compare="{{ product.handle }}" aria-pressed="false" aria-label="Compare {{ product.title | escape }}">{% render 'icon', name: 'compare' %}<span>Compare</span></button></div>
       <p class="product-tagline">{{ product.metafields.custom.tagline.value }}</p>
-      <div class="product-price-row"><p class="product-price" data-product-price>{{ current_variant.price | money }}</p><span class="fine-print">{{ cart.currency.iso_code | default: shop.currency }} · taxes calculated at checkout</span></div>
+      <div class="product-price-row"><p class="product-price" data-product-price>{{ current_variant.price | money }}</p><span class="fine-print">{{ cart.currency.iso_code | default: shop.currency }}<br>Taxes calculated at checkout</span></div>
       <div class="product-description rte">{{ product.description }}</div>
       {% form 'product', product, id: product_form_id, class: 'product-form', data-product-form: '' %}
         <div class="native-variant"><label for="Variant-{{ section.id }}">Choose your configuration</label><select id="Variant-{{ section.id }}" name="id" data-variant-select>{% for variant in product.variants %}<option value="{{ variant.id }}" {% if variant.id == current_variant.id %}selected{% endif %}{% unless variant.available %} disabled{% endunless %}>{{ variant.title }} — {{ variant.price | money }}{% unless variant.available %} — Currently unavailable{% endunless %}</option>{% endfor %}</select></div>
         <div class="variant-options js-only">
           {% for option in product.options_with_values %}{% assign option_index = forloop.index0 %}
-            <fieldset class="variant-option" data-option-index="{{ option_index }}"><legend><span class="option-number">0{{ forloop.index }}</span>{{ option.name }}<span class="option-current" data-option-current>{{ current_variant.options[option_index] }}</span></legend><div class="option-values{% if option.name == 'Colour' or option.name == 'Color' %} option-values--swatches{% endif %}">
-              {% for value in option.values %}{% assign option_value = value.name | default: value %}<label class="option-choice{% if option.name == 'Colour' or option.name == 'Color' %} option-choice--swatch{% endif %}"><input type="radio" name="options[{{ option.name | escape }}]" value="{{ option_value | escape }}" {% if current_variant.options[option_index] == option_value %}checked{% endif %} data-option-input><span class="choice-face" data-colour="{{ option_value | handleize }}"><span>{{ option_value }}</span></span></label>{% endfor %}
-            </div></fieldset>
+            <fieldset class="variant-option" data-option-index="{{ option_index }}" data-option-name="{{ option.name | escape }}"><legend><span class="option-number">0{{ forloop.index }}</span>{{ option.name }}<span class="option-current" data-option-current>{{ current_variant.options[option_index] }}</span></legend>
+              <div class="option-values{% if option.name == 'Colour' or option.name == 'Color' %} option-values--swatches{% endif %}">
+                {% for value in option.values %}{% assign option_value = value.name | default: value %}<label class="option-choice{% if option.name == 'Colour' or option.name == 'Color' %} option-choice--swatch{% endif %}"><input type="radio" name="options[{{ option.name | escape }}]" value="{{ option_value | escape }}" {% if current_variant.options[option_index] == option_value %}checked{% endif %} data-option-input><span class="choice-face" data-colour="{{ option_value | handleize }}"><span class="choice-name">{{ option_value }}</span></span></label>{% endfor %}
+              </div>
+              {% if is_arc and option.name == 'Upholstery' %}<p class="material-description" data-material-description></p>{% endif %}
+            </fieldset>
           {% endfor %}
         </div>
         <p class="variant-notice" data-variant-notice role="status" hidden></p>
-        <div class="product-specification"><span data-size-dimensions>{{ product.metafields.custom.dimensions.value }}</span>{% if is_arc %}<button type="button" class="text-button js-only" data-open-dimensions>View dimensions {% render 'icon', name: 'ruler' %}</button>{% endif %}</div>
+        <div class="product-specification"><span data-size-dimensions>{% if is_arc %}{% render 'arc-measurements', product: product, variant: current_variant %}{% else %}{{ product.metafields.custom.dimensions.value }}{% endif %}</span>{% if is_arc %}<button type="button" class="text-button js-only" data-open-dimensions>Measurements {% render 'icon', name: 'ruler' %}</button>{% endif %}</div>
         <div class="purchase-row"><div class="quantity-control"><button type="button" data-quantity-step="-1" aria-label="Decrease quantity">{% render 'icon', name: 'minus' %}</button><label for="Quantity-{{ section.id }}" class="visually-hidden">Quantity</label><input type="number" id="Quantity-{{ section.id }}" name="quantity" min="1" max="99" value="1" inputmode="numeric"><button type="button" data-quantity-step="1" aria-label="Increase quantity">{% render 'icon', name: 'plus' %}</button></div><button type="submit" class="button purchase-button" data-add-to-cart {% unless current_variant.available %}disabled{% endunless %}><span data-add-label>{% if current_variant.available %}Add to bag{% else %}Currently unavailable{% endif %}</span>{% render 'icon', name: 'arrow' %}</button></div>
         <p class="form-error" data-product-error role="alert" hidden></p>
         <input type="hidden" name="properties[_FORME configuration]" data-config-property value="{{ current_variant.title | escape }}">
       {% endform %}
       <div class="product-assurance"><span class="availability-dot{% unless current_variant.available %} availability-dot--off{% endunless %}" data-availability-dot></span><p data-delivery-copy>{% if current_variant.available %}Estimated dispatch: {{ product.metafields.custom.delivery.value | default: section.settings.delivery_text }}{% else %}This piece is currently unavailable.{% endif %}</p></div>
-      <div class="product-utilities"><a href="{{ section.settings.sample_product.url | default: '/products/material-library' }}" class="underlined-link">Feel it first. Order samples {% render 'icon', name: 'diagonal' %}</a><button type="button" class="text-button js-only" data-share-config>{% render 'icon', name: 'share' %} Share{% if is_arc %} your design{% endif %}</button></div>
+      <div class="product-utilities"><a href="{{ section.settings.sample_product.url | default: '/products/material-library' }}" class="underlined-link">Order material samples {% render 'icon', name: 'diagonal' %}</a><button type="button" class="text-button js-only" data-share-config>{% render 'icon', name: 'share' %} Share{% if is_arc %} your design{% endif %}</button></div>
       <div class="share-fallback" data-share-fallback hidden><label for="ShareUrl-{{ section.id }}">Your shareable configuration link</label><input readonly id="ShareUrl-{{ section.id }}" data-share-url><p class="fine-print">Copy this link to share this exact selection.</p></div>
       <div class="product-accordions">
         {% for block in section.blocks %}{% case block.type %}{% when 'detail' %}<details {{ block.shopify_attributes }}><summary>{{ block.settings.heading }}{% render 'icon', name: 'plus' %}</summary><div class="rte">{{ block.settings.body }}</div></details>{% when '@app' %}{% render block %}{% endcase %}{% endfor %}
-        <details><summary>Dimensions & materials{% render 'icon', name: 'plus' %}</summary><p>{{ product.metafields.custom.dimensions.value }}<br>{{ product.metafields.custom.materials.value }}</p><p>Allow space around your piece for access and everyday use. Review the delivery guide before ordering.</p></details>
-        <details><summary>Delivery & returns{% render 'icon', name: 'plus' %}</summary><p>Estimated dispatch: {{ product.metafields.custom.delivery.value | default: section.settings.delivery_text }}. Delivery options and charges are confirmed at checkout.</p><a href="/pages/delivery" class="underlined-link">Read the delivery guide {% render 'icon', name: 'arrow' %}</a></details>
+        <details><summary>Dimensions & materials{% render 'icon', name: 'plus' %}</summary><p><span data-selected-dimensions>{% if is_arc %}{% render 'arc-measurements', product: product, variant: current_variant %}{% else %}{{ product.metafields.custom.dimensions.value }}{% endif %}</span><br><span data-selected-materials>{{ product.metafields.custom.materials.value }}</span></p><p>Allow space around your piece for access and everyday use. Review the delivery guide before ordering.</p></details>
+        <details><summary>Delivery & returns{% render 'icon', name: 'plus' %}</summary><p>Estimated dispatch: {{ product.metafields.custom.delivery.value | default: section.settings.delivery_text }}. Delivery options and charges are confirmed at checkout.</p><a href="{{ routes.root_url }}pages/delivery" class="underlined-link">Read the delivery guide {% render 'icon', name: 'arrow' %}</a></details>
       </div>
     </div>
   </div>
+  <dialog class="gallery-dialog" data-gallery-dialog aria-label="Enlarged product gallery"><div class="gallery-dialog-header"><p data-lightbox-caption></p><button type="button" class="icon-button" data-dialog-close aria-label="Close enlarged gallery">×</button></div><img data-lightbox-image alt="" width="1440" height="1000"><div class="gallery-dialog-navigation"><button type="button" class="text-button" data-gallery-step="-1">← Previous</button><span data-lightbox-counter></span><button type="button" class="text-button" data-gallery-step="1">Next →</button></div></dialog>
+  {% if is_arc %}
+    <dialog class="measure-dialog" data-measure-dialog aria-label="Arc measurements"><div class="gallery-dialog-header"><h2>Made for your space.</h2><button type="button" class="icon-button" data-dialog-close aria-label="Close measurements">×</button></div><p data-measure-title></p><svg viewBox="0 0 460 280" role="img" aria-label="Plan of the selected sofa with width and depth dimensions"><g fill="none" stroke="currentColor" stroke-width="1.5"><path data-plan-outline d="M80 70h280v110H80z"></path><path data-plan-lines d="M80 215h280M80 207v16M360 207v16M395 70v110M387 70h16M387 180h16"></path></g><text x="220" y="244" text-anchor="middle" data-measure-width></text><text x="416" y="136" text-anchor="middle" transform="rotate(90 416 136)" data-measure-depth></text></svg><dl class="measure-facts"><div><dt>Width</dt><dd data-measure-width></dd></div><div><dt>Depth</dt><dd data-measure-depth></dd></div><div><dt>Height</dt><dd data-measure-height></dd></div></dl><p class="fine-print">Nominal design dimensions for this fictional collection, not manufacturing drawings. Measure doorways, stairs and the full delivery route as well as the room.</p></dialog>
+    <div class="arc-mobile-purchase js-only" data-sticky-purchase hidden><div><span data-sticky-selection>Arc</span><strong data-sticky-price>{{ current_variant.price | money }}</strong></div><button type="button" class="button" data-sticky-add>Add to bag {% render 'icon', name: 'arrow' %}</button></div>
+  {% endif %}
   <script type="application/json" data-product-json>{{ product | json | replace: '<', '\u003c' }}</script>
-  <script type="application/json" data-configurator-settings>{"enabled":{{ is_arc | json }},"models":{"Compact":{{ section.settings.compact_model | default: 'arc-compact.glb' | asset_url | json }},"Generous":{{ section.settings.generous_model | default: 'arc-generous.glb' | asset_url | json }},"Chaise":{{ section.settings.chaise_model | default: 'arc-chaise.glb' | asset_url | json }}},"dimensions":{"Compact":[224,103,83],"Generous":[284,103,83],"Chaise":[304,182,83]},"colours":{"Oat":"#c3b7a5","Moss":"#757a61","Clay":"#a67e62","Ink":"#454844"},"delivery":{{ product.metafields.custom.delivery.value | default: section.settings.delivery_text | json }}}</script>
-<script type="application/ld+json">{{ product | structured_data }}</script>
+  <script type="application/json" data-configurator-settings>{% render 'arc-config', is_arc: is_arc, allow_3d: allow_3d, product: product, section: section %}</script>
+  <script type="application/ld+json">{{ product | structured_data }}</script>
 </section>
+
 {% schema %}
 {
   "name": "Product information",
@@ -90,30 +129,8 @@
       "label": "Fabric sample product"
     },
     {
-      "type": "header",
-      "content": "Arc model assets"
-    },
-    {
       "type": "paragraph",
-      "content": "Bundled models match the original Arc collection. Custom models require matching dimensions and material names in the configurator source."
-    },
-    {
-      "type": "text",
-      "id": "compact_model",
-      "label": "Compact model asset filename",
-      "default": "arc-compact.glb"
-    },
-    {
-      "type": "text",
-      "id": "generous_model",
-      "label": "Generous model asset filename",
-      "default": "arc-generous.glb"
-    },
-    {
-      "type": "text",
-      "id": "chaise_model",
-      "label": "Chaise model asset filename",
-      "default": "arc-chaise.glb"
+      "content": "Arc V2 uses the validated models and dimensions in tools/arc-spec.json. Arbitrary replacement models are not supported without updating that contract."
     }
   ],
   "blocks": [

@@ -1,0 +1,102 @@
+{
+  "version": 2,
+  "productHandle": "arc-modular-sofa",
+  "optionNames": [
+    "Size",
+    "Upholstery",
+    "Colour"
+  ],
+  "tileMetres": 0.12,
+  "poster": {
+    "width": 1440,
+    "height": 1000,
+    "prefix": "arc-v2-"
+  },
+  "sizes": {
+    "Compact": {
+      "id": "compact",
+      "dimensions": [
+        224,
+        103,
+        83
+      ],
+      "seats": 2,
+      "description": "A generous two-seat footprint",
+      "model": "arc-compact.glb"
+    },
+    "Generous": {
+      "id": "generous",
+      "dimensions": [
+        284,
+        103,
+        83
+      ],
+      "seats": 3,
+      "description": "Space to stretch, room to share",
+      "model": "arc-generous.glb"
+    },
+    "Chaise": {
+      "id": "chaise",
+      "dimensions": [
+        304,
+        182,
+        83
+      ],
+      "seats": 3,
+      "description": "Extended seat on the right as viewed",
+      "model": "arc-chaise.glb"
+    }
+  },
+  "fabrics": {
+    "Linen": {
+      "id": "linen",
+      "description": "An open, directional weave with a dry, softly varied surface.",
+      "roughness": 0.86,
+      "sheen": 0.45
+    },
+    "Bouclé": {
+      "id": "boucle",
+      "description": "A looped yarn with a rounded, tactile surface and soft highlights.",
+      "roughness": 0.93,
+      "sheen": 0.35
+    },
+    "Wool": {
+      "id": "wool",
+      "description": "A fine, dense twill with a soft nap and a quieter grain.",
+      "roughness": 0.9,
+      "sheen": 0.75
+    }
+  },
+  "colours": {
+    "Oat": {
+      "id": "oat",
+      "hex": "#c3b7a5"
+    },
+    "Moss": {
+      "id": "moss",
+      "hex": "#757a61"
+    },
+    "Clay": {
+      "id": "clay",
+      "hex": "#a67e62"
+    },
+    "Ink": {
+      "id": "ink",
+      "hex": "#454844"
+    }
+  },
+  "gallery": [
+    {
+      "file": "arc-v2-profile.webp",
+      "caption": "Profile study · Generous / Linen / Oat"
+    },
+    {
+      "file": "arc-v2-seam.webp",
+      "caption": "Tailored edge · Linen / Oat"
+    },
+    {
+      "file": "arc-v2-walnut.webp",
+      "caption": "Recessed walnut frame · construction study"
+    }
+  ]
+}

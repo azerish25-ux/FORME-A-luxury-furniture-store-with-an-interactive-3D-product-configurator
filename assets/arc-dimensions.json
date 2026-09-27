@@ -1,20 +1,42 @@
 {
-  "compact": {
-    "width": 224,
-    "depth": 103,
-    "height": 83,
-    "file": "arc-compact.glb"
-  },
-  "generous": {
-    "width": 284,
-    "depth": 103,
-    "height": 83,
-    "file": "arc-generous.glb"
-  },
-  "chaise": {
-    "width": 304,
-    "depth": 182,
-    "height": 83,
-    "file": "arc-chaise.glb"
+  "revision": 2,
+  "units": "centimetres",
+  "sizes": {
+    "Compact": {
+      "design_cm": [
+        224,
+        103,
+        83
+      ],
+      "measured_cm": [
+        224.0,
+        103.0,
+        83.0
+      ]
+    },
+    "Generous": {
+      "design_cm": [
+        284,
+        103,
+        83
+      ],
+      "measured_cm": [
+        284.0,
+        103.0,
+        83.0
+      ]
+    },
+    "Chaise": {
+      "design_cm": [
+        304,
+        182,
+        83
+      ],
+      "measured_cm": [
+        304.0,
+        182.0,
+        83.0
+      ]
+    }
   }
 }

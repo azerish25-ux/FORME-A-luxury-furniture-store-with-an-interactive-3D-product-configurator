@@ -12,7 +12,7 @@
 <dialog id="MobileNavigation" class="mobile-navigation" aria-label="Navigation">
   <div class="drawer-heading"><span class="wordmark">FORME.</span><button type="button" class="icon-button" data-dialog-close aria-label="Close navigation">{% render 'icon', name: 'close' %}</button></div>
   <nav aria-label="Mobile navigation">{% if section.settings.menu != blank %}{% for link in section.settings.menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% else %}<a href="{{ routes.all_products_collection_url }}">The collection</a><a href="/pages/materials">Our materials</a><a href="/pages/journal">The journal</a>{% endif %}<a href="/products/arc-modular-sofa">Design your sofa</a><a href="/pages/delivery">Delivery & care</a></nav>
-  <p class="eyebrow">Objects for living. Space for you.</p>
+  <p class="eyebrow">{{ settings.brand_tagline | default: 'Objects for living.' | escape }}</p>
 </dialog>
 {% schema %}
 {

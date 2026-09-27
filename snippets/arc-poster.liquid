@@ -1,0 +1,8 @@
+{%- comment -%}Generated from tools/arc-spec.json; unknown options use the merchant gallery.{%- endcomment -%}
+{%- assign arc_value_0 = '' -%}{%- for option in product.options_with_values -%}{%- if option.name == 'Size' -%}{%- assign arc_value_0 = variant.options[forloop.index0] -%}{%- endif -%}{%- endfor -%}
+{%- assign arc_slug_0 = '' -%}{%- case arc_value_0 -%}{%- when 'Compact' -%}{%- assign arc_slug_0 = 'compact' -%}{%- when 'Generous' -%}{%- assign arc_slug_0 = 'generous' -%}{%- when 'Chaise' -%}{%- assign arc_slug_0 = 'chaise' -%}{%- endcase -%}
+{%- assign arc_value_1 = '' -%}{%- for option in product.options_with_values -%}{%- if option.name == 'Upholstery' -%}{%- assign arc_value_1 = variant.options[forloop.index0] -%}{%- endif -%}{%- endfor -%}
+{%- assign arc_slug_1 = '' -%}{%- case arc_value_1 -%}{%- when 'Linen' -%}{%- assign arc_slug_1 = 'linen' -%}{%- when 'Bouclé' -%}{%- assign arc_slug_1 = 'boucle' -%}{%- when 'Wool' -%}{%- assign arc_slug_1 = 'wool' -%}{%- endcase -%}
+{%- assign arc_value_2 = '' -%}{%- for option in product.options_with_values -%}{%- if option.name == 'Colour' -%}{%- assign arc_value_2 = variant.options[forloop.index0] -%}{%- endif -%}{%- endfor -%}
+{%- assign arc_slug_2 = '' -%}{%- case arc_value_2 -%}{%- when 'Oat' -%}{%- assign arc_slug_2 = 'oat' -%}{%- when 'Moss' -%}{%- assign arc_slug_2 = 'moss' -%}{%- when 'Clay' -%}{%- assign arc_slug_2 = 'clay' -%}{%- when 'Ink' -%}{%- assign arc_slug_2 = 'ink' -%}{%- endcase -%}
+{%- if arc_slug_0 != '' and arc_slug_1 != '' and arc_slug_2 != '' -%}{%- assign arc_filename = 'arc-v2-' | append: arc_slug_0 | append: '-' | append: arc_slug_1 | append: '-' | append: arc_slug_2 | append: '.webp' -%}{{- arc_filename | asset_url -}}{%- endif -%}

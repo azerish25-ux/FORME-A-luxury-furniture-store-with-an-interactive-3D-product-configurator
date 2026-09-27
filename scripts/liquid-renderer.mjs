@@ -9,7 +9,7 @@ export const catalog = JSON.parse(await fs.readFile(path.join(root,'fixtures/cat
 const productList = Array.isArray(catalog) ? catalog : catalog.products;
 const pagesData = JSON.parse(await fs.readFile(path.join(root,'fixtures/pages.json'),'utf8'));
 const translations = JSON.parse(await fs.readFile(path.join(root,'locales/en.default.json'),'utf8'));
-export const engine = new Liquid({ root: path.join(root,'snippets'), extname: '.liquid', strictFilters: false, strictVariables: false, ownPropertyOnly: false, jsTruthy: false });
+export const engine = new Liquid({ root: path.join(root,'snippets'), extname: '.liquid', strictFilters: false, strictVariables: false, ownPropertyOnly: true, jsTruthy: false });
 engine.registerFilter('asset_url', name => `/assets/${name}`);
 engine.registerFilter('stylesheet_tag', url => `<link rel="stylesheet" href="${escape(url)}">`);
 engine.registerFilter('json', value => JSON.stringify(value ?? null));

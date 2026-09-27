@@ -14,3 +14,14 @@ assets/*.png
 evidence/*.png
 evidence/*.json
 evidence/*.html
+
+!assets/arc-*-color.png
+!assets/arc-*-normal.png
+!assets/arc-*-rough.png
+
+evidence/
+.arc-cache/
+
+playwright-static-report/
+static-test-results/
+recovery/

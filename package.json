@@ -1,9 +1,9 @@
 {
   "name": "forme-shopify-theme",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "type": "module",
-  "description": "FORME — an original Shopify Online Store 2.0 theme and progressively enhanced furniture configurator.",
+  "description": "FORME \u2014 an original Shopify Online Store 2.0 theme and progressively enhanced furniture configurator.",
   "scripts": {
     "build": "node scripts/build.mjs",
     "preview": "node scripts/preview.mjs",
@@ -11,16 +11,20 @@
     "test:e2e": "playwright test",
     "check": "node scripts/validate-theme.mjs",
     "package": "node scripts/package.mjs",
-    "render": "blender -b -t 4 --python tools/build_assets.py -- --mode all"
+    "render": "python3 tools/arc-materials.py && blender -b -t 4 --python tools/arc-assets.py -- --mode all && python3 tools/arc-pack.py --strict",
+    "typecheck": "tsc -p jsconfig.domain.json",
+    "verify:arc": "node scripts/verify-arc-assets.mjs",
+    "test:static": "playwright test --config playwright.static.config.mjs"
   },
   "dependencies": {
     "three": "0.180.0"
   },
   "devDependencies": {
-    "liquidjs": "10.21.1",
+    "liquidjs": "10.29.0",
     "esbuild": "0.25.9",
     "@playwright/test": "1.55.1",
-    "@axe-core/playwright": "4.10.2"
+    "@axe-core/playwright": "4.10.2",
+    "typescript": "5.8.3"
   },
   "engines": {
     "node": ">=22"

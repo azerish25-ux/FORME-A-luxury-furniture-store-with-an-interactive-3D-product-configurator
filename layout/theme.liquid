@@ -17,9 +17,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
     {{ 'theme.css' | asset_url | stylesheet_tag }}
+    {{ 'arc-experience.css' | asset_url | stylesheet_tag }}
+    <style>:root{--paper:{{ settings.background | default: '#f3f0e8' }};--ink:{{ settings.ink | default: '#2b2b24' }};}</style>
     {{ content_for_header }}
     <script>document.documentElement.classList.replace('no-js','js');</script>
-    <script type="application/json" id="forme-settings">{"root":{{ routes.root_url | json }},"currency":{{ cart.currency.iso_code | default: shop.currency | json }},"locale":{{ request.locale.iso_code | json }},"configurator":{{ 'configurator.js' | asset_url | json }},"compareUrl":{{ pages['compare'].url | default: '/pages/compare' | json }}}</script>
+    <script type="application/json" id="forme-settings">{"root":{{ routes.root_url | json }},"currency":{{ cart.currency.iso_code | default: shop.currency | json }},"locale":{{ request.locale.iso_code | json }},"arcAssetBase":{{ 'arc-asset-manifest.json' | asset_url | json }},"configurator":{{ 'configurator.js' | asset_url | json }},"compareUrl":{{ pages['compare'].url | default: '/pages/compare' | json }}}</script>
     <script src="{{ 'theme.js' | asset_url }}" defer></script>
   </head>
   <body class="template-{{ request.page_type }}">

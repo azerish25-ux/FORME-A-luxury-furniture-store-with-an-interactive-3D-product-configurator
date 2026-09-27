@@ -1,3 +1,4 @@
+import './generate-arc.mjs';
 import { build } from 'esbuild';
 import { mkdir, stat } from 'node:fs/promises';
 await mkdir('assets', { recursive: true });

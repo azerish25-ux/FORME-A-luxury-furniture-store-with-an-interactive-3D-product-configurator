@@ -1,4 +1,4 @@
-<section class="product-story wrap section-space"><div class="product-story__copy"><p class="eyebrow">THE DETAILS MAKE THE DIFFERENCE</p><h2>{{ section.settings.heading | newline_to_br }}</h2><p>{{ section.settings.body }}</p><a href="/pages/materials" class="underlined-link">Explore our materials {% render 'icon', name: 'diagonal' %}</a></div><div>{% render 'picture', image: section.settings.image, fallback: 'arc-tailoring-detail.webp', alt: 'Tailoring detail on the Arc sofa', loading: 'lazy' %}</div></section>
+<section class="product-story wrap section-space"><div class="product-story__copy"><p class="eyebrow">THE DETAILS MAKE THE DIFFERENCE</p><h2>{{ section.settings.heading | newline_to_br }}</h2><p>{{ section.settings.body }}</p><a href="{{ routes.root_url }}pages/materials" class="underlined-link">Explore our materials {% render 'icon', name: 'diagonal' %}</a></div><div>{% render 'picture', image: section.settings.image, fallback: 'arc-v2-seam.webp', alt: 'Tailoring detail on the Arc sofa', loading: 'lazy' %}</div></section>
 {% schema %}
 {
   "name": "Product editorial",

@@ -41,8 +41,8 @@ h3 { font-weight: 400; }
 .fine-print { font-size: 11px; line-height: 1.65; color: var(--muted); }
 .fine-print a, .rte a { text-decoration: underline; text-underline-offset: 3px; }
 .visually-hidden { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; clip: rect(0,0,0,0); white-space: nowrap; overflow: hidden; border: 0; }
-.skip-link { position: fixed; top: -100px; left: 20px; z-index: 200; background: var(--ink); color: var(--paper); padding: 12px 22px; }
-.skip-link:focus { top: 12px; }
+.skip-link { clip-path: inset(50%); position: fixed; top: 12px; left: 20px; z-index: 200; background: var(--ink); color: var(--paper); padding: 12px 22px; }
+.skip-link:focus { clip-path: none; }
 .button { display: inline-flex; min-height: 54px; justify-content: space-between; align-items: center; gap: 40px; padding: 15px 25px; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); font-size: 12px; font-weight: 500; transition: background .22s, color .22s; }
 .button:hover:not(:disabled) { background: #44473b; border-color: #44473b; }
 .button .icon { width: 19px; height: 19px; transition: transform .28s var(--ease); }

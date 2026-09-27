@@ -33,7 +33,7 @@
         if(existing && existing.quantity+quantity>99) return response({description:'The maximum quantity is 99.'},422);
         if(existing) {existing.quantity+=quantity;added.push(existing);}
         else {
-          const item={key:lineKey,id:variant.id,variant_id:variant.id,product_title:product.title,title:product.title,variant_title:variant.title,handle:product.handle,url:product.url+'?variant='+variant.id,image:product.featured_image.src.startsWith('/')?product.featured_image.src:'/assets/'+product.featured_image.src,quantity,price:variant.price,properties};
+          const item={key:lineKey,id:variant.id,variant_id:variant.id,product_title:product.title,title:product.title,variant_title:variant.title,handle:product.handle,url:product.url+'?variant='+variant.id,variant_options:variant.options,image:(variant.featured_image?.src || product.featured_image.src).startsWith('/')?(variant.featured_image?.src || product.featured_image.src):'/assets/'+(variant.featured_image?.src || product.featured_image.src),quantity,price:variant.price,properties};
           cart.items.push(item);added.push(item);
         }
       }
@@ -80,9 +80,10 @@
     }
     if(location.pathname==='/pages/checkout-preview') checkout();
   });
+  document.addEventListener('forme:checkout-ready',event=>{event.preventDefault();history.pushState({},'','/pages/checkout-preview');checkout();});
   document.addEventListener('submit',event=>{
     const form=event.target;
-    if(event.submitter?.name==='checkout') {event.preventDefault();history.pushState({},'','/pages/checkout-preview');checkout();return;}
+    
     if(form.matches('[data-preview-form="customer"],[data-preview-form="contact"]')) {
       event.preventDefault();
       const previous=form.querySelector('.preview-form-result');previous?.remove();

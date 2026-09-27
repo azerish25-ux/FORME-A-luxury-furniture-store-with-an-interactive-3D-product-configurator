@@ -1,26 +1,14 @@
 # FORME — Objects for living
 
-An original editorial furniture storefront built as a **native Shopify Online Store 2.0 Liquid theme**. No React storefront, headless checkout replacement or production mock-commerce service is used.
+Native Shopify Online Store 2.0 furniture theme with an optional Three.js Arc configurator. The public portfolio preview simulates commerce locally; it is not Shopify checkout and accepts no payment.
 
-Warm ivory, olive-grey and charcoal; large editorial typography; original architectural room scenes; and a coherent Blender-authored furniture collection. Arc has separately authored Compact, Generous and Chaise geometry, not one stretched primitive.
+## Arc Experience V2
 
-## Design and verified delivery
+Arc now has a coordinated responsive product page, readable shopping typography, three separately authored size models, original physical-scale material maps, 36 matching configuration posters, a keyboard-operable enlarged gallery, independent measurement diagrams and responsive 3D inspection controls. Selection, dimensions, shared links and bag imagery follow one validated product contract. Rapid cart changes preserve user intent; keyed updates preserve focus and delivery-note drafts.
 
-[Open the editable Figma storefront and brand foundations](https://www.figma.com/design/Gkz03B1xMTRe2VeKBcr2OV). The file contains the desktop homepage, Arc product page, eight colour variables, nine spacing variables and five typography styles. Its layers remain editable.
+Read [the implementation and verification guide](docs/ARC-EXPERIENCE-V2.md) for source ownership, original asset reproduction, commands, budgets and remaining scope. The original homepage/collection direction is retained; this is the Arc milestone, not a claim that the whole storefront redesign is finished.
 
-[Verified acceptance run — 27 September 2026](https://github.com/azerish25-ux/FORME-A-luxury-furniture-store-with-an-interactive-3D-product-configurator/actions/runs/36330432438):
-
-| Check | Result |
-|---|---|
-| Domain tests | 9 passed |
-| Structural, catalogue and Liquid checks | 95 passed |
-| Browser journeys | 13 passed; 0 failed, skipped or flaky |
-| Shopify official Theme Check 4.8.2 | 0 errors; 3 external-font performance warnings |
-| Original Blender rendering pipeline | Passed; original assets committed |
-
-The browser suite covers collection filters/search, variant URLs and unavailable variants, on-demand 3D, rotation and dimension controls, failed-model fallback, rapid configuration changes, variant-to-cart mapping, cart editing, comparison, fabric samples, mobile layout and the explicitly simulated order journey. Automated accessibility checks are included; these are not a claim of comprehensive accessibility certification. The recurring quality workflow is read-only and uploads screenshots, reports, the installable theme, source archive and static preview.
-
-**Not yet verified:** a real Shopify test order, real merchant-admin editing, or a public storefront deployment. Those require an actual development store and hosting activation. The image-generation service returned a billing error; the delivered images are original Blender CGI, not successfully generated AI photographs or documentary product photography.
+Quality evidence is uploaded by [the acceptance workflow](.github/workflows/storefront-quality.yml) and [Arc asset production](.github/workflows/render-assets.yml). Use a specific successful run and its artifacts rather than treating historical test counts as current evidence. Figma's existing file is an earlier baseline, not the V2 source of truth. Native Shopify checkout and merchant-editor acceptance still require an authorized development store.
 
 ## Run locally
 
@@ -29,19 +17,22 @@ Node.js 22 and Python 3 are required for the development and packaging scripts.
 ```sh
 npm ci
 npm run build
+npm test
+npm run typecheck
+npm run check
+npm run verify:arc
 npm run preview
 ```
 
 Open `http://localhost:4173`. The development server renders the actual Liquid sections against isolated fictional product fixtures. It is **not a Shopify server**. A visible banner and checkout warning distinguish its browser-local order simulation from Shopify test mode.
 
 ```sh
-npm test
-npm run check
-npx playwright install chromium
+npx playwright install chromium firefox webkit
 npm run test:e2e
 npm run package
 node scripts/export-catalog.mjs
 node scripts/static-preview.mjs
+npm run test:static
 ```
 
 The installable archive is `artifacts/FORME-Shopify-Theme.zip`. It contains only theme directories, not fixture data or the preview adapter. Follow [the merchant setup guide](docs/MERCHANT-SETUP.md) to install it on an unpublished development-store theme.
@@ -63,10 +54,14 @@ Arc has **36 fixture variants**: three sizes × three fabrics × four colours. C
 | Contact/newsletter | Shopify native forms | Validates input; does not submit or save it |
 | Merchant editing | Shopify Theme Editor and product admin | Not simulated as a real merchant admin |
 
-**A real Shopify test order and merchant-editor recording have not been verified without an attached Shopify development store.** The preview must not be presented as that evidence. No payments are accepted by the preview. Product claims, delivery estimates and policies are fictional portfolio copy and must be reviewed for a real merchant.
+**A real Shopify test order and merchant-editor recording have not been verified without an attached Shopify development store.** The preview must not be presented as that evidence. No payments are accepted by the preview.
 
 ## Source map
 
-`layout/`, `sections/`, `snippets/`, `templates/`, `config/`, `locales/`: native theme. `src/theme.js`: commerce and progressive enhancement. `src/configurator.js`: on-demand PBR viewer with context-loss handling and disposal. `src/core.js`: testable variant, quantity, URL and comparison logic. `tools/build_assets.py`: reproducible original geometry and Cycles renders. `tools/Arc-master.blend`: original editable sofa. `preview/`, `fixtures/`, `scripts/liquid-renderer.mjs`: isolated demonstration adapter. `tests/`: domain and browser regression tests.
+`layout/`, `sections/`, `snippets/`, `templates/`, `config/`, `locales/`: native theme. `src/theme.js`: composition and progressive enhancement. `src/product.js`, `src/cart.js`, `src/cart-state.js`, `src/cart-dom.js`: independent product and cart responsibilities. `src/configurator.js`: on-demand PBR viewer with context-loss handling and disposal. `src/core.js`: testable variant, quantity, URL and comparison logic. `tools/arc-spec.json`, `tools/arc-materials.py`, `tools/arc-assets.py`, `tools/arc-pack.py`: canonical Arc V2 specification, materials, geometry and renders. `tools/build_assets.py`: legacy non-Arc collection scenes. `tools/Arc-master.blend`: original editable sofa. `preview/`, `fixtures/`, `scripts/liquid-renderer.mjs`: isolated demonstration adapter. `tests/`: domain and browser regression tests.
 
 Read [asset provenance](docs/ASSET-PROVENANCE.md), [architecture](docs/ARCHITECTURE.md) and [the acceptance checklist](docs/ACCEPTANCE.md) before presenting or publishing the store.
+
+## Release integrity
+
+Routine CI uses npm ci, audits dependencies, verifies generated-file drift and all authored resources, and tests both the Liquid preview and its packaged static counterpart. The manual rendering workflow produces review artifacts, never automatic source overwrites. The legacy GitHack publisher is manual; a GitHub commit does not update the separate ChatGPT Site.

@@ -1,0 +1,94 @@
+name: FORME editorial production
+on:
+  push:
+    paths: ['.github/workflows/editorial-production.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: forme-editorial-production
+  cancel-in-progress: false
+jobs:
+  photographs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Prepare production browser
+        run: |
+          mkdir -p /tmp/forme-editorial
+          cd /tmp/forme-editorial
+          npm init -y
+          npm install --save-exact playwright@1.55.1
+          npx playwright install --with-deps chromium
+          python -m pip install Pillow
+      - name: Generate four commissioned images and retrieve originals
+        env:
+          OUTPUT_DIR: ${{ github.workspace }}
+        working-directory: /tmp/forme-editorial
+        run: |
+          cat > produce.cjs <<'NODE'
+          const { chromium } = require('playwright');
+          const fs = require('node:fs/promises');
+          const path = require('node:path');
+          (async () => {
+            const browser = await chromium.launch({ headless: true });
+            const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+            page.on('pageerror', error => console.log('Browser:', error.message));
+            await page.goto('https://forme-objects-for-living-0tqb0b.v2.appdeploy.ai/', { waitUntil: 'networkidle', timeout: 90000 });
+            const output = path.join(process.env.OUTPUT_DIR, 'editorial-originals');
+            await fs.mkdir(output, { recursive: true });
+            for (const slot of ['hero-room', 'editorial-room', 'material-linen', 'material-oak']) {
+              await page.locator('#image-slot').selectOption(slot);
+              await page.locator('#generate').click();
+              const image = page.locator(`figure[data-slot="${slot}"] img`);
+              try { await image.waitFor({ state: 'visible', timeout: 180000 }); }
+              catch (error) { throw new Error(`${slot}: ${await page.locator('#status').innerText()}`); }
+              await page.locator('#generate').waitFor({ state: 'visible' });
+              await page.waitForFunction(() => !document.querySelector('#generate').disabled, { timeout: 30000 });
+              const url = await image.getAttribute('src');
+              const response = await page.request.get(url);
+              if (!response.ok()) throw new Error(`Image download failed: ${slot} ${response.status()}`);
+              await fs.writeFile(path.join(output, `${slot}.png`), await response.body());
+              console.log(`Saved commissioned image: ${slot}`);
+            }
+            await page.screenshot({ path: path.join(output, 'production-library.png'), fullPage: true });
+            await browser.close();
+          })().catch(error => { console.error(error); process.exit(1); });
+          NODE
+          node produce.cjs
+      - name: Optimize and version editorial assets
+        run: |
+          python - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+          out = Path('assets'); out.mkdir(exist_ok=True)
+          for p in Path('editorial-originals').glob('*.png'):
+              if p.stem == 'production-library': continue
+              im = Image.open(p).convert('RGB')
+              im.save(out / (p.stem + '.webp'), quality=88, method=6)
+          PY
+          mkdir -p docs
+          cat > docs/EDITORIAL-PROVENANCE.md <<'TEXT'
+          # Editorial imagery
+          The four files hero-room.webp, editorial-room.webp, material-linen.webp and material-oak.webp are AI-generated editorial illustrations commissioned for this fictional FORME portfolio brand on 27 September 2026 using the AppDeploy image-generation service. They are not documentary photographs of actual products or a real manufacturer. Original FORME sofa geometry and furniture art direction informed the text briefs; the generated images are not dimensionally authoritative. Product studio renders and configurator geometry are the source of truth for the fictional product design. Generated room styling can differ in small details from the original models. Replace editorial imagery with commissioned real product photography before representing actual inventory.
+          TEXT
+          git config user.name 'FORME production'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/*.webp docs/EDITORIAL-PROVENANCE.md
+          if ! git diff --cached --quiet; then
+            git commit -m 'art: add four commissioned FORME editorial images with provenance'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: forme-editorial-images
+          path: |
+            editorial-originals/
+            assets/*.webp
+          retention-days: 7

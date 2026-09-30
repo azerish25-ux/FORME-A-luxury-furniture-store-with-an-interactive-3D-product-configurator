@@ -5,7 +5,7 @@ export default defineConfig({
   reporter: [['list'],['html',{open:'never'}],['json',{outputFile:'evidence/browser-results.json'}]],
   use: {baseURL:'http://127.0.0.1:4173',viewport:{width:1440,height:1000},trace:'retain-on-failure',screenshot:'only-on-failure'},
   projects: [
-    {name:'chromium',use:{browserName:'chromium',launchOptions:{args:['--enable-unsafe-swiftshader']}}},
+    {name:'chromium',use:{browserName:'chromium',launchOptions:{executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE || undefined,args:['--enable-unsafe-swiftshader']}}},
     {name:'firefox',testMatch:'**/commerce-cross-browser.spec.mjs',use:{browserName:'firefox'}},
     {name:'webkit',testMatch:'**/commerce-cross-browser.spec.mjs',use:{browserName:'webkit'}},
   ],

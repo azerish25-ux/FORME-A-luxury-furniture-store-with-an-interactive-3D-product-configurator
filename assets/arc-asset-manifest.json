@@ -3,7 +3,7 @@
   "provenance": "Original procedural materials and Blender CGI. No documentary product photography or manufacturing certification.",
   "source_sha256": {
     "tools/arc-spec.json": "7aa896afb852fadfbb00697c26c8a43ddd7b9e357d8b6c7b286879ded1475a95",
-    "tools/arc-assets.py": "d92042f371b7d853b256684e2a1d5a110cbe01b98c2837e8fe45986a3d714bfe",
+    "tools/arc-assets.py": "f78abf7f87dd2bf9c2ffbca276cec6f796ff19337412e31e5b96cc91c54ef43e",
     "tools/arc-materials.py": "07f9c1b1201a0db1d26e496a1fd8859c7472cad2bd09d08d208e6e32e23f7f69",
     "tools/arc-pack.py": "758c8f37b22378995061a4f2c606d417fe7167308d4409604e63f9e89bc8ca16"
   },
@@ -25,13 +25,13 @@
     },
     {
       "file": "arc-chaise.glb",
-      "bytes": 2403192,
-      "sha256": "e25ab3023972aa295fe9bf3f5311b9e970646432ea5f2804bf7e83ed221cee74"
+      "bytes": 2644576,
+      "sha256": "4952a9c7b3c8e71b50031b0c68001431d8bf52caa3a9a1bc44b725f503170122"
     },
     {
       "file": "arc-compact.glb",
-      "bytes": 2047904,
-      "sha256": "eedbfd3cd352c10a4ad8a993ea5729960d4c20774415ebb9c59d7d56092383e1"
+      "bytes": 2289296,
+      "sha256": "3cb1e45a4f330ad0b1c56bf27a8505e7bfcf363ad5846d282e3537c3009fcd7e"
     },
     {
       "file": "arc-dimensions.json",
@@ -40,8 +40,8 @@
     },
     {
       "file": "arc-generous.glb",
-      "bytes": 2249704,
-      "sha256": "f5e7e6549669fffa3d09ab59ad2bfffb15d3425fc1764c36dfa5cffe70dbd361"
+      "bytes": 2491136,
+      "sha256": "aa14de1be637888f67cd8c8317a822f96db316e5db41c4d59cdc182298fdb302"
     },
     {
       "file": "arc-linen-color.png",
@@ -60,398 +60,398 @@
     },
     {
       "file": "arc-material-boucle.webp",
-      "bytes": 192982,
-      "sha256": "6864dad36d295424994b6f867f6ba6b0d75b0d277cb38bd01911861d1a68a578"
+      "bytes": 221318,
+      "sha256": "c4ae5eea0a06e5f1c2855bfb5c78cdf7e6f5af1d3994f3c30ccf5cca9af48f0c"
     },
     {
       "file": "arc-material-linen.webp",
-      "bytes": 160474,
-      "sha256": "569720c77aff292b7c80e6b9c6ab15d8e700d512ecae3f803aedffbd26bdb911"
+      "bytes": 179838,
+      "sha256": "5161539a58ec9cbe751d044c0732901413fb07ee4b727e15604a3fd41db0ee6c"
     },
     {
       "file": "arc-material-wool.webp",
-      "bytes": 27288,
-      "sha256": "ac156b734db9cc6ebbb5bdd1d516a2b459115e58cfd04c5deff50d704b6dfb97"
+      "bytes": 30738,
+      "sha256": "8c9d9127f58c93dd3777e2b2d20944dd1e9f5721b5dd117c385749175fe30fc3"
     },
     {
       "file": "arc-v2-chaise-boucle-clay-720.webp",
-      "bytes": 12374,
-      "sha256": "bd32c3c52de52c94dc61ffadf3d508b593cb46c43739d8c9aa8cc7a20268e382"
+      "bytes": 13880,
+      "sha256": "cf0146e6f3487aed81ce68c53ac8e80e8e76859d202ab9eaba98414d4ad4502b"
     },
     {
       "file": "arc-v2-chaise-boucle-clay.webp",
-      "bytes": 40822,
-      "sha256": "d6b5fe246560a7cb934d76cd5cbbe9c270e8ca14309b7138f850381f22f46594"
+      "bytes": 45498,
+      "sha256": "213f25838dcb55d622049417510c0d523d06b97efe04e375617165a7cd710f50"
     },
     {
       "file": "arc-v2-chaise-boucle-ink-720.webp",
-      "bytes": 12804,
-      "sha256": "1668b98bad280eda898adc9710456f07459d99a4c1386b57f25b90ce4258cd65"
+      "bytes": 13944,
+      "sha256": "f7445bc94e4ec6c43ccff018c81e68057a02e11eeb1e479bf85ee30072d22f54"
     },
     {
       "file": "arc-v2-chaise-boucle-ink.webp",
-      "bytes": 39872,
-      "sha256": "c2fe0d508ec49f2a73a7333104cf79c088889f9c45e6c2d9d8c23b37385e0fb4"
+      "bytes": 43290,
+      "sha256": "62c50d9295ab70b20f5cee766487350eb04f4b68f58c1386e19a9e02bbb4976b"
     },
     {
       "file": "arc-v2-chaise-boucle-moss-720.webp",
-      "bytes": 12112,
-      "sha256": "946fef4f9f5476f8d75faba4ba0d8850867c5897feba382d8fdeffd5731d6cab"
+      "bytes": 13494,
+      "sha256": "00ce7b641a48786089ddaf4881e4e9ad67cc4b9a62314315e9b814e0d4802420"
     },
     {
       "file": "arc-v2-chaise-boucle-moss.webp",
-      "bytes": 39022,
-      "sha256": "5f3dec2d95f9d8a863a32bf1b4857d746d3e5e1aa7677367c58bfb329840f76e"
+      "bytes": 42804,
+      "sha256": "ff8d53fa585316505785d85e956421c5e62fabf1d5805ce6e14dc702b0f90cf3"
     },
     {
       "file": "arc-v2-chaise-boucle-oat-720.webp",
-      "bytes": 10918,
-      "sha256": "18e62e51e21a07f5bb52cc2727709e5c75f349c4f5df1dc56a8ee9d0ac723852"
+      "bytes": 12084,
+      "sha256": "adf62b9356edf20b3bb133748cfdc105d64a0452ba581a9c4bfc739dbac6e6e1"
     },
     {
       "file": "arc-v2-chaise-boucle-oat.webp",
-      "bytes": 34494,
-      "sha256": "bbf7ab6654e9b39d0dfb94fa97c38c33431f6193117aba1e79ee3f8c568d4afc"
+      "bytes": 40292,
+      "sha256": "49f6e9377938b771baa88040aab7ba87f429a5996e65a34151bb285fb3012602"
     },
     {
       "file": "arc-v2-chaise-linen-clay-720.webp",
-      "bytes": 12444,
-      "sha256": "ae2fd6620ae0e615db60b8b1bc6cb08e09f2e23490d9828bc6c92b8ba18e01bf"
+      "bytes": 13752,
+      "sha256": "48e32b185d70a0a4e1c0c5d90cf4f294ff5c45b756aac7a539b86105ad34febf"
     },
     {
       "file": "arc-v2-chaise-linen-clay.webp",
-      "bytes": 40704,
-      "sha256": "89ff56e0feb11c32ed0d6218ae18e8298708ca7ea0ba9fba1d00f830c01d528c"
+      "bytes": 45078,
+      "sha256": "67f5f032705411350422424debf698c5031fd57f565f13ba1d24797ab349011e"
     },
     {
       "file": "arc-v2-chaise-linen-ink-720.webp",
-      "bytes": 12688,
-      "sha256": "71a2d74f1c3ce1205d199c4f7db044aefc7b86aa31dc0857c42488310a8789bd"
+      "bytes": 13866,
+      "sha256": "84ba526f9efec3948a5f9078966075431641c2e2b9556a3944ff703eefa4f3ad"
     },
     {
       "file": "arc-v2-chaise-linen-ink.webp",
-      "bytes": 39616,
-      "sha256": "ff8c3db836442e87c95a835affee3ef4ec45af3e4bd03b5b6bfe199e672a0d85"
+      "bytes": 43340,
+      "sha256": "3f04cd4bddd81d910de197b6db1042c6051b81dcc7541db7ba7a73b291b6eb52"
     },
     {
       "file": "arc-v2-chaise-linen-moss-720.webp",
-      "bytes": 12046,
-      "sha256": "3783e2c685b3ac1d0c5971289eda462e61e264dfb42619543f7e1df4d99ad369"
+      "bytes": 13296,
+      "sha256": "fd20fe8840ba8a20de146ca13f51c4f685938c717eb581df85cf73e663ce0668"
     },
     {
       "file": "arc-v2-chaise-linen-moss.webp",
-      "bytes": 37366,
-      "sha256": "fe3820427dd4011196125d347ff6df336825f5d66e9ed92f199174825a8dcdec"
+      "bytes": 42918,
+      "sha256": "afa61d012182eadab0b1883b4f8c57149d0d92ed7daf44fadef4ed1bb2e87c65"
     },
     {
       "file": "arc-v2-chaise-linen-oat-720.webp",
-      "bytes": 10824,
-      "sha256": "0d2251477288528dec60595a7a8a34b1ea4648e4dc417d0717ba3a0983f7f130"
+      "bytes": 12198,
+      "sha256": "4cb01143263079ab949fc1c4232462f34df2085ea4e6ee3f9b9547e8f2913893"
     },
     {
       "file": "arc-v2-chaise-linen-oat.webp",
-      "bytes": 34212,
-      "sha256": "0d8abb552803b26e26d26542c9ef02f74bd8a84f43802824ce46e1484924cf09"
+      "bytes": 39696,
+      "sha256": "6d00d774e4ffc7f8660c45e4cb8534246a3740efad27ed2a241598a5501324da"
     },
     {
       "file": "arc-v2-chaise-wool-clay-720.webp",
-      "bytes": 12024,
-      "sha256": "30fcd7c43141ca981d985da2d7d5f1f0a5cc79b090d36d0e6d7f21f75746872d"
+      "bytes": 13588,
+      "sha256": "52a3b9f558fcd98c4477120a55a42bc585b93794faf67b8dc2f16bddefc9309a"
     },
     {
       "file": "arc-v2-chaise-wool-clay.webp",
-      "bytes": 38320,
-      "sha256": "063a658307cd1af4eb039e2d00f7122145f745ae80e8f53320d42b6cada024d8"
+      "bytes": 44504,
+      "sha256": "91b98b1487a11f896733482f21c8af87a1dd623567214004498431b589fe4aea"
     },
     {
       "file": "arc-v2-chaise-wool-ink-720.webp",
-      "bytes": 12510,
-      "sha256": "adc907da00f4d3ea81d7fd2c2d7710ec2fab817a132af195d16696c51b3996d9"
+      "bytes": 13926,
+      "sha256": "50e2cf86342aa16fc8d5b863af8d0f1dff209d0f5d8856b2db3449022c24a69b"
     },
     {
       "file": "arc-v2-chaise-wool-ink.webp",
-      "bytes": 39112,
-      "sha256": "1c05e9a4b281d7eadaa92fd61d72563002d8983f801a5d42333f694e51b4063e"
+      "bytes": 42020,
+      "sha256": "8e87a59f07cb85e7e0da2369a5ec45b3f2fdc8b03a8f45c0a3a72953f5dd371c"
     },
     {
       "file": "arc-v2-chaise-wool-moss-720.webp",
-      "bytes": 11820,
-      "sha256": "d5458f8e7f982cb8fe4b6228e1cc863520914ccffd48ef8d02a894d927fc9795"
+      "bytes": 13094,
+      "sha256": "1c9e090829806ee60c47833607febe34a05755629822822380fa68920916232b"
     },
     {
       "file": "arc-v2-chaise-wool-moss.webp",
-      "bytes": 36676,
-      "sha256": "9c9fe62f018375faf3cdd91b3e11628cd736e4f57c2106095e9a81297b9375a9"
+      "bytes": 42380,
+      "sha256": "ca8d82dc17ac80e0fd8a78d5545d457892e0608d5d11b0d487a9dcebdb1d8135"
     },
     {
       "file": "arc-v2-chaise-wool-oat-720.webp",
-      "bytes": 10938,
-      "sha256": "b8d75990fbab474ed7f5b1d0c52b4562d81e636003e8aa1c43c67d9059575273"
+      "bytes": 12172,
+      "sha256": "7e4d00eef0de4064f179cd0fdfba36ec7e659903e320fd0e1205a09ae37d80a4"
     },
     {
       "file": "arc-v2-chaise-wool-oat.webp",
-      "bytes": 33472,
-      "sha256": "73949055cfc7064663d9220b54f4f504bec72f9f628ed7529547914958db3cc4"
+      "bytes": 37766,
+      "sha256": "167b06ef4cb96143610278409da8f9fab7797de99cdba03d35f3cda7e4b9d9c9"
     },
     {
       "file": "arc-v2-compact-boucle-clay-720.webp",
-      "bytes": 12972,
-      "sha256": "038249870a479da4e5e183e60866d33956934fcf1b6f5a51f60e6e14aac144bb"
+      "bytes": 14926,
+      "sha256": "14bfc2ecd337ae27e2a981f2eb1a3319abfe6c42f534516462ef3cb90bdf9964"
     },
     {
       "file": "arc-v2-compact-boucle-clay.webp",
-      "bytes": 45872,
-      "sha256": "508a120200b4af258576dc5a1062dbe052362cfcbe26d09a8bcfca0ec3e6b15e"
+      "bytes": 52470,
+      "sha256": "e02b5b4e60784493a891dd4387efd52f89b347213291499eec25282bb79509e5"
     },
     {
       "file": "arc-v2-compact-boucle-ink-720.webp",
-      "bytes": 13006,
-      "sha256": "bab3c5e348889d850224e8f182c6e4091dd8dd05024e7aa2e5c7d8b151de8171"
+      "bytes": 14458,
+      "sha256": "6e89b85e97a1787c4f7c1a62ac6987dac9209491f3af12d8248f84e26be60113"
     },
     {
       "file": "arc-v2-compact-boucle-ink.webp",
-      "bytes": 42458,
-      "sha256": "f76f8a48ddbde773b717bc6ba85a0c3e85f84300aacd474a339321acb590de91"
+      "bytes": 47648,
+      "sha256": "85e0dcb8681e360bfe10d44851f2aa96ec437fa9b8f790c157f9329899588acf"
     },
     {
       "file": "arc-v2-compact-boucle-moss-720.webp",
-      "bytes": 12556,
-      "sha256": "d3c2e1752da1025220af180584c81c18be9e886b0c2536ea20f7b93f5b1af473"
+      "bytes": 14082,
+      "sha256": "198fb65be4e9797f54ea7929f6db52dde69d9a2f55a050a7d1c670bf2bd3115f"
     },
     {
       "file": "arc-v2-compact-boucle-moss.webp",
-      "bytes": 43228,
-      "sha256": "af46935280fd1748410b77f7b5d38aad9aaf6fd4131a2c4d197ab581c5bdd85d"
+      "bytes": 48462,
+      "sha256": "a9fac7c6d0c5813cf084dbbc24e22084bc0ac3941c48b4f2ba6e211cc05b9898"
     },
     {
       "file": "arc-v2-compact-boucle-oat-720.webp",
-      "bytes": 11530,
-      "sha256": "549d6fe011b6e1493584691e9e2be5ea02a53f61c9c0f321bfa2161e4314646e"
+      "bytes": 12868,
+      "sha256": "6f5a4acb7301a09a3e5e86cbb571d5c75c3a75827103948159ca25a1996ac073"
     },
     {
       "file": "arc-v2-compact-boucle-oat.webp",
-      "bytes": 37598,
-      "sha256": "ae79dacec227c5723d484f6d2003da7acb26d79fa9266e092493e603779eb329"
+      "bytes": 44406,
+      "sha256": "71bd2989bcca8c3bb36cf933e57fdb7985d88d0f4bf6106bac2ede6f01021a47"
     },
     {
       "file": "arc-v2-compact-linen-clay-720.webp",
-      "bytes": 12938,
-      "sha256": "cadd71a44ad7e19af957fa790460c8d023c51e355c2f2321bf01d17dc317a711"
+      "bytes": 14850,
+      "sha256": "97611d67bee6b886d0df63a0b481f923bfa608f2f50791dd070b7e2558d7a84a"
     },
     {
       "file": "arc-v2-compact-linen-clay.webp",
-      "bytes": 42390,
-      "sha256": "23311298cc2788f4473ca73edd5ca531c80cfb5ee3361424b1e3c77097236053"
+      "bytes": 47594,
+      "sha256": "a50f60ad2de33e2b48717195120682e3980f34c13c39ea075b9ac1e702eee6f0"
     },
     {
       "file": "arc-v2-compact-linen-ink-720.webp",
-      "bytes": 12972,
-      "sha256": "7048f06654af8d93ee62f7aa0434226f0dc211afc5095b8afeb1951826f53c4d"
+      "bytes": 14488,
+      "sha256": "1ea2a95960f4311e30517fe87e4d46260f93004925050e247bd4f4fcca44cd6c"
     },
     {
       "file": "arc-v2-compact-linen-ink.webp",
-      "bytes": 40250,
-      "sha256": "c15f38d711ccc74857dab7f8e0aa7815a4f4bc94b960c1c67ea0fd551bd06ef8"
+      "bytes": 45008,
+      "sha256": "0707bb30575a0db164dbf7c43996f28af3328f3e4db015884a14c4428b996660"
     },
     {
       "file": "arc-v2-compact-linen-moss-720.webp",
-      "bytes": 12416,
-      "sha256": "535d3cc4279dee5976653ad5ba6ab00e63840196eb137c4efd9442befa671633"
+      "bytes": 13744,
+      "sha256": "b80e569887360c0296bb6b5a1fe81cf7d9fd7632cc8ae14f982d7230d1caee8c"
     },
     {
       "file": "arc-v2-compact-linen-moss.webp",
-      "bytes": 39870,
-      "sha256": "2f8f642ecb93709dad009fbbc19883d23c684fa7d6d58488f24c9d23e2bcc467"
+      "bytes": 44982,
+      "sha256": "06efbd54b516f2eb873cab60773955dfdb29c2ddb976efde42d88937f7519da5"
     },
     {
       "file": "arc-v2-compact-linen-oat-720.webp",
-      "bytes": 11224,
-      "sha256": "3936b0dbc20367f4670ac4c600d1f9c0b04ee02ff1d67494efe5b3a6c74e400f"
+      "bytes": 12596,
+      "sha256": "fc0f5bd40f782b0d16dea6a7b805a6d724a207ec71e7eceef8571cc714dd849a"
     },
     {
       "file": "arc-v2-compact-linen-oat.webp",
-      "bytes": 35150,
-      "sha256": "37a9642ca798de1fe316e01c45e55799642d6f291af9812cfb3d56362e56da2d"
+      "bytes": 41904,
+      "sha256": "e1f6253b1172616f26694c5950e779579deb3a905b08c1ae32eabf572a731e60"
     },
     {
       "file": "arc-v2-compact-wool-clay-720.webp",
-      "bytes": 12742,
-      "sha256": "04d5c18d7e903b342406031c757f3d375052ecd8b762096cb77de1e1503722c8"
+      "bytes": 14346,
+      "sha256": "bc9fb122f85472e7bd9efc7dd34b3b8e5a0fdf88ffe9895bdf32c64d00d78319"
     },
     {
       "file": "arc-v2-compact-wool-clay.webp",
-      "bytes": 41406,
-      "sha256": "1dd42c732e1ce8e642cb063c9d3c8a0999d127bdc603b634bad98c7383cc7abc"
+      "bytes": 46478,
+      "sha256": "630547779482db84e01754a144e24da2bff1f24cc25f2f092796654e89fc0091"
     },
     {
       "file": "arc-v2-compact-wool-ink-720.webp",
-      "bytes": 12848,
-      "sha256": "4c6b3772ac39f8923b7cdac75fc9d3353acdc29af6501f9d44d25748aed2b13e"
+      "bytes": 14506,
+      "sha256": "b5cbbc1ef04a3b49e1382aa3af4bb5cf675ae5bf74f2722eb0532753bc5f37f0"
     },
     {
       "file": "arc-v2-compact-wool-ink.webp",
-      "bytes": 40292,
-      "sha256": "e9b8defd58a05969929ba73850d26b7dbfa4f315e25b50a2d2ccc64575e28e67"
+      "bytes": 44790,
+      "sha256": "6f709cdb1f77a1b955a5ca73b20bc81e8c97ff8997dbe13671387ad32d028d6b"
     },
     {
       "file": "arc-v2-compact-wool-moss-720.webp",
-      "bytes": 12372,
-      "sha256": "b9dd236f90220bd2f77a8d9de6a9bff1885c5e4ac083014eb7537b0b8eea3950"
+      "bytes": 13676,
+      "sha256": "065f28e1f01cb37151759f6600af89546802e909fc0fde5138756417619f0dfa"
     },
     {
       "file": "arc-v2-compact-wool-moss.webp",
-      "bytes": 39184,
-      "sha256": "a360b4e067c3f7a032cc136f6f26760b6f71e99e119c8811f51f96787bda7467"
+      "bytes": 43964,
+      "sha256": "d799a3cda9313e4d3684008c933cff83001d7fb619c755e15be55b05265486e5"
     },
     {
       "file": "arc-v2-compact-wool-oat-720.webp",
-      "bytes": 11212,
-      "sha256": "0ba95d3bfe6180b5a0925612ef9b4712451389d21b7ca845aa55d69265026e47"
+      "bytes": 12366,
+      "sha256": "b950f0b24c8f76875b33e7cd1fdaadb1223f068d4e2cf04e413c757c112a0809"
     },
     {
       "file": "arc-v2-compact-wool-oat.webp",
-      "bytes": 34454,
-      "sha256": "009891d2fcb58f510a7ed8734190876d3883822465629d54c3b4e2ab1a178bf9"
+      "bytes": 40246,
+      "sha256": "c610d45b8dc1b5af019fa7efc42667e4f58c6ea50443f00485c6f2720fd57f2b"
     },
     {
       "file": "arc-v2-generous-boucle-clay-720.webp",
-      "bytes": 12236,
-      "sha256": "50f2438a56c570fb8f5ce1e29926cb8ec4214321ccdd59b4eab160f9ec95ca09"
+      "bytes": 13542,
+      "sha256": "100b6357595370eeacb87fb4a8f9e30703eb36ac92f5885082e755aab5acec99"
     },
     {
       "file": "arc-v2-generous-boucle-clay.webp",
-      "bytes": 40590,
-      "sha256": "f017247b38d46af119132679698609047e5900af422426057e812f8e440c0bca"
+      "bytes": 45420,
+      "sha256": "9131f821051e98fe993d624d60cb6fc24ff8fa756454599457178b5eb30e74d1"
     },
     {
       "file": "arc-v2-generous-boucle-ink-720.webp",
-      "bytes": 12458,
-      "sha256": "1581a75dd473666439f8068ff6695cd2b8ee8a823288277e01896707ed8f72de"
+      "bytes": 13674,
+      "sha256": "541df4bb3e18f998f245854839980eec051866ac19aa8f73e9ca38b8dc79ff67"
     },
     {
       "file": "arc-v2-generous-boucle-ink.webp",
-      "bytes": 39312,
-      "sha256": "3108abb1961b7f0ca110ee45692b48686bf94e30fd4b7123edc79148107d8646"
+      "bytes": 43144,
+      "sha256": "c4897bd0bcd65b1612298579841b066c2b558412bd0dae25d78d9facaa0452a6"
     },
     {
       "file": "arc-v2-generous-boucle-moss-720.webp",
-      "bytes": 12126,
-      "sha256": "7e1a3ab1881d40015ef4cdab85d44f10b288da86b018da0452b3808fa6372f63"
+      "bytes": 13178,
+      "sha256": "cd13f726f280ee303ca83bb4ac805a6402da13cbce5960f98055482babe7aa64"
     },
     {
       "file": "arc-v2-generous-boucle-moss.webp",
-      "bytes": 38478,
-      "sha256": "815961ffbc7b54ebc1ee2f513d8213c24afd64c3613d0a423a6fbe467b07fb4a"
+      "bytes": 42558,
+      "sha256": "d308f992344fd9f6ba17afe88c4513234559817d869f2918a02808a4852f7f56"
     },
     {
       "file": "arc-v2-generous-boucle-oat-720.webp",
-      "bytes": 11048,
-      "sha256": "8695262ed2f24645dcc84fbf82d8688f9ab93b3320799bf547483ca0e19490fb"
+      "bytes": 11952,
+      "sha256": "2b617f43e3fbae6f4fe38957297631099d89600f0960a72bbee420b3ef803f1e"
     },
     {
       "file": "arc-v2-generous-boucle-oat.webp",
-      "bytes": 34258,
-      "sha256": "1a76c50cf9bedc92196c070a25c54300ac7babfb575ccbfe2b75492da52553bd"
+      "bytes": 40908,
+      "sha256": "58b76792cee689c9c9ed4d7435b65194d16be0c1c98b069b77d1f65abbbd47e7"
     },
     {
       "file": "arc-v2-generous-linen-clay-720.webp",
-      "bytes": 12284,
-      "sha256": "225f396e756373b0f553f71274c266e6a5848d82e55effd17a86314dae7b0471"
+      "bytes": 13632,
+      "sha256": "62c6736f51e0deef8db9b8a2d23249475de507cc3cba3cf8268f3ddb09b0c4ee"
     },
     {
       "file": "arc-v2-generous-linen-clay.webp",
-      "bytes": 40240,
-      "sha256": "c1135f36dff4990693d35c8b4ce3ece1b70b833dc5cce9d4726bbf13067f90b9"
+      "bytes": 45106,
+      "sha256": "dac668e5045218306924229d57ed3290d7cfb3dfa3cfee6e27a64e1944e18632"
     },
     {
       "file": "arc-v2-generous-linen-ink-720.webp",
-      "bytes": 12486,
-      "sha256": "534f28dfde70b214126485342bebfdbddd66d6f52549f6a05cd7f9ba33a2d313"
+      "bytes": 13632,
+      "sha256": "7d8c477055f00dd9ee8e6388856f72725484acf19b8527ee5290a79df54e4771"
     },
     {
       "file": "arc-v2-generous-linen-ink.webp",
-      "bytes": 38850,
-      "sha256": "40ca24f04d126ea899332cef0e64782dc1d1080baa5c664d577731612996a72d"
+      "bytes": 42796,
+      "sha256": "a130b52f1aa177e1e6e609665937da8910a40e9ddee931d79d612d39d741949c"
     },
     {
       "file": "arc-v2-generous-linen-moss-720.webp",
-      "bytes": 11812,
-      "sha256": "38ad0857ec922e28bad6fb72385d031f3a3636e12ab46992fb50ced1380ca2c8"
+      "bytes": 13226,
+      "sha256": "981061f3fb5fef0d4a647bcdc086c4c34a1f04b2b3095b52029b20e410ce9b56"
     },
     {
       "file": "arc-v2-generous-linen-moss.webp",
-      "bytes": 38080,
-      "sha256": "fbcf4b7c67fc447b25c999c691c4ea00cf8670914555dbd2f8c2152e95dbdaa0"
+      "bytes": 42334,
+      "sha256": "1d455352583e276eecc584184f8bad921aa572dbc6e18a3a1f134678dd69491c"
     },
     {
       "file": "arc-v2-generous-linen-oat-720.webp",
-      "bytes": 10840,
-      "sha256": "ab09b0d24bb897c7f9a6af0530d786e162c14af0cc308f11baca28ea5c5e9f0b"
+      "bytes": 11840,
+      "sha256": "abe94cb69fa48f25ee86c8461057d101b588be02f0b2f2a6d678049160edc51f"
     },
     {
       "file": "arc-v2-generous-linen-oat.webp",
-      "bytes": 33908,
-      "sha256": "3f4dc15262673fe131213b8cc543be4fd8256cd414a67e75b82d3d586f0c9861"
+      "bytes": 39912,
+      "sha256": "4ebc78fa19cb3c931eedb085420c5b662eeeb76f6f48e542d2aabc9883a6feaf"
     },
     {
       "file": "arc-v2-generous-wool-clay-720.webp",
-      "bytes": 12046,
-      "sha256": "251be733a9c08605fd570d11ad4f738b75c447e3aad61784424c43013d318725"
+      "bytes": 13442,
+      "sha256": "c61ea4deb59c8de30ae4a8985655a1d2906b6ec522c0f75db3f901461b876a04"
     },
     {
       "file": "arc-v2-generous-wool-clay.webp",
-      "bytes": 39334,
-      "sha256": "e3346309de418a78c92d992f395021d8be864546521d7932d2212e84c1361d57"
+      "bytes": 44132,
+      "sha256": "ef4419df651744cdfcbdcc8b7daa014e7be7866c830d0247663eef19a99bd80c"
     },
     {
       "file": "arc-v2-generous-wool-ink-720.webp",
-      "bytes": 12382,
-      "sha256": "3cd5f6fafef96de0ba0bc7d75a15892c61d78d498f94262d8c91cca061efe632"
+      "bytes": 13738,
+      "sha256": "5811793a16f496cb45972dd71764c8492f5b08e3003e3a73605046e049d35ea7"
     },
     {
       "file": "arc-v2-generous-wool-ink.webp",
-      "bytes": 38706,
-      "sha256": "e437bba24e5e0bfe0b04f733e5bc382bf51c665547211e13d9e3a0d3c6024b16"
+      "bytes": 42726,
+      "sha256": "97bcac27c1bcbb535fa1999b750026a92d7cde35a24b63b0b48f657fc87b5552"
     },
     {
       "file": "arc-v2-generous-wool-moss-720.webp",
-      "bytes": 11586,
-      "sha256": "b5557dc9d346d76ca08f0941c340333cf4249e91adae3bd5481cf822b2e01339"
+      "bytes": 12914,
+      "sha256": "ffac96956e0fd5b1674ff1a5b4bbd01cffd7dc5c98580480d9496fd876612779"
     },
     {
       "file": "arc-v2-generous-wool-moss.webp",
-      "bytes": 37454,
-      "sha256": "63e852be313645f1808ca043fe75bc7fb417d8516e91775791aaddf144130214"
+      "bytes": 41832,
+      "sha256": "d59b5d7a5564bc9db6e37bb0b47dcf48113c8376688c50dada4902d619fffa34"
     },
     {
       "file": "arc-v2-generous-wool-oat-720.webp",
-      "bytes": 10766,
-      "sha256": "4cf60855664778cc26bf61138ea68046c4045fe326ec71ca9cbf18a7e1106626"
+      "bytes": 11990,
+      "sha256": "dd118d14fb98d00c5eaf157f9a54e4a2a5c15b5232af6ec7d68ae124d9556056"
     },
     {
       "file": "arc-v2-generous-wool-oat.webp",
-      "bytes": 33094,
-      "sha256": "64798ddea43efd8355d55b19f0fe2406b7acdf30c3c90c895dadb6447724c51d"
+      "bytes": 37448,
+      "sha256": "acda785baaa1f0f72dae902b12e77f0afa354d7cbcd08f86824dfa6af7793dfe"
     },
     {
       "file": "arc-v2-profile.webp",
-      "bytes": 24874,
-      "sha256": "31bd0514ca2d8db9acdd948b99678db527fde2c576f7259cf32551cbfccc65eb"
+      "bytes": 28104,
+      "sha256": "cc17ae9a7b33f1893560f3652ed2064b5cb1e361c449884342bd0564145e01ec"
     },
     {
       "file": "arc-v2-seam.webp",
-      "bytes": 160524,
-      "sha256": "bf838425524bf3be47cd6a28f3d645cb6338c8592cc404ee68a2b6128354adf5"
+      "bytes": 179968,
+      "sha256": "ddb9c716e4e07a457c14d16a78b05146b7a4393cc5ad65f3adbeb8ab3edb6434"
     },
     {
       "file": "arc-v2-side.webp",
-      "bytes": 27158,
-      "sha256": "bc09514aa365bb363746d6667ef9350f78db0e2db53e9ff3aefb6b44690db54a"
+      "bytes": 33552,
+      "sha256": "c350e304d4085aa5d91c2bc4375b14abaed555d63c3bf43cbee0f9167b5f2047"
     },
     {
       "file": "arc-v2-walnut.webp",
-      "bytes": 62246,
-      "sha256": "ce22bde2c57134e7409ba26d968e1e6595671c375065cc83db2cc0ea13f3a295"
+      "bytes": 72752,
+      "sha256": "815dbd8a761209ae8af95ee812d13071f920c956ab95007751da610177bcff94"
     },
     {
       "file": "arc-walnut-color.png",

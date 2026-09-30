@@ -1,3 +1,4 @@
+import './atelier.js';
 /** Storefront composition: feature modules own their state and lifecycle. */
 import { validHandle, comparisonSelection, escapeHTML as h, safeURL } from './core.js';
 import { settings, root, formatMoney, icon, announce, showError, openDialog, closeDialog } from './dom.js';

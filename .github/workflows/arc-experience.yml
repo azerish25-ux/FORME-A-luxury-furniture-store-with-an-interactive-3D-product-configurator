@@ -27,6 +27,7 @@ jobs:
           npm test | tee evidence/domain-tests.txt
           npm run check | tee evidence/liquid-validation.txt
           npm run verify:arc | tee evidence/arc-verification.txt
+          npm run verify:atelier | tee evidence/atelier-verification.txt
           node scripts/export-catalog.mjs
           npm run package
           node scripts/static-preview.mjs

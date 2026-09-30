@@ -14,7 +14,8 @@
     "render": "python3 tools/arc-materials.py && blender -b -t 4 --python tools/arc-assets.py -- --mode all && python3 tools/arc-pack.py --strict",
     "typecheck": "tsc -p jsconfig.domain.json",
     "verify:arc": "node scripts/verify-arc-assets.mjs",
-    "test:static": "playwright test --config playwright.static.config.mjs"
+    "test:static": "playwright test --config playwright.static.config.mjs",
+    "verify:atelier": "node scripts/verify-atelier.mjs"
   },
   "dependencies": {
     "three": "0.180.0"

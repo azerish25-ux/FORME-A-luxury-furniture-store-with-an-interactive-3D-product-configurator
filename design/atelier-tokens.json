@@ -1,0 +1,47 @@
+{
+  "name": "FORME Atelier",
+  "source": "assets/atelier.css",
+  "cssCustomProperties": {
+    "--md-sys-color-primary": "#384d40",
+    "--md-sys-color-on-primary": "#ffffff",
+    "--md-sys-color-primary-container": "#e0e7dc",
+    "--md-sys-color-on-primary-container": "#202e25",
+    "--md-sys-color-secondary": "#625d50",
+    "--md-sys-color-secondary-container": "#eae2d3",
+    "--md-sys-color-on-secondary-container": "#302d25",
+    "--md-sys-color-surface": "#f5f2eb",
+    "--md-sys-color-on-surface": "var(--ink, #292d27)",
+    "--md-sys-color-on-surface-variant": "#625f56",
+    "--md-sys-color-surface-container-low": "#eeebe3",
+    "--md-sys-color-surface-container": "#e7e3d9",
+    "--md-sys-color-surface-container-high": "#dfdacd",
+    "--md-sys-color-outline": "#79776c",
+    "--md-sys-color-outline-variant": "#d6d2c7",
+    "--md-sys-color-error": "#a12e26",
+    "--md-sys-color-on-error": "#ffffff",
+    "--md-sys-color-inverse-surface": "#2d3a31",
+    "--md-sys-color-inverse-on-surface": "#f5f2eb",
+    "--md-ref-typeface-brand": "'Instrument Serif', Georgia, serif",
+    "--md-ref-typeface-plain": "'DM Sans', Arial, sans-serif",
+    "--md-sys-shape-corner-small": "8px",
+    "--md-sys-shape-corner-medium": "16px",
+    "--md-sys-shape-corner-large": "24px",
+    "--md-sys-shape-corner-full": "999px",
+    "--md-sys-motion-duration-short": "160ms",
+    "--md-sys-motion-duration-medium": "280ms",
+    "--md-sys-motion-easing-standard": "cubic-bezier(.2, 0, 0, 1)"
+  },
+  "typefaces": {
+    "brand": "Instrument Serif",
+    "plain": "DM Sans"
+  },
+  "fontsEmbedded": false,
+  "figmaStatus": "Editable SVG handoff; live canvas blocked by Starter MCP quota. The Figma file created for this revision is blank.",
+  "breakpoints": [
+    360,
+    390,
+    768,
+    900,
+    1440
+  ]
+}

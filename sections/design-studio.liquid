@@ -1,4 +1,23 @@
-<section class="design-studio"><div class="studio-image">{% render 'picture', image: section.settings.image, fallback: 'arc-gallery-side.webp', alt: 'Arc modular sofa with tailored cushions and a recessed walnut base', loading: 'lazy', sizes: '(min-width: 900px) 60vw, 100vw' %}<span class="studio-stamp">{% render 'icon', name: 'cube' %} YOUR SOFA. YOUR WAY.</span></div><div class="studio-copy"><p class="eyebrow">THE ARC SOFA SYSTEM</p><h2>{{ section.settings.heading | newline_to_br }}</h2><p>{{ section.settings.body }}</p><div class="studio-colours" aria-label="Available in oat, moss, clay and ink"><i style="--swatch:#c3b7a5"></i><i style="--swatch:#757a61"></i><i style="--swatch:#a67e62"></i><i style="--swatch:#454844"></i><span>Made personal.</span></div><a href="{{ section.settings.product.url | default: '/products/arc-modular-sofa' }}" class="button">Design your sofa {% render 'icon', name: 'diagonal' %}</a><p class="fine-print">Three sizes. Three upholstery families. A palette to make your own.</p></div></section>
+{%- assign studio_product = section.settings.product | default: all_products['arc-modular-sofa'] -%}
+{%- assign studio_url = studio_product.url | default: '/products/arc-modular-sofa' -%}
+{%- if studio_product.handle == 'arc-modular-sofa' and section.settings.image == blank -%}
+  {%- for variant in studio_product.variants -%}{%- if variant.option1 == 'Generous' and variant.option2 == 'Linen' and variant.option3 == 'Oat' -%}{%- assign studio_url = studio_product.url | append: '?variant=' | append: variant.id -%}{%- endif -%}{%- endfor -%}
+{%- endif -%}
+<section class="design-studio atelier-studio" data-atelier-studio>
+  <div class="studio-image">{% render 'picture', image: section.settings.image, fallback: 'arc-v2-generous-linen-oat.webp', alt: 'Arc Generous sofa in Oat linen with loose lumbar cushions and a recessed walnut frame', loading: 'lazy', sizes: '(min-width: 900px) 60vw, 100vw', width: 1440, height: 1000 %}<span class="studio-stamp">{% render 'icon', name: 'cube' %} THE INTERACTIVE DESIGN STUDIO</span><p class="studio-selection" data-studio-caption aria-live="polite">Generous / Linen / Oat</p></div>
+  <div class="studio-copy"><p class="eyebrow">01 / MAKE IT YOUR OWN</p><h2>{{ section.settings.heading | newline_to_br }}</h2><p>{{ section.settings.body }}</p>
+    {% if section.settings.image == blank and studio_product.handle == 'arc-modular-sofa' %}
+    <div class="studio-palette js-only" role="group" aria-label="Start your Arc design with a colour">
+      {% for variant in studio_product.variants %}{% if variant.option1 == 'Generous' and variant.option2 == 'Linen' %}
+      {%- assign colour_id = variant.option3 | handleize -%}
+      {%- assign poster = 'arc-v2-generous-linen-' | append: colour_id | append: '.webp' -%}
+      <button type="button" class="studio-swatch" aria-pressed="{% if variant.option3 == 'Oat' %}true{% else %}false{% endif %}" data-studio-option data-studio-url="{{ studio_product.url }}?variant={{ variant.id }}" data-studio-image="{{ poster | asset_url }}" data-studio-label="Generous / Linen / {{ variant.option3 | escape }}"><span style="--swatch:{% case variant.option3 %}{% when 'Oat' %}#c3b7a5{% when 'Moss' %}#757a61{% when 'Clay' %}#a67e62{% when 'Ink' %}#454844{% endcase %}" aria-hidden="true"></span>{{ variant.option3 }}</button>
+      {% endif %}{% endfor %}
+    </div>{% endif %}
+    <a href="{{ studio_url }}" class="button" data-studio-link>Design your sofa {% render 'icon', name: 'diagonal' %}</a>
+    <div class="studio-facts"><p><strong>03</strong><span>Considered sizes</span></p><p><strong>03</strong><span>Upholstery families</span></p><p><strong>04</strong><span>Natural tones</span></p></div>
+  </div>
+</section>
 {% schema %}
 {
   "name": "Design studio",

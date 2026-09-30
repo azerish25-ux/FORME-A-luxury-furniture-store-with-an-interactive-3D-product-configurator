@@ -2,7 +2,12 @@
   "sections": {
     "hero": {
       "type": "hero-editorial",
-      "settings": {}
+      "settings": {
+        "heading": "Quiet forms.\nFull lives.",
+        "eyebrow": "CONSIDERED DESIGN, EVERY DAY",
+        "description": "Sculptural furniture. Honest materials. Pieces that settle into your life, beautifully.",
+        "image_alt": "Original architectural render of the Arc sofa, sculpted Vale chair, travertine Monolith table and pleated Lumen lamp in warm afternoon light."
+      }
     },
     "note": {
       "type": "brand-note",
@@ -60,38 +65,40 @@
     },
     "room": {
       "type": "shop-room",
-      "settings": {},
+      "settings": {
+        "image_alt": "Original FORME room with Arc sofa, Vale chair, Monolith coffee table and Lumen floor lamp."
+      },
       "blocks": {
         "sofa": {
           "type": "hotspot",
           "settings": {
             "product": "arc-modular-sofa",
-            "x": 60,
-            "y": 53
+            "x": 52,
+            "y": 49
           }
         },
         "table": {
           "type": "hotspot",
           "settings": {
             "product": "monolith-coffee-table",
-            "x": 51,
-            "y": 72
+            "x": 50,
+            "y": 70
           }
         },
         "chair": {
           "type": "hotspot",
           "settings": {
             "product": "vale-lounge-chair",
-            "x": 25,
-            "y": 60
+            "x": 22,
+            "y": 64
           }
         },
         "lamp": {
           "type": "hotspot",
           "settings": {
             "product": "lumen-floor-lamp",
-            "x": 76,
-            "y": 29
+            "x": 82,
+            "y": 33
           }
         }
       },

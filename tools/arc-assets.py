@@ -1,4 +1,4 @@
-"""Arc V2: tailored panel geometry, physical UVs and a shared render/glTF material set.
+"""Arc Atelier: tailored panel geometry, physical UVs and a shared render/glTF material set.
 Blender 4.5+; run arc-materials.py first. All dimensions are metres.
 Example: blender -b -t 8 --python tools/arc-assets.py -- --mode all --samples 64
 """
@@ -16,6 +16,7 @@ OUT = ROOT / 'assets'
 SPEC = json.loads((ROOT / 'tools/arc-spec.json').read_text())
 parser = argparse.ArgumentParser()
 parser.add_argument('--mode', choices=['models', 'posters', 'details', 'all'], default='all')
+parser.add_argument('--fabric', choices=list(SPEC['fabrics']) + ['all'], default='all')
 parser.add_argument('--size', choices=list(SPEC['sizes']) + ['all'], default='all')
 parser.add_argument('--samples', type=int, default=64)
 parser.add_argument('--width', type=int, default=1440)
@@ -47,12 +48,12 @@ def reset():
     scene.render.resolution_percentage = 100
     scene.view_settings.view_transform = 'AgX'
     scene.view_settings.look = 'AgX - Medium High Contrast'
-    scene.view_settings.exposure = .45
+    scene.view_settings.exposure = .18
     world = bpy.data.worlds.get('Arc studio') or bpy.data.worlds.new('Arc studio')
     scene.world = world
     world.use_nodes = True
     world.node_tree.nodes['Background'].inputs[0].default_value = (.72, .76, .80, 1)
-    world.node_tree.nodes['Background'].inputs[1].default_value = .30
+    world.node_tree.nodes['Background'].inputs[1].default_value = .22
     return scene
 
 
@@ -277,11 +278,24 @@ def sofa(size):
             for edge_x in (x-module/2+.045,x+module/2-.045):
                 timber('Chaise | longitudinal walnut rail', (edge_x,(front-.365)/2,.12), (.06,-.365-front,.085), walnut)
                 timber('Chaise | front foot', (edge_x,front+.13,.045), (.055,.08,.09), walnut)
-        seat,shape=tailored(f'Seat panel {i+1} | crowned top', (x,centre_y,.36), (module,d,.205), upholstery,.07,.025)
+        seat,shape=tailored(f'Seat panel {i+1} | crowned top', (x,centre_y,.36), (module,d,.205), upholstery,.072,.033)
         seam(seat,shape,piping)
-        back,shape=tailored(f'Back cushion {i+1} | tensioned face', (x,.285,.625), (module+.008,.245,.388), upholstery,.074,.034,True,-.12)
+        back,shape=tailored(f'Back cushion {i+1} | tensioned face', (x,.285,.625), (module+.008,.245,.388), upholstery,.074,.047,True,-.12)
         cord=seam(back,shape,piping)
         back_objects.extend([back,cord])
+    # Loose lumbar cushions: independent shaped panels and inset welt, not boxes.
+    # Their variation is deterministic and contained within the canonical frame bounds.
+    for i, side in enumerate((-1, 1)):
+        x = side * (w / 2 - .52)
+        pillow, shape = tailored('Lumbar cushion | ' + ('left' if side < 0 else 'right'),
+                                 (x, -.005, .602), (.48, .155, .285), upholstery,
+                                 .052, .028, True, -.22)
+        pillow.rotation_euler.y = side * .09
+        pillow.rotation_euler.z = side * .10
+        seam(pillow, shape, piping)
+    # Recessed support rails retain the visible 8 mm joinery reveal.
+    for x in (-w/2+.105, w/2-.105):
+        timber('Walnut | recessed corner join', (x,-.416,.12), (.072,.011,.054), walnut)
     objects=list(set(bpy.data.objects)-before)
     low,high=bounds(objects)
     shift=height-high.z
@@ -303,8 +317,8 @@ def studio(objects, width=None):
     bpy.context.object.name='Studio | ground'
     bpy.context.object.data.materials.append(floor)
     for name,pos,energy,scale,colour in [
-        ('Window | large soft key',(-3.2,-4.5,5),750,4.0,(1,.90,.78)),
-        ('Window | fill',(4,-1.5,3),240,3.0,(.84,.91,1)),
+        ('Window | large soft key',(-3.2,-4.5,5),850,3.0,(1,.93,.85)),
+        ('Window | fill',(4,-1.5,3),190,3.0,(.84,.91,1)),
         ('Rear softbox',(-1,3.5,4),420,2.6,(1,.94,.85))]:
         data=bpy.data.lights.new(name,'AREA');data.energy=energy;data.shape='DISK';data.size=scale;data.color=colour
         lamp=bpy.data.objects.new(name,data);bpy.context.collection.objects.link(lamp);lamp.location=pos
@@ -363,6 +377,8 @@ def posters():
             continue
         reset();objects,mat,piping,measured=sofa(size);studio(objects)
         for fabric in SPEC['fabrics']:
+            if args.fabric != 'all' and args.fabric != fabric:
+                continue
             for colour,colour_record in SPEC['colours'].items():
                 tint(mat,fabric,colour)
                 piping.node_tree.nodes['Principled BSDF'].inputs['Base Color'].default_value=tuple(c*.70 for c in rgba(colour_record['hex'])[:3])+(1,)
@@ -388,7 +404,8 @@ def details():
     camera.location=(1.55,-1.02,.40);target=Vector((1.19,-.40,.13));camera.rotation_euler=(target-camera.location).to_track_quat('-Z','Y').to_euler()
     render('arc-v2-walnut.png')
 
-if args.mode in ('all','models'):export_models()
-if args.mode in ('all','posters'):posters()
-if args.mode in ('all','details'):details()
-print('ARC_V2_COMPLETE',args.mode,args.size)
+if __name__ == '__main__':
+    if args.mode in ('all','models'):export_models()
+    if args.mode in ('all','posters'):posters()
+    if args.mode in ('all','details'):details()
+    print('ARC_ATELIER_COMPLETE',args.mode,args.size)

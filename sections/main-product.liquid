@@ -44,6 +44,7 @@
         <div role="group" aria-label="Camera views"><button type="button" data-camera="angle">Angle</button><button type="button" data-camera="front">Front</button><button type="button" data-camera="side">Side</button><button type="button" data-camera="detail">Detail</button></div>
         <div role="group" aria-label="Rotate and zoom"><button type="button" data-rotate="-1" aria-label="Rotate sofa left">↶</button><button type="button" data-rotate="1" aria-label="Rotate sofa right">↷</button><button type="button" data-zoom="1" aria-label="Zoom in">+</button><button type="button" data-zoom="-1" aria-label="Zoom out">−</button></div>
       </div>
+      {% if allow_3d %}<div class="lighting-controls js-only" data-lighting-controls hidden><span>Studio light</span><div role="group" aria-label="Studio lighting"><button type="button" data-lighting="daylight" aria-pressed="true">Daylight</button><button type="button" data-lighting="warm" aria-pressed="false">Warm light</button></div><small>Screen colour is a guide.</small></div>{% endif %}
       <div class="gallery-meta"><span data-gallery-caption>{% if is_arc %}{{ current_variant.title }}{% else %}{{ section.settings.gallery_caption }}{% endif %}</span><span data-gallery-counter>01 / {% if is_arc %}04{% else %}{{ product.media.size }}{% endif %}</span></div>
       <div class="gallery-thumbnails js-only" role="group" aria-label="Product images">
         {% if is_arc and selected_poster != blank %}

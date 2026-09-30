@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "sourceHashes": {
+    "tools/atelier-assets.py": "eced09e8e1147abdc8facbe13ef857fed69e76babfd0bf26a6ee4c443f5a3db0",
+    "tools/atelier-pack.py": "b0319ede68a8515ef7ea49fdfff1451cad6621b01800fe836c54415e66762924",
+    "tools/arc-assets.py": "f78abf7f87dd2bf9c2ffbca276cec6f796ff19337412e31e5b96cc91c54ef43e"
+  },
+  "renders": {
+    "atelier-hero.webp": {
+      "width": 1800,
+      "height": 1530,
+      "bytes": 104092,
+      "sha256": "a155863afb2ccfee45153c857a4595ed4095792c4cf5dc27f0ad7170d69d753e"
+    },
+    "atelier-hero-900.webp": {
+      "width": 900,
+      "height": 765,
+      "bytes": 31326,
+      "sha256": "0908d55adc23593dc04623dd2f2c2dcdcde4a5b0507c88926426b131f9a2a050"
+    },
+    "atelier-room.webp": {
+      "width": 1800,
+      "height": 1125,
+      "bytes": 88734,
+      "sha256": "03ee8d59c166af71ad0e54ea13682ed1acc84fde818b276cd028d757cbe739cc"
+    },
+    "atelier-room-900.webp": {
+      "width": 900,
+      "height": 563,
+      "bytes": 29724,
+      "sha256": "0fa681a16c6be7bb418c79bbae85775213893c544743bced8742a809d13d5249"
+    },
+    "vale-lounge-chair.webp": {
+      "width": 1800,
+      "height": 1800,
+      "bytes": 189110,
+      "sha256": "b309dd9fff5bfdf461e0d05e4ab9ed3f6ab5d181849354a91542d14ac4677cff"
+    },
+    "vale-lounge-chair-900.webp": {
+      "width": 900,
+      "height": 900,
+      "bytes": 36212,
+      "sha256": "5f9c89c93e468bcfe5b9e7392cd2d4ed1cb675b72f377fe695a9de27b540e02f"
+    },
+    "monolith-coffee-table.webp": {
+      "width": 1800,
+      "height": 1800,
+      "bytes": 43006,
+      "sha256": "c8b04569cae9fbb88742273e2599755c2038b4e342a3b698e733d03972f1a44b"
+    },
+    "monolith-coffee-table-900.webp": {
+      "width": 900,
+      "height": 900,
+      "bytes": 11812,
+      "sha256": "9781ee671e87b62ca899a17647abfacba6abbf6ab2fe01f1100efb5edbb2345d"
+    },
+    "lumen-floor-lamp.webp": {
+      "width": 1800,
+      "height": 1800,
+      "bytes": 37204,
+      "sha256": "8ad1a9b831c81b49f153fc09d4279401dc7ac2662c02a013cba5f5b0ac54060d"
+    },
+    "lumen-floor-lamp-900.webp": {
+      "width": 900,
+      "height": 900,
+      "bytes": 9272,
+      "sha256": "5508a9e3e0d93ae248e88e85bb6a8bf53ac9ed2cf808a262cead00f794066164"
+    }
+  },
+  "models": {
+    "atelier-vale-lounge-chair.glb": {
+      "bytes": 1596980,
+      "sha256": "75940dfdf4b41cf3505735d8cbdfb298a15bbc0073eea48a5abe329eaa590a24"
+    },
+    "atelier-monolith-coffee-table.glb": {
+      "bytes": 67144,
+      "sha256": "c89f1270ee151ac73a03ea0a764e4954a85e0bc09307486e10c97de589d8cf16"
+    },
+    "atelier-lumen-floor-lamp.glb": {
+      "bytes": 205484,
+      "sha256": "c1b9f9bfa7cdaa0439444e5d36b929bfbf01503827244ebf256413db444441be"
+    }
+  },
+  "colourStudy": "Generous / Linen / Moss",
+  "note": "Original Blender renders of fictional products. Not documentary product photography."
+}

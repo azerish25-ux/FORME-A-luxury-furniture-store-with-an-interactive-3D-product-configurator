@@ -1,8 +1,5 @@
 name: FORME Atelier production
 'on':
-  push:
-    paths:
-    - .github/workflows/atelier-production.yml
   workflow_dispatch: {}
 permissions:
   contents: read
@@ -55,18 +52,6 @@ jobs:
     - uses: actions/checkout@v4
       with:
         persist-credentials: false
-    - name: Apply reviewed authoring source without publishing it
-      run: |-
-        python - <<'PYAPPLY'
-        import base64,lzma,pathlib,subprocess
-        chunks=sorted(pathlib.Path('tools').glob('atelier-source.*.b64'))
-        assert len(chunks)==4, 'Expected four source transport chunks'
-        patch=lzma.decompress(base64.b64decode(''.join(p.read_text().strip() for p in chunks)))
-        subprocess.run(['git','apply','--check','-'],input=patch,check=True)
-        subprocess.run(['git','apply','-'],input=patch,check=True)
-        pathlib.Path('.github/workflows/atelier-production.yml').write_bytes(pathlib.Path('tools/atelier-production-final.yml').read_bytes())
-        pathlib.Path('tools/atelier-production-final.yml').unlink()
-        PYAPPLY
     - name: Install checksum-verified Blender and image tools
       run: |-
         mkdir -p /tmp/blender /tmp/blender-download
@@ -115,18 +100,6 @@ jobs:
     - uses: actions/checkout@v4
       with:
         persist-credentials: false
-    - name: Apply reviewed authoring source without publishing it
-      run: |-
-        python - <<'PYAPPLY'
-        import base64,lzma,pathlib,subprocess
-        chunks=sorted(pathlib.Path('tools').glob('atelier-source.*.b64'))
-        assert len(chunks)==4, 'Expected four source transport chunks'
-        patch=lzma.decompress(base64.b64decode(''.join(p.read_text().strip() for p in chunks)))
-        subprocess.run(['git','apply','--check','-'],input=patch,check=True)
-        subprocess.run(['git','apply','-'],input=patch,check=True)
-        pathlib.Path('.github/workflows/atelier-production.yml').write_bytes(pathlib.Path('tools/atelier-production-final.yml').read_bytes())
-        pathlib.Path('tools/atelier-production-final.yml').unlink()
-        PYAPPLY
     - uses: actions/download-artifact@v4
       with:
         pattern: atelier-originals-*
@@ -173,10 +146,6 @@ jobs:
          for name in sorted(set(filter(None,paths))):
           if Path(name).is_file() and not name.startswith('tools/atelier-source.'):z.write(name,'FORME/'+name)
         PYZIP
-    - name: Create unreferenced review commit — never update main
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-      run: python scripts/make-review-commit.py
     - uses: actions/upload-artifact@v4
       if: always()
       with:
@@ -192,5 +161,3 @@ jobs:
           artifacts/FORME-Shopify-Theme.zip
           artifacts/FORME-Shopify-Theme.zip.sha256
         retention-days: 14
-    permissions:
-      contents: write

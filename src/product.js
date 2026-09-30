@@ -187,6 +187,7 @@ export class ProductController {
     if (button.matches('[data-thumbnail]')) { this.setView('gallery'); this.showSlide(Number(button.dataset.thumbnail)); }
     if (button.matches('[data-view]')) await this.setView(button.dataset.view);
     if (button.matches('[data-viewer-reset]')) this.viewer?.reset();
+    if (button.matches('[data-lighting]')) this.viewer?.setLighting(button.dataset.lighting);
     if (button.matches('[data-camera]')) this.viewer?.view(button.dataset.camera);
     if (button.matches('[data-rotate]')) this.viewer?.rotate(Number(button.dataset.rotate));
     if (button.matches('[data-zoom]')) this.viewer?.zoom(Number(button.dataset.zoom));
@@ -230,7 +231,7 @@ export class ProductController {
     this.$('[data-gallery]').hidden = this.viewerVisible;
     const host = this.$('[data-viewer]');
     if (host) host.hidden = !this.viewerVisible;
-    for (const selector of ['[data-viewer-tools]', '[data-camera-controls]']) {
+    for (const selector of ['[data-viewer-tools]', '[data-camera-controls]', '[data-lighting-controls]']) {
       const node = this.$(selector); if (node) node.hidden = !this.viewerVisible;
     }
     this.$('[data-open-gallery]').hidden = this.viewerVisible;

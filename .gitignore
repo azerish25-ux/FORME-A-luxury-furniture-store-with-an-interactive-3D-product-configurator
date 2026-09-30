@@ -25,3 +25,6 @@ evidence/
 playwright-static-report/
 static-test-results/
 recovery/
+
+__pycache__/
+*.pyc

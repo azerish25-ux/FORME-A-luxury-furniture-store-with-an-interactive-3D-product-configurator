@@ -11,6 +11,7 @@
   "include": [
     "src/core.js",
     "src/cart-state.js",
-    "src/arc-state.js"
+    "src/arc-state.js",
+    "src/studio-lighting.js"
   ]
 }

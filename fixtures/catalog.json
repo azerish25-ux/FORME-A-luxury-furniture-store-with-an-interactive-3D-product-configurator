@@ -1085,10 +1085,10 @@
       {
         "src": "/assets/vale-lounge-chair.webp",
         "url": "/assets/vale-lounge-chair.webp",
-        "alt": "Vale lounge chair — studio view",
-        "width": 1000,
-        "height": 1180,
-        "aspect_ratio": 0.847457627118644,
+        "alt": "Vale lounge chair — original Atelier Blender study",
+        "width": 1800,
+        "height": 1800,
+        "aspect_ratio": 1,
         "id": 11,
         "media_type": "image"
       }
@@ -1108,10 +1108,10 @@
     "featured_image": {
       "src": "/assets/vale-lounge-chair.webp",
       "url": "/assets/vale-lounge-chair.webp",
-      "alt": "Vale lounge chair — studio view",
-      "width": 1000,
-      "height": 1180,
-      "aspect_ratio": 0.847457627118644,
+      "alt": "Vale lounge chair — original Atelier Blender study",
+      "width": 1800,
+      "height": 1800,
+      "aspect_ratio": 1,
       "id": 11,
       "media_type": "image"
     },
@@ -1325,10 +1325,10 @@
       {
         "src": "/assets/monolith-coffee-table.webp",
         "url": "/assets/monolith-coffee-table.webp",
-        "alt": "Monolith coffee table — studio view",
-        "width": 1000,
-        "height": 1180,
-        "aspect_ratio": 0.847457627118644,
+        "alt": "Monolith coffee table — original Atelier Blender study",
+        "width": 1800,
+        "height": 1800,
+        "aspect_ratio": 1,
         "id": 31,
         "media_type": "image"
       }
@@ -1348,10 +1348,10 @@
     "featured_image": {
       "src": "/assets/monolith-coffee-table.webp",
       "url": "/assets/monolith-coffee-table.webp",
-      "alt": "Monolith coffee table — studio view",
-      "width": 1000,
-      "height": 1180,
-      "aspect_ratio": 0.847457627118644,
+      "alt": "Monolith coffee table — original Atelier Blender study",
+      "width": 1800,
+      "height": 1800,
+      "aspect_ratio": 1,
       "id": 31,
       "media_type": "image"
     },
@@ -1805,10 +1805,10 @@
       {
         "src": "/assets/lumen-floor-lamp.webp",
         "url": "/assets/lumen-floor-lamp.webp",
-        "alt": "Lumen floor lamp — studio view",
-        "width": 1000,
-        "height": 1180,
-        "aspect_ratio": 0.847457627118644,
+        "alt": "Lumen floor lamp — original Atelier Blender study",
+        "width": 1800,
+        "height": 1800,
+        "aspect_ratio": 1,
         "id": 71,
         "media_type": "image"
       }
@@ -1828,10 +1828,10 @@
     "featured_image": {
       "src": "/assets/lumen-floor-lamp.webp",
       "url": "/assets/lumen-floor-lamp.webp",
-      "alt": "Lumen floor lamp — studio view",
-      "width": 1000,
-      "height": 1180,
-      "aspect_ratio": 0.847457627118644,
+      "alt": "Lumen floor lamp — original Atelier Blender study",
+      "width": 1800,
+      "height": 1800,
+      "aspect_ratio": 1,
       "id": 71,
       "media_type": "image"
     },

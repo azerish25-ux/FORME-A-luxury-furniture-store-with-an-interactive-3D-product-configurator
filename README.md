@@ -2,11 +2,19 @@
 
 Native Shopify Online Store 2.0 furniture theme with an optional Three.js Arc configurator. The public portfolio preview simulates commerce locally; it is not Shopify checkout and accepts no payment.
 
+## Atelier — storefront and furniture art
+
+![Original Atelier room: Arc, Vale, Monolith and Lumen](assets/atelier-hero.webp)
+
+The storefront now pairs a Material-inspired olive-and-stone design system with original Blender furniture: three reworked Arc configurations, a sculpted Vale chair, a bullnose travertine Monolith table and a physically pleated Lumen lamp. The homepage colour study opens exact native variants; the 3D studio offers Daylight and Warm light without changing commerce state.
+
+Read the [Atelier production and verification guide](docs/ATELIER.md) for scope, model sources, reproduction, limitations and editable design boards. The Figma connector created a new file but hit the Starter-plan MCP quota before canvas editing; the repository includes editable SVG handoff boards and token data instead of claiming completed Figma work.
+
 ## Arc Experience V2
 
 Arc now has a coordinated responsive product page, readable shopping typography, three separately authored size models, original physical-scale material maps, 36 matching configuration posters, a keyboard-operable enlarged gallery, independent measurement diagrams and responsive 3D inspection controls. Selection, dimensions, shared links and bag imagery follow one validated product contract. Rapid cart changes preserve user intent; keyed updates preserve focus and delivery-note drafts.
 
-Read [the implementation and verification guide](docs/ARC-EXPERIENCE-V2.md) for source ownership, original asset reproduction, commands, budgets and remaining scope. The original homepage/collection direction is retained; this is the Arc milestone, not a claim that the whole storefront redesign is finished.
+Read [the implementation and verification guide](docs/ARC-EXPERIENCE-V2.md) for source ownership, original asset reproduction, commands, budgets and remaining scope. This is the earlier Arc data-contract milestone; Atelier extends its art and applies a coordinated storefront design without replacing that contract.
 
 Quality evidence is uploaded by [the acceptance workflow](.github/workflows/storefront-quality.yml) and [Arc asset production](.github/workflows/render-assets.yml). Use a specific successful run and its artifacts rather than treating historical test counts as current evidence. Figma's existing file is an earlier baseline, not the V2 source of truth. Native Shopify checkout and merchant-editor acceptance still require an authorized development store.
 

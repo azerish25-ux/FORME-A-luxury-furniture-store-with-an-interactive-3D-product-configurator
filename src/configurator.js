@@ -7,6 +7,7 @@ import {
 } from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { studioLighting } from './studio-lighting.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
 export async function createConfigurator(host, config) {
@@ -35,7 +36,7 @@ export async function createConfigurator(host, config) {
   controls.enablePan = false; controls.minDistance = .8; controls.maxDistance = 18;
   controls.minPolarAngle = .25; controls.maxPolarAngle = Math.PI / 2.02;
   controls.rotateSpeed = .55; controls.zoomSpeed = .65;
-  scene.add(new HemisphereLight('#fff8ee', '#968b7d', 1.25));
+  const ambient = new HemisphereLight('#fff8ee', '#968b7d', .85); scene.add(ambient);
   const key = new DirectionalLight('#fff5e8', 3.2);
   key.position.set(-3, 5, 4); key.castShadow = true;
   key.shadow.mapSize.set(2048, 2048);
@@ -264,6 +265,20 @@ export async function createConfigurator(host, config) {
     }
   }
 
+  function setLighting(mode = 'daylight') {
+    const preset = studioLighting(mode);
+    scene.background.set(preset.background); floor.material.color.set(preset.background);
+    key.color.set(preset.key); key.intensity = preset.keyIntensity;
+    fill.color.set(preset.fill); fill.intensity = preset.fillIntensity;
+    ambient.intensity = preset.ambient; scene.environmentIntensity = preset.environment;
+    renderer.toneMappingExposure = preset.exposure;
+    host.dataset.lighting = preset === studioLighting('warm') ? 'warm' : 'daylight';
+    host.closest('[data-product-section]')?.querySelectorAll('[data-lighting]').forEach(button => {
+      button.setAttribute('aria-pressed', String(button.dataset.lighting === host.dataset.lighting));
+    });
+    invalidate();
+  }
+
   const keyboard = event => {
     if (!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','+','-','='].includes(event.key)) return;
     event.preventDefault();
@@ -284,9 +299,9 @@ export async function createConfigurator(host, config) {
   renderer.domElement.addEventListener('webglcontextlost', contextLost);
   renderer.domElement.addEventListener('webglcontextrestored', contextRestored);
   document.addEventListener('visibilitychange', onVisibility);
-  controls.update(); resize();
+  controls.update(); resize(); setLighting('daylight');
   return {
-    update, view, rotate, zoom,
+    update, view, rotate, zoom, setLighting,
     setVisible(value) { visible = value; if (visible) resize(); else if (frame) { cancelAnimationFrame(frame); frame = 0; } },
     setDimensions(value) { dimensionsVisible = value; dimensionGroup.visible = value; labelHost.hidden = !value; fit(camera.position.clone().sub(controls.target)); invalidate(); },
     reset() { view('angle'); },

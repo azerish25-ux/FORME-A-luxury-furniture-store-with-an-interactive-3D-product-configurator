@@ -1,8 +1,15 @@
-<section class="editorial-hero" aria-labelledby="HeroTitle-{{ section.id }}">
-  <div class="hero-image">{% render 'picture', image: section.settings.image, fallback: 'hero-room.webp', alt: section.settings.image_alt, loading: 'eager', sizes: '100vw', width: 2000, height: 1250 %}</div>
-  <div class="hero-content"><p class="eyebrow">{{ section.settings.eyebrow }}</p><h1 id="HeroTitle-{{ section.id }}">{{ section.settings.heading | newline_to_br }}</h1><p class="hero-description">{{ section.settings.description }}</p><a class="button" href="{{ section.settings.link | default: routes.all_products_collection_url }}">{{ section.settings.button_label }} {% render 'icon', name: 'arrow' %}</a></div>
-  <div class="hero-footnote"><span>THE ART OF FEELING AT HOME</span><a href="/products/arc-modular-sofa">Meet Arc, our modular sofa {% render 'icon', name: 'diagonal' %}</a></div>
-  <span class="hero-index" aria-hidden="true">01 — THE LIVING COLLECTION</span>
+{%- assign hero_arc = all_products['arc-modular-sofa'] -%}
+{%- assign hero_arc_url = hero_arc.url | default: '/products/arc-modular-sofa' -%}
+{%- for variant in hero_arc.variants -%}{%- if variant.option1 == 'Generous' and variant.option2 == 'Linen' and variant.option3 == 'Moss' -%}{%- assign hero_arc_url = hero_arc.url | append: '?variant=' | append: variant.id -%}{%- endif -%}{%- endfor -%}
+<section class="editorial-hero atelier-hero" aria-labelledby="HeroTitle-{{ section.id }}">
+  <div class="hero-content">
+    <p class="eyebrow"><span class="atelier-dot" aria-hidden="true"></span> {{ section.settings.eyebrow }}</p>
+    <h1 id="HeroTitle-{{ section.id }}">{{ section.settings.heading | newline_to_br }}</h1>
+    <p class="hero-description">{{ section.settings.description }}</p>
+    <div class="hero-actions"><a class="button" href="{{ section.settings.link | default: routes.all_products_collection_url }}">{{ section.settings.button_label }} {% render 'icon', name: 'arrow' %}</a><a class="hero-studio-link" href="/products/arc-modular-sofa">Design your Arc {% render 'icon', name: 'cube' %}</a></div>
+    <div class="hero-material-note"><span class="hero-material-line" aria-hidden="true"></span><p>Natural materials.<br>Room to be yourself.</p></div>
+  </div>
+  <div class="hero-image">{% render 'picture', image: section.settings.image, fallback: 'atelier-hero.webp', alt: section.settings.image_alt, loading: 'eager', sizes: '(min-width: 900px) 64vw, 100vw', width: 1800, height: 1530 %}<a class="hero-object-card" href="{{ hero_arc_url }}"><span><small>IN THE ROOM</small><strong>Arc modular sofa</strong><span>Linen / Moss · Generous</span></span><span class="hero-object-arrow" aria-hidden="true">{% render 'icon', name: 'diagonal' %}</span></a><span class="hero-index">FORME / THE LIVING COLLECTION</span></div>
 </section>
 {% schema %}
 {
@@ -29,7 +36,7 @@
       "type": "textarea",
       "id": "heading",
       "label": "Heading",
-      "default": "A little more\nroom to be."
+      "default": "Quiet forms.\nFull lives."
     },
     {
       "type": "textarea",

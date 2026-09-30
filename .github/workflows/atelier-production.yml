@@ -1,27 +1,196 @@
 name: FORME Atelier production
-on:
+'on':
   push:
-    paths: ['.github/workflows/atelier-production.yml']
-  workflow_dispatch:
+    paths:
+    - .github/workflows/atelier-production.yml
+  workflow_dispatch: {}
 permissions:
   contents: read
+concurrency:
+  group: forme-atelier-authoring-${{ github.ref }}
+  cancel-in-progress: false
 jobs:
-  toolchain:
+  render:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      max-parallel: 11
+      matrix:
+        include:
+        - part: studio
+          size: all
+          fabric: all
+        - part: atelier
+          size: all
+          fabric: all
+        - part: compact-linen
+          size: Compact
+          fabric: Linen
+        - part: compact-boucle
+          size: Compact
+          fabric: Bouclé
+        - part: compact-wool
+          size: Compact
+          fabric: Wool
+        - part: generous-linen
+          size: Generous
+          fabric: Linen
+        - part: generous-boucle
+          size: Generous
+          fabric: Bouclé
+        - part: generous-wool
+          size: Generous
+          fabric: Wool
+        - part: chaise-linen
+          size: Chaise
+          fabric: Linen
+        - part: chaise-boucle
+          size: Chaise
+          fabric: Bouclé
+        - part: chaise-wool
+          size: Chaise
+          fabric: Wool
     steps:
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: npm
-      - run: npm ci
-      - name: Package locked dependencies for isolated authoring review
-        run: tar -czf forme-toolchain.tar.gz node_modules
-      - uses: actions/upload-artifact@v4
-        with:
-          name: forme-atelier-toolchain
-          path: forme-toolchain.tar.gz
-          retention-days: 2
+    - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+    - name: Apply reviewed authoring source without publishing it
+      run: |-
+        python - <<'PYAPPLY'
+        import base64,lzma,pathlib,subprocess
+        chunks=sorted(pathlib.Path('tools').glob('atelier-source.*.b64'))
+        assert len(chunks)==4, 'Expected four source transport chunks'
+        patch=lzma.decompress(base64.b64decode(''.join(p.read_text().strip() for p in chunks)))
+        subprocess.run(['git','apply','--check','-'],input=patch,check=True)
+        subprocess.run(['git','apply','-'],input=patch,check=True)
+        pathlib.Path('.github/workflows/atelier-production.yml').write_bytes(pathlib.Path('tools/atelier-production-final.yml').read_bytes())
+        pathlib.Path('tools/atelier-production-final.yml').unlink()
+        PYAPPLY
+    - name: Install checksum-verified Blender and image tools
+      run: |-
+        mkdir -p /tmp/blender /tmp/blender-download
+        cd /tmp/blender-download
+        curl --fail --location --retry 3 https://download.blender.org/release/Blender4.5/blender-4.5.3-linux-x64.tar.xz -o blender-4.5.3-linux-x64.tar.xz
+        curl --fail --location --retry 3 https://download.blender.org/release/Blender4.5/blender-4.5.3.sha256 -o checksums.txt
+        grep 'blender-4.5.3-linux-x64.tar.xz' checksums.txt | sha256sum --check
+        tar -xf blender-4.5.3-linux-x64.tar.xz -C /tmp/blender --strip-components=1
+        echo '/tmp/blender' >> "$GITHUB_PATH"
+        python -m pip install Pillow==11.3.0 numpy==2.2.6
+    - name: Render only this partition
+      env:
+        PART: ${{ matrix.part }}
+        SIZE: ${{ matrix.size }}
+        FABRIC: ${{ matrix.fabric }}
+      run: |-
+        set -euo pipefail
+        # Never upload stale checked-in geometry from a poster-only partition.
+        rm -f assets/arc-*.glb assets/atelier-*.glb assets/arc-dimensions.json tools/Arc-master.blend tools/Atelier-master.blend
+        python tools/arc-materials.py
+        if [ "$PART" = studio ]; then
+          blender -b -t 4 --python tools/arc-assets.py -- --mode models
+          blender -b -t 4 --python tools/arc-assets.py -- --mode details --samples 48 --width 1440
+        elif [ "$PART" = atelier ]; then
+          blender -b -t 4 --python tools/atelier-assets.py -- --mode all --samples 48 --width 1800
+        else
+          blender -b -t 4 --python tools/arc-assets.py -- --mode posters --size "$SIZE" --fabric "$FABRIC" --samples 48 --width 1440
+        fi
+    - uses: actions/upload-artifact@v4
+      with:
+        name: atelier-originals-${{ matrix.part }}
+        path: |-
+          assets/*.png
+          assets/arc-*.glb
+          assets/atelier-*.glb
+          assets/arc-dimensions.json
+          tools/Arc-master.blend
+          tools/Atelier-master.blend
+        if-no-files-found: error
+        retention-days: 7
+  verify:
+    needs: render
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+    - name: Apply reviewed authoring source without publishing it
+      run: |-
+        python - <<'PYAPPLY'
+        import base64,lzma,pathlib,subprocess
+        chunks=sorted(pathlib.Path('tools').glob('atelier-source.*.b64'))
+        assert len(chunks)==4, 'Expected four source transport chunks'
+        patch=lzma.decompress(base64.b64decode(''.join(p.read_text().strip() for p in chunks)))
+        subprocess.run(['git','apply','--check','-'],input=patch,check=True)
+        subprocess.run(['git','apply','-'],input=patch,check=True)
+        pathlib.Path('.github/workflows/atelier-production.yml').write_bytes(pathlib.Path('tools/atelier-production-final.yml').read_bytes())
+        pathlib.Path('tools/atelier-production-final.yml').unlink()
+        PYAPPLY
+    - uses: actions/download-artifact@v4
+      with:
+        pattern: atelier-originals-*
+        merge-multiple: true
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+        cache: npm
+    - name: Package and verify authored assets and source
+      run: |-
+        set -euo pipefail
+        mkdir -p evidence
+        python -m pip install Pillow==11.3.0
+        python tools/arc-pack.py --strict
+        python tools/atelier-pack.py
+        python tools/atelier-design.py
+        npm ci
+        npm run build
+        npm run typecheck
+        npm test | tee evidence/domain-tests.txt
+        npm run check | tee evidence/liquid-validation.txt
+        npm run verify:arc | tee evidence/arc-verification.txt
+        npm run verify:atelier | tee evidence/atelier-verification.txt
+        node scripts/export-catalog.mjs
+        npm run package
+        node scripts/static-preview.mjs
+    - name: Native Shopify acceptance
+      run: npx --yes --package @shopify/cli@4.8.2 shopify theme check --path artifacts/theme --output json --fail-level error
+        > evidence/shopify-theme-check.json
+    - name: Browser and static acceptance
+      run: |-
+        npx playwright install --with-deps chromium firefox webkit
+        npm run test:e2e
+        npm run test:static
+    - name: Package review
+      run: |-
+        git rev-parse HEAD > evidence/authoring-source-commit.txt
+        (cd artifacts/preview && zip -qr ../FORME-Preview.zip .)
+        python - <<'PYZIP'
+        from pathlib import Path
+        import subprocess,zipfile
+        paths=subprocess.check_output(['git','ls-files','-co','--exclude-standard','-z']).decode().split('\0')
+        with zipfile.ZipFile('artifacts/FORME-Source.zip','w',zipfile.ZIP_DEFLATED) as z:
+         for name in sorted(set(filter(None,paths))):
+          if Path(name).is_file() and not name.startswith('tools/atelier-source.'):z.write(name,'FORME/'+name)
+        PYZIP
+    - name: Create unreferenced review commit — never update main
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      run: python scripts/make-review-commit.py
+    - uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: atelier-authored-review
+        path: |-
+          evidence/
+          playwright-report/
+          playwright-static-report/
+          test-results/
+          static-test-results/
+          artifacts/FORME-Source.zip
+          artifacts/FORME-Preview.zip
+          artifacts/FORME-Shopify-Theme.zip
+          artifacts/FORME-Shopify-Theme.zip.sha256
+        retention-days: 14
+    permissions:
+      contents: write
